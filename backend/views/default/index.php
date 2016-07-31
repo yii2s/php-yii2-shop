@@ -117,7 +117,7 @@ use yii\helpers\Html;
                     {
                         text:'商品分类',
                         items:[
-                            {id:'category_list',text:'分类列表',href:'form/success.html'},
+                            {id:'category_list',text:'分类列表',href:'<?= Yii::$app->urlManager->createUrl('category/list')?>'},
                             {id:'category_add',text:'分类添加',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'}
 
                         ]

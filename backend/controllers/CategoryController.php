@@ -61,6 +61,25 @@ class CategoryController extends Controller
         }
     }
 
+    public function actionTest()
+    {
+        $data = CategoryService::factory()->getCategoriesTree();
+        print_r($data);
+    }
+
+    /**
+     * @brief 分类列表
+     * @return string
+     * @author wuzhc 2016-07-31
+     */
+    public function actionList()
+    {
+        $categories = CategoryService::factory()->getCategoriesTree();
+        return $this->render('list',[
+            'categories' => Json::encode($categories)
+        ]);
+    }
+
     /**
      * @brief 缓存处理
      * @author wuzhc 2016-07-31
@@ -82,6 +101,12 @@ class CategoryController extends Controller
         if ($data) {
             Yii::$app->cache->set(Conf::CATEGORIES_BY_SORT, $data);
         }
+
+        Yii::$app->cache->delete(Conf::CATEGORIES_TREE_CACHE);
+        $data = CategoryService::factory()->getCategoriesTree();
+        if ($data) {
+            Yii::$app->cache->set(Conf::CATEGORIES_TREE_CACHE, $data);
+        }
     }
 
     /**
@@ -100,7 +125,7 @@ class CategoryController extends Controller
 
     }
 
-    public function actionList()
+    public function actionList_old()
     {
         header('Content-type:text/html;charset=utf-8');
         $category = new Categories();

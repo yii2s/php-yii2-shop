@@ -90,6 +90,60 @@ class CategoryService extends AbstractService
     }
 
     /**
+     * @brief 获取排序后所有的分类
+     * @return array
+     * @author wuzhc 2016-07-31
+     */
+    public function getCategoriesTree()
+    {
+        if (Yii::$app->cache->exists(Conf::CATEGORIES_TREE_CACHE)) {
+            return Yii::$app->cache->get(Conf::CATEGORIES_TREE_CACHE);
+        }
+
+        $categories = Category::find()
+            ->select(['id', 'name', 'parent_id', 'sort'])
+            ->orderBy(['sort' => SORT_DESC, 'id' => SORT_DESC])
+            ->asArray()
+            ->all();
+
+        $data = $this->_recurToDataTree($categories, 0);
+        if ($data) {
+            Yii::$app->cache->set(Conf::CATEGORIES_TREE_CACHE, $data);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @brief 递归处理数据
+     * @param $arr
+     * @param int $id
+     * @return array
+     * @author wuzhc 2016-07-31
+     */
+    private function _recurToDataTree($arr, $id = 0)
+    {
+        $data = $temp = array();
+        foreach($arr as $k => $c) {
+            if ($c['parent_id'] == $id) {
+                $temp['id'] = $c['id'];
+                $temp['text'] = $c['name'];
+                $temp['name'] = $c['name'];
+                $temp['sort'] = $c['sort'];
+
+                unset($arr[$k]);
+                $temp['children'] = $this->_recurToDataTree($arr, $c['id']);
+
+                if (empty($temp['children'])) {
+                    unset($temp['children']);
+                }
+                $data[] = $temp;
+            }
+        }
+        return $data;
+    }
+
+    /**
      * @brief 获取分类,以分类父ID作业键名进行分组
      * @return array|mixed
      * @author wuzhc 2016-07-31
@@ -121,7 +175,7 @@ class CategoryService extends AbstractService
     }
 
     /**
-     * @brief 保存数据，保存成功之后就删除旧缓存
+     * @brief 保存或更新数据
      * @param $data
      * @return int|string
      * @author wuzhc 2016-07-31
@@ -130,6 +184,21 @@ class CategoryService extends AbstractService
     {
         $categoryHybrid = new CategoryHybrid();
         return $categoryHybrid->save($data);
+    }
+
+    /**
+     * @brief 删除分类
+     * @param $id
+     * @return bool|false|int
+     * @author wuzhc 2016-07-31
+     */
+    public function del($id)
+    {
+        $category = Category::findOne($id);
+        if (!$category) {
+            return false;
+        }
+        return $category->delete();
     }
 
 }

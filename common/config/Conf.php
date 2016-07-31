@@ -28,5 +28,8 @@ class Conf
     /** 经过排序后的分类数组 */
     const CATEGORIES_BY_SORT = 'categories_by_sort_key';
 
+    /** 树形结构分类数组 */
+    const CATEGORIES_TREE_CACHE = 'categories_tree_key';
+
 
 }

@@ -43,8 +43,9 @@ use yii\helpers\Html;
             <div class="control-label">选择分类：</div>
             <div class="category-box">
                 <div class="category-list">
-                    <?php foreach((array)$categories[0] as $k => $c) { ?>
-                    <span parent-id="<?= $c['id']?>" class="<?= $k == 0 ? 'select-on' : ''?>">
+                    <span parent-id="0" class="select-on">第一级</span>
+                    <?php foreach((array)$categories[0] as $c) { ?>
+                    <span parent-id="<?= $c['id']?>">
                         <?= Html::encode($c['name']); ?>
                     </span>
                     <?php } ?>
@@ -113,13 +114,13 @@ use yii\helpers\Html;
             srcNode : '#J_Form',
             submitType : 'ajax',
             callback : function(data){
-                alert(data.msg);
                 if (data.status == 1) {
+                    alert(data.msg);
                     return ;
                 } else {
                     $.get("<?= Yii::$app->urlManager->createUrl(['category/cache'])?>");
                     setTimeout(function(){
-                        window.location.href = "<?= Yii::$app->urlManager->createUrl(['default/main'])?>";
+                        window.location.href = "<?= Yii::$app->urlManager->createUrl(['category/list'])?>";
                     })
                 }
             }
@@ -148,6 +149,10 @@ use yii\helpers\Html;
 
             var parentID = $(this).attr("parent-id");
             $("#parent_id").val(parentID);
+
+            if (parentID == 0) {
+                return ;
+            }
 
             var list = categories[parentID] || {};
             if (list.length > 0) {
