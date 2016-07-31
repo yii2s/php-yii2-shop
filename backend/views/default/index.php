@@ -1,11 +1,14 @@
+<?php
+use yii\helpers\Html;
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title> BUI 管理系统</title>
+    <title>商城管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/dpl-min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/bui-min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/main-min.css" rel="stylesheet" type="text/css" />
+    <?= Html::cssFile('/public/backend/css/dpl-min.css')?>
+    <?= Html::cssFile('/public/backend/css/bui-min.css')?>
+    <?= Html::cssFile('/public/backend/css/main-min.css')?>
 </head>
 <body>
 
@@ -13,11 +16,11 @@
 
     <div class="dl-title">
         <a href="http://www.builive.com" title="文档库地址" target="_blank"><!-- 仅仅为了提供文档的快速入口，项目中请删除链接 -->
-            <span class="lp-title-port">BUI</span><span class="dl-title-text">前端框架</span>
+            <span class="lp-title-port">商城</span><span class="dl-title-text">管理系统</span>
         </a>
     </div>
 
-    <div class="dl-log">欢迎您，<span class="dl-log-user">**.**@alibaba-inc.com</span><a href="###" title="退出系统" class="dl-log-quit">[退出]</a><a href="http://http://www.builive.com/" title="文档库" class="dl-log-quit">文档库</a>
+    <div class="dl-log">欢迎您，<span class="dl-log-user">吴桢灿</span><a href="###" title="退出系统" class="dl-log-quit">[退出]</a><a href="http://http://www.builive.com/" title="文档库" class="dl-log-quit">文档库</a>
     </div>
 </div>
 <div class="content">
@@ -25,8 +28,8 @@
         <div class="dl-inform"><div class="dl-inform-title">贴心小秘书<s class="dl-inform-icon dl-up"></s></div></div>
         <ul id="J_Nav"  class="nav-list ks-clear">
             <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
-            <li class="nav-item"><div class="nav-item-inner nav-order">表单页</div></li>
-            <li class="nav-item"><div class="nav-item-inner nav-inventory">搜索页</div></li>
+            <li class="nav-item"><div class="nav-item-inner nav-order">商品</div></li>
+            <li class="nav-item"><div class="nav-item-inner nav-inventory">会员</div></li>
             <li class="nav-item"><div class="nav-item-inner nav-supplier">详情页</div></li>
             <li class="nav-item"><div class="nav-item-inner nav-marketing">图表</div></li>
         </ul>
@@ -35,87 +38,151 @@
 
     </ul>
 </div>
-<script type="text/javascript" src="<?php echo Yii::$app->request->baseUrl;?>public/backend/js/jquery-1.8.1.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::$app->request->baseUrl;?>public/backend/js/bui.js"></script>
-<script type="text/javascript" src="<?php echo Yii::$app->request->baseUrl;?>public/backend/js/config.js"></script>
-
+<?= Html::jsFile('public/backend/js/jquery-1.8.1.min.js')?>
+<?= Html::jsFile('public/backend/js/bui.js')?>
+<?= Html::jsFile('public/backend/js/config.js')?>
 <script>
 
     var test="<?= Yii::$app->urlManager->createUrl('default/welcome')?>";
 
     BUI.use('common/main',function(){
-        var config = [{
-            id:'menu',
-            homePage : 'code',
-            menu:[{
-                text:'首页内容',
-                items:[
-                    {id:'code',text:'首页代码',href:test,closeable : false},
-                    {id:'main-menu',text:'顶部导航',href:'main/menu.html'},
-                    {id:'second-menu',text:'右边菜单',href:'main/second-menu.html'},
-                    {id:'dyna-menu',text:'动态菜单',href:'main/dyna-menu.html'}
+        var config = [
+            {
+                id:'menu',
+                homePage : 'main_menu',
+                menu:[
+                    {
+                        text:'后台首页',
+                        items:[
+                            {id:'main_menu',text:'后台首页',href:"<?= Yii::$app->urlManager->createUrl('default/main')?>",closeable : false},
+                        ]
+                    },
+                    {
+                        text:'网站管理',
+                        items:[
+                            {id:'site_setting',text:'网站设置',href:"<?= Yii::$app->urlManager->createUrl('default/welcome')?>"},
+                            {id:'frontend_theme',text:'网站前台主题',href:'main/operation.html'},
+                            {id:'backend_theme',text:'网站后台主题',href:'main/operation.html'},
+                            {id:'business_theme',text:'商家管理主题',href:'main/operation.html'}
+                        ]
+                    },
+                    {
+                        text:'支付方式',
+                        items:[
+                            {id:'payment_way',text:'支付方式',href:'main/resource.html'}
+                        ]
+                    },
+                    {
+                        text:'第三方平台',
+                        items:[
+                            {id:'operation',text:'oauth登录列表',href:'main/operation.html'},
+                            {id:'operation',text:'手机短信平台',href:'main/operation.html'}
+                        ]
+                    },
+                    {
+                        text:'配送管理',
+                        items:[
+                            {id:'operation',text:'配送方式',href:'main/operation.html'},
+                            {id:'operation',text:'物流公司',href:'main/operation.html'},
+                            {id:'operation',text:'自提点列表',href:'main/operation.html'},
+                            {id:'operation',text:'添加自提点',href:'main/operation.html'}
+                        ]
+                    },
+                    {
+                        text:'地域管理',
+                        items:[
+                            {id:'area_list',text:'地区列表',href:'main/operation.html'}
+                        ]
+                    },
+                    {
+                        text:'权限管理',
+                        items:[
+                            {id:'admin',text:'管理员',href:'main/operation.html'},
+                            {id:'role',text:'角色',href:'main/operation.html'},
+                            {id:'resource',text:'权限资源',href:'main/operation.html'}
+                        ]
+                    },
                 ]
-            },{
-                text:'页面操作',
-                items:[
-                    {id:'operation',text:'页面常见操作',href:'main/operation.html'},
-                    {id:'quick',text:'页面操作快捷方式',href:'main/quick.html'}
-                ]
-            },{
-                text:'文件结构',
-                items:[
-                    {id:'resource',text:'资源文件结构',href:'main/resource.html'},
-                    {id:'loader',text:'引入JS方式',href:'main/loader.html'}
-                ]
-            }]
-        },{
-            id:'form',
-            menu:[{
-                text:'表单页面',
-                items:[
-                    {id:'code',text:'表单代码',href:'form/code.html'},
-                    {id:'example',text:'表单示例',href:'form/example.html'},
-                    {id:'introduce',text:'表单简介',href:'form/introduce.html'},
-                    {id:'valid',text:'表单基本验证',href:'form/basicValid.html'},
-                    {id:'advalid',text:'表单复杂验证',href:'form/advalid.html'},
-                    {id:'remote',text:'远程调用',href:'form/remote.html'},
-                    {id:'group',text:'表单分组',href:'form/group.html'},
-                    {id:'depends',text:'表单联动',href:'form/depends.html'}
-                ]
-            },{
-                text:'成功失败页面',
-                items:[
-                    {id:'success',text:'成功页面',href:'form/success.html'},
-                    {id:'fail',text:'失败页面',href:'form/fail.html'}
+            },
+            {
+                id:'good',
+                menu:[
+                    {
+                        text:'商品管理',
+                        items:[
+                            {id:'good_list',text:'商品列表',href:'form/code.html'},
+                            {id:'good_add',text:'商品添加',href:'form/example.html'},
+                        ]
+                    },
+                    {
+                        text:'商品分类',
+                        items:[
+                            {id:'category_list',text:'分类列表',href:'form/success.html'},
+                            {id:'category_add',text:'分类添加',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'}
 
+                        ]
+                    },
+                    {
+                        text:'品牌管理',
+                        items:[
+                            {id:'brand_list',text:'品牌分类',href:'form/success.html'},
+                            {id:'brand_add',text:'品牌列表',href:'form/fail.html'}
+
+                        ]
+                    },
+                    {
+                        text:'模型管理',
+                        items:[
+                            {id:'model_list',text:'模型列表',href:'form/success.html'},
+                            {id:'guige_list',text:'规格列表',href:'form/fail.html'},
+                            {id:'guige_img',text:'规格图库',href:'form/fail.html'}
+
+                        ]
+                    },
+                    {
+                        text:'搜索管理',
+                        items:[
+                            {id:'keyword_list',text:'关键字列表',href:'form/success.html'},
+                            {id:'search_stat',text:'搜索统计',href:'form/fail.html'}
+                        ]
+                    },
                 ]
-            },{
-                text:'可编辑表格',
-                items:[
-                    {id:'grid',text:'可编辑表格',href:'form/grid.html'},
-                    {id:'form-grid',text:'表单中的可编辑表格',href:'form/form-grid.html'},
-                    {id:'dialog-grid',text:'使用弹出框',href:'form/dialog-grid.html'},
-                    {id:'form-dialog-grid',text:'表单中使用弹出框',href:'form/form-dialog-grid.html'}
+            },
+            {
+                id:'member',
+                menu:[
+                    {
+                        text:'会员管理',
+                        items:[
+                            {id:'member_list',text:'会员列表',href:'search/code.html'},
+                            {id:'member_group',text:'会员组列表',href:'search/example.html'},
+                            {id:'member_money',text:'会员提现管理',href:'search/example-dialog.html'},
+                            {id:'member_notice',text:'会员消息',href:'search/introduce.html'}
+                        ]
+                    },
+                    {
+                        text : '商户管理',
+                        items : [
+                            {id : 'business_list',text : '商户列表',href : 'search/tab.html'},
+                            {id : 'business_add',text : '添加商户',href : 'search/tab.html'},
+                            {id : 'business_notice',text : '商户消息',href : 'search/tab.html'}
+                        ]
+                    },
+                    {
+                        text : '消息管理',
+                        items : [
+                            {id : 'advice_manage',text : '建议管理',href : 'search/tab.html'},
+                            {id : 'counsel_manage',text : '咨询管理',href : 'search/tab.html'},
+                            {id : 'discuss_manage',text : '讨论管理',href : 'search/tab.html'},
+                            {id : 'evaluate_manage',text : '评价管理',href : 'search/tab.html'},
+                            {id : 'arrival_notice',text : '到货通知',href : 'search/tab.html'},
+                            {id : 'email_notice',text : '邮件订阅',href : 'search/tab.html'},
+                            {id : 'sms_marketing',text : '营销短信',href : 'search/tab.html'},
+                        ]
+                    }
                 ]
-            }]
-        },{
-            id:'search',
-            menu:[{
-                text:'搜索页面',
-                items:[
-                    {id:'code',text:'搜索页面代码',href:'search/code.html'},
-                    {id:'example',text:'搜索页面示例',href:'search/example.html'},
-                    {id:'example-dialog',text:'搜索页面编辑示例',href:'search/example-dialog.html'},
-                    {id:'introduce',text:'搜索页面简介',href:'search/introduce.html'},
-                    {id:'config',text:'搜索配置',href:'search/config.html'}
-                ]
-            },{
-                text : '更多示例',
-                items : [
-                    {id : 'tab',text : '使用tab过滤',href : 'search/tab.html'}
-                ]
-            }]
-        },{
+            },
+            {
             id:'detail',
             menu:[{
                 text:'详情页面',
@@ -145,7 +212,7 @@
     });
 </script>
 <div style="text-align:center;">
-    <p>来源：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+    <p>来源：<a href="http://www.mycodes.net/" target="_blank">吴桢灿</a></p>
 </div>
 </body>
 </html>

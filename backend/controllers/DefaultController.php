@@ -49,7 +49,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @brief ��̨��ҳ
+     * @brief 后台
      * @return string
      * @author wuzhc
      * @since 2016-07-25
@@ -59,11 +59,25 @@ class DefaultController extends Controller
         return $this->render('index');
     }
 
+    /**
+     * @brief 欢饮页
+     * @return string
+     * @author wuzhc 2016-07-31
+     */
     public function actionWelcome()
     {
-        return $this->renderPartial('welcome');
+        return $this->render('welcome');
     }
 
+    /**
+     * @brief 后台首页
+     * @return string
+     * @author wuzhc 2016-07-31
+     */
+    public function actionMain()
+    {
+        return $this->render('main');
+    }
 
 
 }
