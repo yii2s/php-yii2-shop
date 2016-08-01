@@ -110,8 +110,8 @@ use yii\helpers\Html;
                     {
                         text:'商品管理',
                         items:[
-                            {id:'good_list',text:'商品列表',href:'form/code.html'},
-                            {id:'good_add',text:'商品添加',href:'form/example.html'},
+                            {id:'good_list',text:'商品列表',href:'<?= Yii::$app->urlManager->createUrl('good/list')?>'},
+                            {id:'good_add',text:'商品添加',href:'<?= Yii::$app->urlManager->createUrl('good/add')?>'}
                         ]
                     },
                     {

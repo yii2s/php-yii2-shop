@@ -30,13 +30,24 @@ class CategoryController extends Controller
      */
     public function actionAdd()
     {
-        if (Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost)
+        {
             $data = Yii::$app->request->post();
             list($status, $msg) = CategoryService::factory()->save($data)
                 ? array(0, '保存成功') : array(1, '保存失败');
             ResponseUtil::json(null, $status, $msg);
-        } else {
+        }
+        else
+        {
+            $id = (int)Yii::$app->request->get('id');
+            $curCategory = array();
+            if ($id) {
+                $curCategory = Category::findOne($id);
+                $parentName = Category::findOne($curCategory->parent_id)->name;
+            }
             return $this->render('add', [
+                'parentName' => $parentName,
+                'curCategory' => $curCategory,
                 'categories' => CategoryService::factory()->getCategoriesMap()
             ]);
         }
@@ -63,8 +74,7 @@ class CategoryController extends Controller
 
     public function actionTest()
     {
-        $data = CategoryService::factory()->getCategoriesTree();
-        print_r($data);
+        echo CategoryService::factory()->del(36) ? 'success' : 'false';
     }
 
     /**

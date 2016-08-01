@@ -28,13 +28,13 @@ class CategoryHybrid
             $object = new Category();
         }
         $object->name = $args['name'];
-        $object->parent_id = $args['parent_id'];
-        $object->sort = $args['sort'] ?: 0;
-        $object->visibility = $args['visibility'] ?: 1;
+        $object->parent_id = (int)$args['parent_id'];
+        $object->sort = (int)$args['sort'] ?: 0;
+        $object->visibility = (int)$args['visibility'] ?: 1;
         $object->keywords = $args['keywords'];
         $object->descript = $args['descript'];
         $object->title = $args['title'];
-        $object->seller_id = $args['seller_id'] ?: 0;
+        $object->seller_id = (int)$args['seller_id'] ?: 0;
 
         $object->save();
         $this->id = $object->id;

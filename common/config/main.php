@@ -2,6 +2,11 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) -
+            // this is required by cookie validation
+            'cookieValidationKey' => 'v7mBbyetv4ls7t8UIqQ2IBO60jY_wf_U',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

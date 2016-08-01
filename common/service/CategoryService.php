@@ -6,6 +6,7 @@ use common\config\Conf;
 use common\hybrid\CategoryHybrid;
 use Yii;
 use common\models\Category;
+use yii\debug\models\search\Debug;
 
 class CategoryService extends AbstractService
 {
@@ -187,7 +188,7 @@ class CategoryService extends AbstractService
     }
 
     /**
-     * @brief 删除分类
+     * @brief 删除分类，包括所有子类删除
      * @param $id
      * @return bool|false|int
      * @author wuzhc 2016-07-31
@@ -198,7 +199,38 @@ class CategoryService extends AbstractService
         if (!$category) {
             return false;
         }
-        return $category->delete();
+        $childrenIDs = $this->getChildrenIDs($category->id);
+        if ($category->delete()) {
+            return Category::deleteAll(['id' => $childrenIDs]);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @brief 获取所有子类ID
+     * @param $parentID
+     * @return array
+     */
+    public function getChildrenIDs($parentID)
+    {
+        $parentIDArr[] = $parentID;
+        while (True) {
+            $parentID = current($parentIDArr);
+            $records = Category::find()->select('id')->where(['parent_id' => $parentID])->all();
+            foreach ((array)$records as $r) {
+                if (!in_array($r->id, $parentIDArr)) {
+                    $parentIDArr[] = $r->id;
+                }
+            }
+            if (next($parentIDArr) === false) {
+                break;
+            }
+        }
+
+        array_shift($parentIDArr);
+
+        return $parentIDArr;
     }
 
 }
