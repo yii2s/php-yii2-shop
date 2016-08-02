@@ -38,7 +38,7 @@ class ExcelUtil {
         // Set first sheet
         $objPHPExcel->setActiveSheetIndex(0);
 
-        //添加头部
+        //add header
         $hk = 0;
         foreach ($header as $k => $v)
         {
