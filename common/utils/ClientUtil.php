@@ -1,11 +1,11 @@
 <?php
 namespace common\utils;
 
-class ClientUtils
+class ClientUtil
 {
 
     /**
-     * »ñÈ¡¿Í»§¶Ëip
+     * ï¿½ï¿½È¡ï¿½Í»ï¿½ï¿½ï¿½ip
      *
      * @return string
      * @since 2016-02-27
@@ -16,7 +16,7 @@ class ClientUtils
         $cip = $_SERVER['HTTP_CLIENT_IP'];
         $rip = $_SERVER['REMOTE_ADDR'];
 
-        //Ê¹ÓÃ´úÀí·þÎñÆ÷Çé¿ö
+        //Ê¹ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if($xip && strcasecmp($xip, 'unknown')) {
             if(false !== strpos($xip,',')) {
                 $ipArr = explode(',',$xip);
@@ -40,7 +40,7 @@ class ClientUtils
     }
 
     /**
-     * ¸÷ÀàÖ÷Á÷ÓÎÀÀÆ÷ÕýÔò
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @var array
      * @since 2016-01-22
      */
@@ -51,19 +51,19 @@ class ClientUtils
         'Opera'           => 'Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR/[0-9.]+|Coast/[0-9.]+',
         'Firefox'         => 'fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile',
         'Safari'          => 'Version.*Mobile.*Safari|Safari.*Mobile|MobileSafari',
-        'UCBrowser'       => 'UC.*Browser|UCWEB', //UCÓÎÀÀÆ÷
-        'QQBrowser'       => 'MQQBrowser|TencentTraveler', //QQÓÎÀÀÆ÷
-        'The world'       => 'The world', //ÊÀ½çÖ®´°ÓÎÀÀÆ÷
-        'Maxthon'         => 'Maxthon', //åÛÓÎÓÎÀÀÆ÷
+        'UCBrowser'       => 'UC.*Browser|UCWEB', //UCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        'QQBrowser'       => 'MQQBrowser|TencentTraveler', //QQï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        'The world'       => 'The world', //ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        'Maxthon'         => 'Maxthon', //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         'baiduboxapp'     => 'baiduboxapp',
         'baidubrowser'    => 'baidubrowser',
         'NokiaBrowser'    => 'Nokia',
     );
 
     /**
-     * ²Ù×÷ÏµÍ³ÕýÔò
-     * note:ÒÆ¶¯Éè±¸µÄÏµÍ³ÐèÓÅÏÈÆ¥Åä
-     *      ¹ÊÕýÔòÐèÒª·ÅÔÚµçÄÔÏµÍ³Ç°Ãæ
+     * ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½
+     * note:ï¿½Æ¶ï¿½ï¿½è±¸ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
+     *      ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ÏµÍ³Ç°ï¿½ï¿½
      * @var array
      * @since 2016-01-22
      */
@@ -72,10 +72,10 @@ class ClientUtils
         'Windows Mobile OS' => 'Windows CE.*(PPC|Smartphone|Mobile|[0-9]{3}x[0-9]{3})|Window Mobile|Windows Phone [0-9.]+|WCE;',
         'Windows Phone OS'  => 'Windows Phone 10.0|Windows Phone 8.1|Windows Phone 8.0|Windows Phone OS|XBLWP7|ZuneWP7|Windows NT 6.[23]; ARM;',
         'Android'           => 'Android',
-        'BlackBerry OS'     => 'blackberry|\bBB10\b|rim tablet os', //ºÚÝ®
-        'SymbianOS'         => 'Symbian|SymbOS|Series60|Series40|SYB-[0-9]+|\bS60\b', //Èû°à
+        'BlackBerry OS'     => 'blackberry|\bBB10\b|rim tablet os', //ï¿½ï¿½Ý®
+        'SymbianOS'         => 'Symbian|SymbOS|Series60|Series40|SYB-[0-9]+|\bS60\b', //ï¿½ï¿½ï¿½ï¿½
         'webOS'             => 'webOS|hpwOS',
-        'MicroMessenger'    => 'MicroMessenger', //Î¢ÐÅ
+        'MicroMessenger'    => 'MicroMessenger', //Î¢ï¿½ï¿½
         'Windows'           => 'Windows',
         'Windows NT'        => 'Windows NT',
         'Mac OS X'          => 'Mac OS X',
@@ -85,37 +85,37 @@ class ClientUtils
     );
 
     /**
-     * °æ±¾ºÅÆ¥ÅäÕýÔò£¨ÓÎÀÀÆ÷ + ²Ù×÷ÏµÍ³£©
+     * ï¿½æ±¾ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½
      * @var array
      * @since 2016-01-22
      */
     protected static $versionRegexs = array(
 
         // Browser
-        'Maxthon'       => 'Maxthon [VER]', //åÛÓÎ
-        'Chrome'        => array('Chrome/[VER]', 'CriOS/[VER]', 'CrMo/[VER]'), //¹È¸è
-        'Firefox'       => 'Firefox/[VER]', //»ðºü
-        'Fennec'        => 'Fennec/[VER]', //»ðºü
+        'Maxthon'       => 'Maxthon [VER]', //ï¿½ï¿½ï¿½ï¿½
+        'Chrome'        => array('Chrome/[VER]', 'CriOS/[VER]', 'CrMo/[VER]'), //ï¿½È¸ï¿½
+        'Firefox'       => 'Firefox/[VER]', //ï¿½ï¿½ï¿½
+        'Fennec'        => 'Fennec/[VER]', //ï¿½ï¿½ï¿½
         'IE'            => array('IEMobile/[VER];', 'IEMobile [VER]', 'MSIE [VER];', 'rv:[VER]'),
         'Opera'         => array('OPR/[VER]', 'Opera Mini/[VER]', 'Version/[VER]', 'Opera [VER]'),
         'UC Browser'    => 'UC Browser[VER]', //UC
         'QQBrowser'     => array('MQQBrowser/[VER]','TencentTraveler/[VER]'), //QQ
-        'MicroMessenger'=> 'MicroMessenger/[VER]', //Î¢ÐÅ
-        'baiduboxapp'   => 'baiduboxapp/[VER]', //°Ù¶ÈºÐ×Ó
-        'baidubrowser'  => 'baidubrowser/[VER]', //°Ù¶È
-        'Safari'        => array('Version/[VER]', 'Safari/[VER]' ), //Mac OS XÖÐµÄä¯ÀÀÆ÷
-        'NokiaBrowser'  => 'NokiaBrowser/[VER]', //Åµ»ùÑÇ
+        'MicroMessenger'=> 'MicroMessenger/[VER]', //Î¢ï¿½ï¿½
+        'baiduboxapp'   => 'baiduboxapp/[VER]', //ï¿½Ù¶Èºï¿½ï¿½ï¿½
+        'baidubrowser'  => 'baidubrowser/[VER]', //ï¿½Ù¶ï¿½
+        'Safari'        => array('Version/[VER]', 'Safari/[VER]' ), //Mac OS Xï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        'NokiaBrowser'  => 'NokiaBrowser/[VER]', //Åµï¿½ï¿½ï¿½ï¿½
 
         // OS
         'iOS'              => '\bi?OS\b [VER][ ;]{1}',
-        'BlackBerry'       => array('BlackBerry[\w]+/[VER]', 'BlackBerry.*Version/[VER]', 'Version/[VER]'), //ºÚÝ®ÊÖ»ú
+        'BlackBerry'       => array('BlackBerry[\w]+/[VER]', 'BlackBerry.*Version/[VER]', 'Version/[VER]'), //ï¿½ï¿½Ý®ï¿½Ö»ï¿½
         'Windows Phone OS' => array( 'Windows Phone OS [VER]', 'Windows Phone [VER]'),
         'Windows Phone'    => 'Windows Phone [VER]',
         'Windows NT'       => 'Windows NT [VER]',
         'Windows'          => 'Windows NT [VER]',
-        'SymbianOS'        => array('SymbianOS/[VER]', 'Symbian/[VER]'), //Èû°àÏµÍ³
+        'SymbianOS'        => array('SymbianOS/[VER]', 'Symbian/[VER]'), //ï¿½ï¿½ï¿½ï¿½ÏµÍ³
         'webOS'            => array('webOS/[VER]', 'hpwOS/[VER];'), //LG
-        'Mac OS X'         => 'MAC OS X [VER]', //Æ»¹ûÏµÍ³
+        'Mac OS X'         => 'MAC OS X [VER]', //Æ»ï¿½ï¿½ÏµÍ³
         'BlackBerry OS'    => array('BlackBerry[\w]+/[VER]', 'BlackBerry.*Version/[VER]', 'Version/[VER]'),
         'Android'          => 'Android [VER]',
         'Chrome OS'        => 'CrOS x86_64 [VER]',
@@ -123,10 +123,10 @@ class ClientUtils
 
 
     /**
-     * »ñÈ¡¿Í»§¶ËÓÎÀÀÆ÷
+     * ï¿½ï¿½È¡ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param $userAgent $_SERVER['HTTP_USER_AGENT']
-     * @param bool $isReTurnVersion //ÊÇ·ñÒ»Æð·µ»Ø°æ±¾ºÅ
-     * @return string (ÀàÐÍ + °æ±¾ºÅ)
+     * @param bool $isReTurnVersion //ï¿½Ç·ï¿½Ò»ï¿½ð·µ»Ø°æ±¾ï¿½ï¿½
+     * @return string (ï¿½ï¿½ï¿½ï¿½ + ï¿½æ±¾ï¿½ï¿½)
      * @since 2016-01-23
      */
     public static function getBrowser($userAgent,$isReTurnVersion = false) {
@@ -147,9 +147,9 @@ class ClientUtils
     }
 
     /**
-     * »ñÈ¡¿Í»§¶Ë²Ù×÷ÏµÍ³
+     * ï¿½ï¿½È¡ï¿½Í»ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ÏµÍ³
      * @param $userAgent
-     * @param bool $isReTurnVersion //ÊÇ·ñÒ»Æð·µ»Ø°æ±¾ºÅ
+     * @param bool $isReTurnVersion //ï¿½Ç·ï¿½Ò»ï¿½ð·µ»Ø°æ±¾ï¿½ï¿½
      * @return string
      * @author wuzhc 2016-01-23
      */
@@ -171,8 +171,8 @@ class ClientUtils
     }
 
     /**
-     * ²éÑ¯°æ±¾ºÅ
-     * @param $propertyName (²Ù×÷ÏµÍ³Ãû³ÆºÍ»òÓÎÀÀÆ÷Ãû³Æ)
+     * ï¿½ï¿½Ñ¯ï¿½æ±¾ï¿½ï¿½
+     * @param $propertyName (ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ÆºÍ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
      * @see self::$versionRegexs
      * @param $userAgent
      * @return string
@@ -188,8 +188,8 @@ class ClientUtils
             $verRegex = (array)$verRegex;
         }
 
-        $match = self::matchVersion($verRegex,$userAgent); //¿ªÊ¼Æ¥Åä
-        if($match && stripos($propertyName,'window') !== false) { //windownÏµÍ³°æ±¾ºÅÐèÒª×ª»»
+        $match = self::matchVersion($verRegex,$userAgent); //ï¿½ï¿½Ê¼Æ¥ï¿½ï¿½
+        if($match && stripos($propertyName,'window') !== false) { //windownÏµÍ³ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½Òª×ªï¿½ï¿½
             return self::getWinVersion($match);
         } else {
             return str_replace('_','.',$match);
@@ -197,7 +197,7 @@ class ClientUtils
     }
 
     /**
-     * ¸ù¾ÝÆ¥Åä½á¹û×ª»»windowÏµÍ³°æ±¾ºÅ
+     * ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½windowÏµÍ³ï¿½æ±¾ï¿½ï¿½
      * @param $match
      * @return string
      * @author wuzhc 2016-01-22
@@ -218,7 +218,7 @@ class ClientUtils
     }
 
     /**
-     * ÕýÔòÆ¥Åä
+     * ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
      * @param array $regex
      * @param $userAgent
      * @return string
@@ -229,7 +229,7 @@ class ClientUtils
     }
 
     /**
-     * °æ±¾ºÅÕýÔòÆ¥Åä
+     * ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
      * @param array $regexs
      * @param $userAgent
      * @return string

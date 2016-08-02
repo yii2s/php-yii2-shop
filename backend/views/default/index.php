@@ -118,15 +118,15 @@ use yii\helpers\Html;
                         text:'商品分类',
                         items:[
                             {id:'category_list',text:'分类列表',href:'<?= Yii::$app->urlManager->createUrl('category/list')?>'},
-                            {id:'category_add',text:'分类添加',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'}
+                            {id:'category_add',text:'添加分类',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'}
 
                         ]
                     },
                     {
-                        text:'品牌管理',
+                        text:'属性管理',
                         items:[
-                            {id:'brand_list',text:'品牌分类',href:'form/success.html'},
-                            {id:'brand_add',text:'品牌列表',href:'form/fail.html'}
+                            {id:'brand_list',text:'属性列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list')?>'},
+                            {id:'brand_add',text:'添加属性',href:'<?= Yii::$app->urlManager->createUrl('attr/add')?>'}
 
                         ]
                     },

@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+
 use common\config\Conf;
 use common\models\Categories;
 use common\models\Category;
@@ -35,7 +36,7 @@ class CategoryController extends Controller
         {
             $data = Yii::$app->request->post();
             list($status, $msg) = CategoryService::factory()->save($data)
-                ? array(0, '保存成功') : array(1, '保存失败');
+                ? [0, '保存成功'] : [1, '保存失败'];
             ResponseUtil::json(null, $status, $msg);
         }
         else
@@ -55,22 +56,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * @brief 获取子类
-     * @throws \yii\base\ExitException
-     * @author wuzhc 2016-07-31
+     * @brief 删除分类
+     * @author wuzhc 2016-08-02
      */
-    public function actionGetChildren()
+    public function actionDel()
     {
-        if (!Yii::$app->request->isAjax) {
-            Yii::$app->end('Invalid Request');
-        }
-
-        $parentID = Yii::$app->request->get('parentID');
-        if (is_numeric($parentID)) {
-            ResponseUtil::json(['list' => CategoryService::factory()->getChildren($parentID)]);
-        } else {
-            ResponseUtil::json(null, 1, '参数错误');
-        }
+        $id = (int)Yii::$app->request->get('id');
+        list($status, $msg) = CategoryService::factory()->del($id) 
+            ? [0, '删除成功'] : [1, '删除失败'];
+        ResponseUtil::json(null, $status, $msg);
     }
 
     public function actionTest()
