@@ -5,6 +5,7 @@ use common\config\Conf;
 use common\models\Categories;
 use common\models\Category;
 use common\service\CategoryService;
+use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
 use Yii;
 use yii\web\Response;
@@ -74,7 +75,11 @@ class CategoryController extends Controller
 
     public function actionTest()
     {
-        echo CategoryService::factory()->del(36) ? 'success' : 'false';
+        $filePath = Yii::getAlias('@uploads') . '/tempFile/sg.xls';
+        $data = ExcelUtil::read($filePath);
+        echo '总计：' . count($data['data']);
+        echo PHP_EOL;
+        print_r($data['data']);
     }
 
     /**
