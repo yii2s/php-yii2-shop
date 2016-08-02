@@ -4,12 +4,15 @@ namespace common\service;
 
 use common\config\Conf;
 use common\hybrid\CategoryHybrid;
+use common\models\Attr;
 use Yii;
 use common\models\Category;
 use yii\debug\models\search\Debug;
 
 class CategoryService extends AbstractService
 {
+
+    //region 类别管理
 
     /**
      * Returns the static model.
@@ -233,4 +236,43 @@ class CategoryService extends AbstractService
         return $parentIDArr;
     }
 
+    //endregion 类别管理
+
+    //region 属性管理
+
+    /**
+     * @brief 保存属性
+     * @param $args
+     * @return bool
+     * @author wuzhc 2016-08-02
+     */
+    public function addAttr($args)
+    {
+        $attr = new CategoryHybrid();
+        return $attr->saveAttr($args);
+    }
+
+    /**
+     * @brief 批量保存属性
+     * @param $args
+     * @return int
+     * @author wuzhc 2016-08-02
+     */
+    public function batchAddAttr($args)
+    {
+        $attr = new CategoryHybrid();
+        return $attr->batchSaveAttr($args);
+    }
+
+    /**
+     * @brief 获取所有的属性
+     * @return array|\yii\db\ActiveRecord[]
+     * @author wuzhc 2016-08-02
+     */
+    public function getAllAttr()
+    {
+        return Attr::find()->asArray()->all();
+    }
+
+    //endregion 属性管理
 }

@@ -63,7 +63,7 @@ use yii\helpers\Html;
             <!--标签一start-->
             <div id="p1">
                 <br>
-                <form id="J_Form_1" action="<?= Yii::$app->urlManager->createUrl(['attr/add'])?>" class="form-horizontal" method="post">
+                <form id="J_Form_1" action="<?= Yii::$app->urlManager->createUrl(['attr/save'])?>" class="form-horizontal" method="post">
                 <div class="control-group">
                     <label class="control-label"><s>*</s>属性名称：</label>
                     <div class="controls">
@@ -94,7 +94,7 @@ use yii\helpers\Html;
             <!--标签二start-->
             <div id="p2">
                 <br>
-                <form id="J_Form_2" action="<?= Yii::$app->urlManager->createUrl(['attr/add'])?>" class="form-horizontal" method="post">
+                <form id="J_Form_2" action="<?= Yii::$app->urlManager->createUrl(['attr/save'])?>" class="form-horizontal" method="post">
                 <div class="row">
                     <div class="span8">
                         <div id="J_Uploader">
