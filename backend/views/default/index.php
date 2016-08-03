@@ -118,16 +118,17 @@ use yii\helpers\Html;
                         text:'商品分类',
                         items:[
                             {id:'category_list',text:'分类列表',href:'<?= Yii::$app->urlManager->createUrl('category/list')?>'},
-                            {id:'category_add',text:'添加分类',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'}
-
+                            {id:'category_add',text:'添加分类',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'},
+                            {id:'revenlence_attr',text:'关联属性',href:'<?= Yii::$app->urlManager->createUrl('category/category-attr-map')?>'}
                         ]
                     },
                     {
                         text:'属性管理',
                         items:[
-                            {id:'brand_list',text:'属性列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list')?>'},
-                            {id:'brand_add',text:'添加属性',href:'<?= Yii::$app->urlManager->createUrl('attr/add')?>'}
-
+                            {id:'list_attr',text:'属性列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list')?>'},
+                            {id:'add_attr',text:'添加属性',href:'<?= Yii::$app->urlManager->createUrl('attr/add')?>'},
+                            {id:'add_attr_value',text:'属性值列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list-value')?>'},
+                            {id:'list_attr_value',text:'添加属性值',href:'<?= Yii::$app->urlManager->createUrl('attr/add-value')?>'}
                         ]
                     },
                     {

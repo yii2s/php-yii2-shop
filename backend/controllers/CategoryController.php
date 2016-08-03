@@ -3,12 +3,14 @@ namespace backend\controllers;
 
 
 use common\config\Conf;
+use common\models\Attr;
 use common\models\Categories;
 use common\models\Category;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
@@ -21,9 +23,13 @@ class CategoryController extends Controller
 
     public $enableCsrfValidation = false;
 
-    public function actionIndex()
+    public function actionTest()
     {
-        return $this->render('index');
+        $filePath = Yii::getAlias('@uploads') . '/tempFile/sg.xls';
+        $data = ExcelUtil::read($filePath);
+        echo '总计：' . count($data['data']);
+        echo PHP_EOL;
+        print_r($data['data']);
     }
 
     /**
@@ -67,15 +73,6 @@ class CategoryController extends Controller
         ResponseUtil::json(null, $status, $msg);
     }
 
-    public function actionTest()
-    {
-        $filePath = Yii::getAlias('@uploads') . '/tempFile/sg.xls';
-        $data = ExcelUtil::read($filePath);
-        echo '总计：' . count($data['data']);
-        echo PHP_EOL;
-        print_r($data['data']);
-    }
-
     /**
      * @brief 分类列表
      * @return string
@@ -87,6 +84,43 @@ class CategoryController extends Controller
         return $this->render('list',[
             'categories' => Json::encode($categories)
         ]);
+    }
+
+    /**
+     * @brief 关联属性
+     * @author wuzhc 2016-08-03
+     */
+    public function actionCategoryAttrMap()
+    {
+        if (Yii::$app->request->isPost) {
+            $categoryID = (int)Yii::$app->request->post('categoryID');
+            $attrIDs = Yii::$app->request->post('attrIDs');
+            $attrIDs = array_map('intval', explode(',', $attrIDs));
+            list($status, $msg) = CategoryService::factory()->saveCategoryAttrMap($categoryID, $attrIDs)
+                ? [0, '操作成功'] : [1, '操作失败'];
+            ResponseUtil::json(null, $status, $msg);
+        }
+        else
+        {
+            $id = (int)Yii::$app->request->get('categoryID');
+            $category = array();
+            if ($id) {
+                $category = Category::findOne($id);
+                $caMaps = $category->categoryAttrMaps;
+                $attrIDs = implode(',', ArrayHelper::getColumn($caMaps, 'aid'));
+            }
+            $attrs = Attr::find()->all();
+            $attrs = ArrayHelper::map($attrs, 'id', 'name');
+            $attrs = Json::encode($attrs);
+
+            return $this->render('categoryAttrMap', [
+                'curCategory' => $category,
+                'attrs' => $attrs,
+                'attrIDs' => $attrIDs,
+                'categories' => CategoryService::factory()->getCategoriesMap()
+            ]);
+        }
+
     }
 
     /**
@@ -119,7 +153,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * 删除分类
+     * @deprecated 删除分类
      * @since 2016-03-12
      */
     public function actionDelete()
@@ -134,6 +168,9 @@ class CategoryController extends Controller
 
     }
 
+    /**
+     * @deprecated
+     */
     public function actionList_old()
     {
         header('Content-type:text/html;charset=utf-8');
@@ -155,9 +192,8 @@ class CategoryController extends Controller
 
     }
 
-
     /**
-     * 获取类列表
+     * @deprecated 获取类列表
      * @param $args
      * @return array
      * @since 2016-03-12

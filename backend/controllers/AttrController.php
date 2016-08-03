@@ -18,47 +18,6 @@ class AttrController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    /*public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['add','index','left','zhu','top','footer'],
-                'rules' => [
-                    [
-                        'actions' => ['add','login', 'error'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-
-                    [
-                        'actions' => ['add'],
-                        'allow' => true,
-                        'roles' => ['*']
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }*/
-
-    /**
-     * @inheritdoc
-     */
-    /*public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }*/
-
     /**
      * @brief 渲染添加属性页面
      * @author wuzhc 2016-08-02

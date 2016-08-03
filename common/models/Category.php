@@ -67,4 +67,14 @@ class Category extends \yii\db\ActiveRecord
     {
         return $this->hasMany(IwebshopCategoryExtend::className(), ['category_id' => 'id']);
     }
+
+    public function getCategoryAttrMaps()
+    {
+        return $this->hasMany(CategoryAttrMap::className(), ['cid' => 'id']);
+    }
+
+    public function getAttrs()
+    {
+        return $this->hasMany(Attr::className(), ['id' => 'aid'])->via('categoryAttrMaps');
+    }
 }

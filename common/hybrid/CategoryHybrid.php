@@ -3,11 +3,12 @@
 namespace common\hybrid;
 
 
+use common\models\AttrValue;
 use Yii;
 use common\models\Attr;
 use common\models\Category;
 
-class CategoryHybrid
+class CategoryHybrid extends AbstractHybrid
 {
     public $id;
 
@@ -17,7 +18,7 @@ class CategoryHybrid
     }
 
     /**
-     * @brief 保存数据
+     * @brief 保存或修改数据
      * @param $args
      * @return int|string
      * @author wuzhc 2016-07-31
@@ -44,7 +45,7 @@ class CategoryHybrid
     }
 
     /**
-     * @brief 保存属性
+     * @brief 保存或修改属性
      * @param $args
      * @return bool
      * @author wuzhc 2016-08-02
@@ -63,18 +64,23 @@ class CategoryHybrid
     }
 
     /**
-     * @brief 批量插入属性
+     * @brief 保存或修改属性值
      * @param $args
-     * @return int
-     * @throws \yii\db\Exception
-     * @author wuzhc 2016-08-02
+     * @return bool
+     * @author wuzhc 2016-08-03
      */
-    public function batchSaveAttr($args)
+    public function saveAttrValue($args)
     {
-        return Yii::$app->db->createCommand()->batchInsert(
-            Attr::tableName(),
-            ['name','sort','status'],
-            $args
-        )->execute();
+        if ($args['id']) {
+            $object = AttrValue::findOne(['id' => $args['id']]);
+        } else {
+            $object = new AttrValue();
+        }
+        $object->aid = (int)$args['aid'];
+        $object->name = $args['name'];
+        $object->status = (int)$args['status'] ?: 0;
+        $object->sort = (int)$args['sort'] ?: 0;
+        return $object->save();
     }
+
 }

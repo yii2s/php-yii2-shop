@@ -14,7 +14,7 @@ class FileUtil
      * @brief 上传文件
      * @param string $field 表单input域名称
      * @param string $target 目标目录
-     * @param array $allowType 允许上传类型 Note:区分大小写
+     * @param array $allowType 允许上传类型 e.g. ['jpg','png','gif']
      * @param bool $checkMimeType
      * @return string
      * @author wuzhc 2016-08-02
@@ -22,6 +22,11 @@ class FileUtil
     public static function upload($field, $target = '', $allowType = [], $checkMimeType = false)
     {
         $target or $target = Yii::getAlias('@uploads') . '/tempFile/';
+        if (FileHelper::createDirectory($target, 0777)) {
+            YII_DEBUG and VarDumper::dump('上传目录生成失败');
+            return '';
+        }
+
         $allowType or $allowType = array_keys(Yii::$app->params['fileExt']);
         $allowType = array_map('strtolower', $allowType);
 
@@ -39,7 +44,7 @@ class FileUtil
     /**
      * @brief 检测上传文件类型
      * @param UploadedFile $file
-     * @param array $allowType 允许上传类型 Note:区分大小写
+     * @param array $allowType 允许上传类型 e.g. ['jpg','png','gif']
      * @param bool $checkMimeType
      * @return bool
      * @throws \yii\base\InvalidConfigException
@@ -49,6 +54,7 @@ class FileUtil
     {
         $extension = mb_strtolower($file->extension, 'utf-8');
 
+        // check file by mimeType
         if ($checkMimeType) {
             $mimeType = FileHelper::getMimeType($file->tempName, null, false);
             if ($mimeType === null) {
@@ -74,7 +80,7 @@ class FileUtil
     /**
      * @brief 验证上传文件
      * @param UploadedFile $file
-     * @param array $allowType
+     * @param array $allowType 允许上传类型 e.g. ['jpg','png','gif']
      * @param bool $checkMimeType
      * @return bool
      * @author wuzhc 2016-08-02
@@ -88,7 +94,7 @@ class FileUtil
 
         switch ($file->error) {
             case UPLOAD_ERR_OK:
-                return self::checkUploadFileExt($file, $allowType);
+                return self::checkUploadFileExt($file, $allowType, $checkMimeType);
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
                 YII_DEBUG and VarDumper::dump('File size too large: ' . $file->name);

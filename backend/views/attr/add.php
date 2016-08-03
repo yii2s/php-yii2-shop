@@ -129,7 +129,7 @@ use yii\helpers\Html;
                     return ;
                 } else {
                     setTimeout(function(){
-                        window.location.href = "<?= Yii::$app->urlManager->createUrl(['category/list'])?>";
+                        window.location.href = "<?= Yii::$app->urlManager->createUrl(['attr/list'])?>";
                     })
                 }
             }
@@ -144,7 +144,7 @@ use yii\helpers\Html;
                     return ;
                 } else {
                     setTimeout(function(){
-                        window.location.href = "<?= Yii::$app->urlManager->createUrl(['category/list'])?>";
+                        window.location.href = "<?= Yii::$app->urlManager->createUrl(['attr/list'])?>";
                     })
                 }
             }

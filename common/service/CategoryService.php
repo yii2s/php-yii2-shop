@@ -2,12 +2,13 @@
 
 namespace common\service;
 
+use common\models\CategoryAttrMap;
 use common\config\Conf;
+use common\hybrid\AbstractHybrid;
 use common\hybrid\CategoryHybrid;
 use common\models\Attr;
 use Yii;
 use common\models\Category;
-use yii\debug\models\search\Debug;
 
 class CategoryService extends AbstractService
 {
@@ -214,6 +215,7 @@ class CategoryService extends AbstractService
      * @brief 获取所有子类ID
      * @param $parentID
      * @return array
+     * @author wuzhc 2016-08-03
      */
     public function getChildrenIDs($parentID)
     {
@@ -230,11 +232,31 @@ class CategoryService extends AbstractService
                 break;
             }
         }
-
         array_shift($parentIDArr);
-
         return $parentIDArr;
     }
+
+    /**
+     * 分类关联属性
+     * @param $categoryID
+     * @param array $attrIDs
+     * @return int
+     * @author wuzhc 2016-08-03
+     */
+    public function saveCategoryAttrMap($categoryID, array $attrIDs)
+    {
+        //delete previous data,
+        CategoryAttrMap::deleteAll(['cid' => $categoryID]);
+
+        // add new data
+        $data = [];
+        foreach ($attrIDs as $aid) {
+            $data[] = [$categoryID, $aid];
+        }
+        $attr = new AbstractHybrid();
+        return $attr->batchSave(CategoryAttrMap::tableName(), ['cid','aid'], $data);
+    }
+
 
     //endregion 类别管理
 
@@ -260,19 +282,34 @@ class CategoryService extends AbstractService
      */
     public function batchAddAttr($args)
     {
-        $attr = new CategoryHybrid();
-        return $attr->batchSaveAttr($args);
+        $attr = new AbstractHybrid();
+        return $attr->batchSave(Attr::tableName(), ['name','sort','status'], $args);
     }
 
     /**
-     * @brief 获取所有的属性
-     * @return array|\yii\db\ActiveRecord[]
+     * @brief 插入属性值
+     * @param $args
+     * @return bool
+     * @author wuzhc 2016-08-03
+     */
+    public function addAttrValue($args)
+    {
+        $attrValue = new CategoryHybrid();
+        return $attrValue->saveAttrValue($args);
+    }
+
+    /**
+     * @brief 批量保存属性
+     * @param $args
+     * @return int
      * @author wuzhc 2016-08-02
      */
-    public function getAllAttr()
+    public function batchAddAttrValue($args)
     {
-        return Attr::find()->asArray()->all();
+        $attr = new AbstractHybrid();
+        return $attr->batchSave(Attr::tableName(), ['aid','name','sort','status'], $args);
     }
+
 
     //endregion 属性管理
 }
