@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 
+use common\models\Attr;
+use common\models\AttrValue;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
@@ -60,7 +62,7 @@ class AttrController extends Controller
     {
         if (Yii::$app->request->isAjax)
         {
-            $data = CategoryService::factory()->getAllAttr();
+            $data = Attr::find()->all();
             echo Json::encode($data);exit;
         }
         else
@@ -69,9 +71,35 @@ class AttrController extends Controller
         }
     }
 
-    public function actionAddValue()
+    /**
+     * @brief 属性值列表
+     * @author wuzhc 2016-08-03
+     */
+    public function actionListAttrVal()
     {
+        $attrVal = AttrValue::find();
+        $attrID = (int)Yii::$app->request->get('attrID');
+        if ($attrID) {
+            $attrVal->where(['aid' => $attrID]);
+        }
+        $data = $attrVal->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])->all();
+        return $this->render('listAttrVal', ['data' => $data]);
+    }
 
+    /**
+     * @brief 添加属性值
+     * @return string
+     * @author wuzhc 2016-08-03
+     */
+    public function actionAddAttrVal()
+    {
+        if (Yii::$app->request->isPost) {
+
+        }
+        else
+        {
+            return $this->render('addAttrVal');
+        }
     }
 
     /**

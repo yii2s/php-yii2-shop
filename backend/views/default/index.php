@@ -127,8 +127,8 @@ use yii\helpers\Html;
                         items:[
                             {id:'list_attr',text:'属性列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list')?>'},
                             {id:'add_attr',text:'添加属性',href:'<?= Yii::$app->urlManager->createUrl('attr/add')?>'},
-                            {id:'add_attr_value',text:'属性值列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list-value')?>'},
-                            {id:'list_attr_value',text:'添加属性值',href:'<?= Yii::$app->urlManager->createUrl('attr/add-value')?>'}
+                            {id:'add_attr_value',text:'属性值列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list-attr-val')?>'},
+                            {id:'list_attr_value',text:'添加属性值',href:'<?= Yii::$app->urlManager->createUrl('attr/add-attr-val')?>'}
                         ]
                     },
                     {
