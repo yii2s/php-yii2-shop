@@ -77,13 +77,25 @@ class AttrController extends Controller
      */
     public function actionListAttrVal()
     {
-        $attrVal = AttrValue::find();
-        $attrID = (int)Yii::$app->request->get('attrID');
-        if ($attrID) {
-            $attrVal->where(['aid' => $attrID]);
+        if (Yii::$app->request->isAjax) {
+            $attrVal = AttrValue::find();
+            $attrID = (int)Yii::$app->request->get('attrID');
+            if ($attrID) {
+                $attrVal->where(['aid' => $attrID]);
+            }
+            $data['rows'] = $attrVal
+                ->offset(intval($_GET['start']))
+                ->limit(intval($_GET['limit']))
+                ->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])
+                ->asArray()
+                ->all();
+            $data['results'] = $attrVal->count();
+            $data['hasError'] = false;
+            $data['error'] = '';
+            echo Json::encode($data);exit;
         }
-        $data = $attrVal->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])->all();
-        return $this->render('listAttrVal', ['data' => $data]);
+
+        return $this->render('listAttrVal');
     }
 
     /**
@@ -94,11 +106,24 @@ class AttrController extends Controller
     public function actionAddAttrVal()
     {
         if (Yii::$app->request->isPost) {
+            $data = Yii::$app->request->post();
+            $attr = array_map('intval', $data['attr']);
+            $value = explode(',', str_replace('，', ',', $data['value']));
 
+            $args = [];
+            foreach ($attr as $a) {
+                foreach ($value as $v) {
+                    $args[] = [$a, $v]; //[属性ID, 属性值]
+                }
+            }
+            list($status, $msg) = CategoryService::factory()->batchAddAttrValue($args)
+                ? [0, '操作成功'] : [1, '操作失败'];
+            ResponseUtil::json(null, $status, $msg);
         }
         else
         {
-            return $this->render('addAttrVal');
+            $attrs = Attr::find()->all();
+            return $this->render('addAttrVal', ['attrs' => $attrs]);
         }
     }
 

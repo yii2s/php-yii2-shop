@@ -6,11 +6,11 @@ use yii\helpers\Html;
 <head>
     <title>添加分类</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <?= Html::cssFile('/public/backend/css/bs3/dpl-min.css')?>
-    <?= Html::cssFile('/public/backend/css/bs3/bui-min.css')?>
-    <?= Html::cssFile('/public/backend/css/page-min.css')?>
-    <?= Html::cssFile('/public/backend/css/prettify.css')?>
-    <?= Html::cssFile('/public/common/css/site.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/dpl-min.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/bui-min.css')?>
+    <?= Html::cssFile('public/backend/css/page-min.css')?>
+    <?= Html::cssFile('public/backend/css/prettify.css')?>
+    <?= Html::cssFile('public/common/css/site.css')?>
     <style type="text/css">
         code {
             padding: 0px 4px;

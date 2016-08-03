@@ -2,6 +2,7 @@
 
 namespace common\service;
 
+use common\models\AttrValue;
 use common\models\CategoryAttrMap;
 use common\config\Conf;
 use common\hybrid\AbstractHybrid;
@@ -307,7 +308,7 @@ class CategoryService extends AbstractService
     public function batchAddAttrValue($args)
     {
         $attr = new AbstractHybrid();
-        return $attr->batchSave(Attr::tableName(), ['aid','name','sort','status'], $args);
+        return $attr->batchSave(AttrValue::tableName(), ['aid','value'], $args);
     }
 
 

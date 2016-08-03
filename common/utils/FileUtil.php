@@ -22,7 +22,7 @@ class FileUtil
     public static function upload($field, $target = '', $allowType = [], $checkMimeType = false)
     {
         $target or $target = Yii::getAlias('@uploads') . '/tempFile/';
-        if (FileHelper::createDirectory($target, 0777)) {
+        if (!FileHelper::createDirectory($target, 0777)) {
             YII_DEBUG and VarDumper::dump('上传目录生成失败');
             return '';
         }

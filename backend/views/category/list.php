@@ -6,8 +6,8 @@ use yii\helpers\Html;
 <head>
     <meta charset="utf-8">
     <title>列表</title>
-    <?= Html::cssFile('/public/backend/css/dpl-min.css')?>
-    <?= Html::cssFile('/public/backend/css/bui-min.css')?>
+    <?= Html::cssFile('public/backend/css/dpl-min.css')?>
+    <?= Html::cssFile('public/backend/css/bui-min.css')?>
 </head>
 <body>
 <div class="">

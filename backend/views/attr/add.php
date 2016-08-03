@@ -6,10 +6,10 @@ use yii\helpers\Html;
 <head>
     <title>添加属性</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <?= Html::cssFile('/public/backend/css/bs3/dpl-min.css')?>
-    <?= Html::cssFile('/public/backend/css/bs3/bui-min.css')?>
-    <?= Html::cssFile('/public/backend/css/page-min.css')?>
-    <?= Html::cssFile('/public/backend/css/prettify.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/dpl-min.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/bui-min.css')?>
+    <?= Html::cssFile('public/backend/css/page-min.css')?>
+    <?= Html::cssFile('public/backend/css/prettify.css')?>
     <style>
         .bui-tab-item{
             position: relative;

@@ -3,10 +3,10 @@
 <head>
     <title> 可编辑表格</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/dpl-min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/bui-min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
-    <link href="<?php echo Yii::$app->request->baseUrl;?>public/backend/css/prettify.css" rel="stylesheet" type="text/css" />
+    <?= Html::cssFile('public/backend/css/bs3/dpl-min.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/bui-min.css')?>
+    <?= Html::cssFile('public/backend/css/page-min.css')?>
+    <?= Html::cssFile('public/backend/css/prettify.css')?>
     <style type="text/css">
         code {
             padding: 0px 4px;

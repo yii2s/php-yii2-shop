@@ -6,8 +6,8 @@ use yii\helpers\Html;
 <head>
     <meta charset="utf-8">
     <title>添加商品</title>
-    <?= Html::cssFile('/public/backend/css/bs3/dpl-min.css')?>
-    <?= Html::cssFile('/public/backend/css/bs3/bui-min.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/dpl-min.css')?>
+    <?= Html::cssFile('public/backend/css/bs3/bui-min.css')?>
 </head>
 <style>
     .bui-tab-item{

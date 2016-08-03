@@ -6,9 +6,9 @@ use yii\helpers\Html;
 <head>
     <title>商城管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <?= Html::cssFile('/public/backend/css/dpl-min.css')?>
-    <?= Html::cssFile('/public/backend/css/bui-min.css')?>
-    <?= Html::cssFile('/public/backend/css/main-min.css')?>
+    <?= Html::cssFile('public/backend/css/dpl-min.css')?>
+    <?= Html::cssFile('public/backend/css/bui-min.css')?>
+    <?= Html::cssFile('public/backend/css/main-min.css')?>
 </head>
 <body>
 
@@ -39,7 +39,7 @@ use yii\helpers\Html;
     </ul>
 </div>
 <?= Html::jsFile('public/backend/js/jquery-1.8.1.min.js')?>
-<?= Html::jsFile('public/backend/js/bui.js')?>
+<?= Html::jsFile('public/backend/js/bui-min.js')?>
 <?= Html::jsFile('public/backend/js/config.js')?>
 <script>
 
