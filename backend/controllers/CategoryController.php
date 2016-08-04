@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\config\Conf;
 use common\models\Attr;
+use common\models\AttrValMap;
 use common\models\Categories;
 use common\models\Category;
 use common\service\CategoryService;
@@ -120,7 +121,42 @@ class CategoryController extends Controller
                 'categories' => CategoryService::factory()->getCategoriesMap()
             ]);
         }
+    }
 
+    public function actionTest1()
+    {
+        $data = CategoryService::factory()->getCategoryAttr(12);
+        print_r($data);
+    }
+
+    /**
+     * @brief 分类关联属性值
+     * @author wuzhc 2016-08-04
+     */
+    public function actionCategoryAttrValMap()
+    {
+        $data['cid'] = 12;
+        $data['vid'] = [3,5,6];
+        if ($data) {
+            $cid = (int)$data['cid'];   //类别ID
+            $vid = $data['vid'];   //属性值ID
+
+            $args = $temp = [];
+            foreach ($vid as $v) {
+                $temp['cid'] = $cid;
+                $temp['vid'] = $v;
+                $temp['sort'] = 0;
+                $args[] = $temp;
+            }
+
+            list($status, $msg) = CategoryService::factory()->saveCategoryAttrValMap($args)
+                ? [0, '操作成功'] : [1, '操作失败'];
+            ResponseUtil::json(null, $status, $msg);
+        }
+        else
+        {
+            return $this->render('categoryAttrValMap');
+        }
     }
 
     /**

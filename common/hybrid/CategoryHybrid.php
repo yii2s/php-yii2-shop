@@ -4,6 +4,7 @@ namespace common\hybrid;
 
 
 use common\models\AttrValue;
+use common\models\Brand;
 use Yii;
 use common\models\Attr;
 use common\models\Category;
@@ -77,10 +78,33 @@ class CategoryHybrid extends AbstractHybrid
             $object = new AttrValue();
         }
         $object->aid = (int)$args['aid'];
-        $object->name = $args['name'];
+        $object->value = $args['value'];
         $object->status = (int)$args['status'] ?: 0;
         $object->sort = (int)$args['sort'] ?: 0;
-        return $object->save();
+        return $object->save() ? $object->id : 0;
+    }
+
+    /**
+     * @brief 保存品牌
+     * @param $args
+     * @return int|string
+     * @author wuzhc 2016-08-04
+     */
+    public function saveBrand($args)
+    {
+        if ($args['id']) {
+            $object = Brand::findOne(['id' => $args['id']]);
+        } else {
+            $object = new Brand();
+        }
+
+        $object->avid = (int)$args['avid'];
+        $object->name = $args['name'];
+        $object->logo = $args['logo'];
+        $object->url = $args['url'];
+        $object->sort = (int)$args['sort'];
+        $object->description = $args['description'];
+        return $object->save() ? $object->id : 0;
     }
 
 }

@@ -8,8 +8,10 @@ use common\config\Conf;
 use common\hybrid\AbstractHybrid;
 use common\hybrid\CategoryHybrid;
 use common\models\Attr;
+use common\models\CategoryAttrValMap;
 use Yii;
 use common\models\Category;
+use yii\helpers\ArrayHelper;
 
 class CategoryService extends AbstractService
 {
@@ -261,6 +263,7 @@ class CategoryService extends AbstractService
 
     //endregion 类别管理
 
+
     //region 属性管理
 
     /**
@@ -309,6 +312,18 @@ class CategoryService extends AbstractService
     {
         $attr = new AbstractHybrid();
         return $attr->batchSave(AttrValue::tableName(), ['aid','value'], $args);
+    }
+
+    /**
+     * @brief 保存品牌
+     * @param $args
+     * @return int
+     * @author wuzhc 2016-08-04
+     */
+    public function addBrand($args)
+    {
+        $attrValue = new CategoryHybrid();
+        return $attrValue->saveBrand($args);
     }
 
 

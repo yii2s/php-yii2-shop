@@ -5,20 +5,20 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%wzc_category_attr}}".
+ * This is the model class for table "{{%iwebshop_attr_val_map}}".
  *
  * @property string $id
- * @property string $attrID
- * @property string $categoryID
+ * @property string $aid
+ * @property string $vid
  */
-class CategoryAttr extends \yii\db\ActiveRecord
+class AttrValMap extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%wzc_category_attr}}';
+        return '{{%iwebshop_attr_val_map}}';
     }
 
     /**
@@ -27,8 +27,8 @@ class CategoryAttr extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['attrID', 'categoryID'], 'required'],
-            [['attrID', 'categoryID'], 'integer'],
+            [['aid', 'vid'], 'required'],
+            [['aid', 'vid'], 'integer']
         ];
     }
 
@@ -39,8 +39,8 @@ class CategoryAttr extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'attrID' => 'Attr ID',
-            'categoryID' => 'Category ID',
+            'aid' => 'Aid',
+            'vid' => 'Vid',
         ];
     }
 }

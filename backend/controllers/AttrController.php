@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 
+use common\config\Conf;
 use common\models\Attr;
 use common\models\AttrValue;
 use common\service\CategoryService;
@@ -128,13 +129,46 @@ class AttrController extends Controller
     }
 
     /**
+     * @brief 增加品牌
+     * @author wuzhc 2016-08-04
+     */
+    public function actionAddBrand()
+    {
+        if ($data = Yii::$app->request->post()) {
+            $args_1['aid'] = Conf::BRAND_ATTR_ID;
+            $args_1['id'] = (int)$data['id'];
+            $args_1['value'] = $data['name'];
+            $args_1['sort'] = (int)$data['sort'];
+            $args_1['status'] = $data['status'];
+            $avid = CategoryService::factory()->addAttrValue($args_1);
+            if (empty($avid)) {
+                ResponseUtil::json(null, 1, '操作失败');
+            }
+
+            $args_2['avid'] = $avid;
+            $args_2['name'] = $data['name'];
+            $args_2['logo'] = $data['logo'];
+            $args_2['url'] = $data['url'];
+            $args_2['sort'] = (int)$data['sort'];
+            $args_2['description'] = $data['description'];
+            list($status, $msg) = CategoryService::factory()->addBrand($args_2)
+                ? [0, '操作成功'] : [1, '操作失败'];
+            ResponseUtil::json(null, $status, $msg);
+        }
+        else
+        {
+            return $this->render('addBrand');
+        }
+    }
+
+    /**
      * @brief 上传文件
      * @author wuzhc 2016-08-02
      */
     public function actionUpload()
     {
         $field = Yii::$app->request->get('field', 'Filedata');
-        $url = FileUtil::upload($field,'',['xls','xlsx','png']);
+        $url = FileUtil::upload($field,'',['xls','xlsx','png','jpg']);
         ResponseUtil::json(['url' => $url]);
     }
 }

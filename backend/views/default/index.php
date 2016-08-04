@@ -132,6 +132,13 @@ use yii\helpers\Html;
                         ]
                     },
                     {
+                        text:'品牌管理',
+                        items:[
+                            {id:'list_brand',text:'品牌列表',href:'<?= Yii::$app->urlManager->createUrl('attr/list-brand')?>'},
+                            {id:'add_brand',text:'添加品牌',href:'<?= Yii::$app->urlManager->createUrl('attr/add-brand')?>'},
+                        ]
+                    },
+                    {
                         text:'模型管理',
                         items:[
                             {id:'model_list',text:'模型列表',href:'form/success.html'},
