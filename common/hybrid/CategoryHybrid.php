@@ -77,7 +77,7 @@ class CategoryHybrid extends AbstractHybrid
             $object = new AttrValue();
         }
         $object->aid = (int)$args['aid'];
-        $object->name = $args['name'];
+        $object->value = $args['value'];
         $object->status = (int)$args['status'] ?: 0;
         $object->sort = (int)$args['sort'] ?: 0;
         return $object->save();

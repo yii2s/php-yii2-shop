@@ -79,13 +79,13 @@ class AttrController extends Controller
     {
         if (Yii::$app->request->isAjax) {
             $attrVal = AttrValue::find();
-            $attrID = (int)Yii::$app->request->get('attrID');
+            $attrID = (int)Yii::$app->request->post('attrID');
             if ($attrID) {
                 $attrVal->where(['aid' => $attrID]);
             }
             $data['rows'] = $attrVal
-                ->offset(intval($_GET['start']))
-                ->limit(intval($_GET['limit']))
+                ->offset(intval($_POST['start']))
+                ->limit(intval($_POST['limit']))
                 ->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])
                 ->asArray()
                 ->all();
@@ -95,7 +95,24 @@ class AttrController extends Controller
             echo Json::encode($data);exit;
         }
 
-        return $this->render('listAttrVal');
+        return $this->render('listAttrVal', [
+            'attrs' => Attr::find()->all()
+        ]);
+    }
+
+    /**
+     * @brief 增加或修改单个属性值
+     * @author wuzhc 2016-08-04
+     */
+    public function actionAddOneAttrVal()
+    {
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $data['aid'] = $data['attrID'];
+            list($status, $msg) = CategoryService::factory()->addAttrValue($data)
+                ? [0, '操作成功'] : [1, '操作失败'];
+            ResponseUtil::json(null, $status, $msg);
+        }
     }
 
     /**
