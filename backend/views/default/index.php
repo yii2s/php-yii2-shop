@@ -119,7 +119,8 @@ use yii\helpers\Html;
                         items:[
                             {id:'category_list',text:'分类列表',href:'<?= Yii::$app->urlManager->createUrl('category/list')?>'},
                             {id:'category_add',text:'添加分类',href:'<?= Yii::$app->urlManager->createUrl('category/add')?>'},
-                            {id:'revenlence_attr',text:'关联属性',href:'<?= Yii::$app->urlManager->createUrl('category/category-attr-map')?>'}
+                            {id:'category_attr',text:'关联属性',href:'<?= Yii::$app->urlManager->createUrl('category/category-attr-map')?>'},
+                            {id:'category_attr_value',text:'关联属性值',href:'<?= Yii::$app->urlManager->createUrl('category/category-attr-val-map')?>'}
                         ]
                     },
                     {

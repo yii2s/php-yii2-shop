@@ -81,18 +81,15 @@ class AttrController extends Controller
     public function actionListAttrVal()
     {
         if (Yii::$app->request->isAjax) {
-            $attrVal = AttrValue::find();
-            $attrID = (int)Yii::$app->request->post('attrID');
-            if ($attrID) {
-                $attrVal->where(['aid' => $attrID]);
-            }
-            $data['rows'] = $attrVal
-                ->offset(intval($_POST['start']))
-                ->limit(intval($_POST['limit']))
-                ->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])
-                ->asArray()
-                ->all();
-            $data['results'] = $attrVal->count();
+            $args = [
+                'attrID' => intval($_POST['attrID']),
+                'start'  => intval($_POST['start']),
+                'limit'  => intval($_POST['limit']),
+            ];
+            $args = array_filter($args);
+
+            $data['rows'] = CategoryService::factory()->listAttrVal($args);
+            $data['results'] = CategoryService::factory()->countAttrVal($args);
             $data['hasError'] = false;
             $data['error'] = '';
             echo Json::encode($data);exit;

@@ -295,6 +295,8 @@ class CategoryService extends AbstractService
     }
 
 
+
+
     //endregion 类别管理
 
 
@@ -345,7 +347,7 @@ class CategoryService extends AbstractService
     public function batchAddAttrValue($args)
     {
         $attr = new AbstractHybrid();
-        return $attr->batchSave(AttrValue::tableName(), ['aid','value'], $args);
+        return $attr->batchSave(AttrValue::tableName(), ['aid','name'], $args);
     }
 
     /**
@@ -358,6 +360,56 @@ class CategoryService extends AbstractService
     {
         $attrValue = new CategoryHybrid();
         return $attrValue->saveBrand($args);
+    }
+
+    /**
+     * @brief 根据分类ID获取属性
+     * @param int $categoryID
+     * @author wuzhc 2016-08-05
+     * @return array
+     */
+    public function getAttrsByCategoryID($categoryID)
+    {
+        return Category::findOne($categoryID)->attrs ?: [];
+    }
+
+    /**
+     * @brief 属性值列表
+     * @param $args
+     * @param bool|true $asArray
+     * @return array|\yii\db\ActiveRecord[]
+     * @author wuzhc 2016-08-05
+     */
+    public function listAttrVal($args, $asArray = true)
+    {
+        $attrVal = AttrValue::find();
+        if ($args['attrID']) {
+            $attrVal->where(['aid' => intval($args['attrID'])]);
+        }
+        if ($args['start']) {
+            $attrVal->offset(intval($args['start']));
+        }
+        if ($args['limit']) {
+            $attrVal->limit(intval($args['limit']));
+        }
+        return $attrVal->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])
+            ->asArray($asArray)
+            ->all();
+    }
+
+    /**
+     * @brief 统计属性值
+     * @param $args
+     * @return int|string
+     * @author wuzhc 2016-08-05
+     */
+    public function countAttrVal($args)
+    {
+        $attrVal = AttrValue::find();
+        if ($args['attrID']) {
+            $attrVal->where(['aid' => intval($args['attrID'])]);
+        }
+        return $attrVal->count();
     }
 
 

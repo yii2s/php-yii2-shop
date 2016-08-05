@@ -135,10 +135,7 @@ class CategoryController extends Controller
      */
     public function actionCategoryAttrValMap()
     {
-        $data['cid'] = 12;
-        $data['aid'] = 2;
-        $data['vid'] = [2,3,4,5,6];
-        if ($data) {
+        if ($data = Yii::$app->request->post()) {
             $cid = (int)$data['cid'];   //类别ID
             $vid = (array)$data['vid']; //属性值ID
             $aid = (int)$data['aid'];   //属性ID
@@ -154,11 +151,28 @@ class CategoryController extends Controller
 
             list($status, $msg) = CategoryService::factory()->saveCategoryAttrValMap($cid, $aid, $args)
                 ? [0, '操作成功'] : [1, '操作失败'];
-            ResponseUtil::json(null, $status, $msg);
+            //ResponseUtil::json(null, $status, $msg);
+            $this->redirect(Yii::$app->urlManager->createUrl('/'));
         }
         else
         {
-            return $this->render('categoryAttrValMap');
+            $categories = CategoryService::factory()->getCategoriesMap();
+            return $this->render('categoryAttrValMap', [
+                'categories' => Json::encode($categories)
+            ]);
+        }
+    }
+
+    /**
+     * @brief ajax根据分类ID获取属性
+     * @author wuzhc 2016-08-05
+     */
+    public function actionAjaxGetAttrs()
+    {
+        if (Yii::$app->request->isAjax) {
+            $categoryID = (int)Yii::$app->request->get('categoryID');
+            $data = CategoryService::factory()->getAttrsByCategoryID($categoryID);
+            echo Json::encode(ArrayHelper::toArray($data));
         }
     }
 
