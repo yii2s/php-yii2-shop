@@ -86,13 +86,11 @@ use yii\helpers\Html;
                     proxy : {
                         method : 'POST', //更改为POST
                         save : '<?= Yii::$app->urlManager->createUrl('attr/save')?>' //会附加一个saveType 的参数，add,remove,update
-                        //也可以使用一下方式：
-                        //save : {
-                        //  addUrl : 'data/add.php',
-                        //  removeUrl : 'data/remove.php',
-                        //  updateUrl : 'data/update.php'
-                        //}
-                    }
+                    },
+                    params : { //配置初始请求的参数
+                        aid : '2'
+                    },
+                    pageSize:1
                 }),
                 grid = new Grid.Grid({
                     render:'#grid',
@@ -114,6 +112,10 @@ use yii\helpers\Html;
                                     'click' : delFunction
                                 }
                             }]
+                    },
+                    bbar : {
+                        // pagingBar:表明包含分页栏
+                        pagingBar:true
                     },
                     plugins : [editing,Grid.Plugins.CheckSelection],
                     store : store
