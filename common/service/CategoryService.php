@@ -260,6 +260,40 @@ class CategoryService extends AbstractService
         return $attr->batchSave(CategoryAttrMap::tableName(), ['cid','aid'], $data);
     }
 
+    /**
+     * @brief 批量关联分类和属性值
+     * @param $categoryID
+     * @param $args
+     * @return int
+     * @author wuzhc 2016-08-05
+     */
+    public function saveCategoryAttrValMap($categoryID, $aid, $args)
+    {
+        //delete previous data,
+        CategoryAttrValMap::deleteAll(['cid' => $categoryID, 'aid' => $aid]);
+
+        $attr = new AbstractHybrid();
+        return $attr->batchSave(CategoryAttrValMap::tableName(), ['cid','aid','vid','sort'], $args);
+    }
+
+    /**
+     * @brief 获取分类关联的属性值
+     * @param int $categoryID
+     * @return array
+     * @author wuzhc 2016-08-05
+     */
+    public function getAttrVals($categoryID = 12)
+    {
+        $data = [];
+        $object = Category::findOne($categoryID);
+        foreach ($object->attrVals as $r) {
+            $temp['id'] = $r->id;
+            $temp['name'] = $r->name;
+            $data[$r->aid][] = $temp;
+        }
+        return $data;
+    }
+
 
     //endregion 类别管理
 

@@ -78,7 +78,7 @@ class CategoryHybrid extends AbstractHybrid
             $object = new AttrValue();
         }
         $object->aid = (int)$args['aid'];
-        $object->value = $args['value'];
+        $object->name = $args['name'];
         $object->status = (int)$args['status'] ?: 0;
         $object->sort = (int)$args['sort'] ?: 0;
         return $object->save() ? $object->id : 0;
@@ -98,7 +98,7 @@ class CategoryHybrid extends AbstractHybrid
             $object = new Brand();
         }
 
-        $object->avid = (int)$args['avid'];
+        $object->vid = (int)$args['vid'];
         $object->name = $args['name'];
         $object->logo = $args['logo'];
         $object->url = $args['url'];

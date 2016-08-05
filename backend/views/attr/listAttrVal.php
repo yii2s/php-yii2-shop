@@ -17,7 +17,7 @@
                 <div class="control-group span8">
                     <label class="control-label"><s>*</s>属性值：</label>
                     <div class="controls">
-                        <input name="value" type="text" data-rules="{required:true}" class="input-normal control-text">
+                        <input name="name" type="text" data-rules="{required:true}" class="input-normal control-text">
                     </div>
                 </div>
                 <div class="control-group span8">
@@ -72,7 +72,7 @@
                     Store = Data.Store,
                     columns = [
                         {title: 'ID', dataIndex: 'id', width: 100},
-                        {title: '属性值', dataIndex: 'value', width: 100},
+                        {title: '属性值', dataIndex: 'name', width: 100},
                         {title: '排序', dataIndex: 'sort', width: 200},
                         {title: '状态', dataIndex: 'status', width: 200},
                         {

@@ -46,4 +46,14 @@ class Attr extends \yii\db\ActiveRecord
             'sort' => 'Sort',
         ];
     }
+
+    /**
+     * @brief 获取属性值
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAttrVal() 
+    {
+        return $this->hasMany(AttrValue::className(), ['aid' => 'id']);
+    }
+
 }

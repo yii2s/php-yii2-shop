@@ -136,20 +136,23 @@ class CategoryController extends Controller
     public function actionCategoryAttrValMap()
     {
         $data['cid'] = 12;
-        $data['vid'] = [3,5,6];
+        $data['aid'] = 2;
+        $data['vid'] = [2,3,4,5,6];
         if ($data) {
             $cid = (int)$data['cid'];   //类别ID
-            $vid = $data['vid'];   //属性值ID
+            $vid = (array)$data['vid']; //属性值ID
+            $aid = (int)$data['aid'];   //属性ID
 
             $args = $temp = [];
             foreach ($vid as $v) {
                 $temp['cid'] = $cid;
+                $temp['aid'] = $aid;
                 $temp['vid'] = $v;
                 $temp['sort'] = 0;
                 $args[] = $temp;
             }
 
-            list($status, $msg) = CategoryService::factory()->saveCategoryAttrValMap($args)
+            list($status, $msg) = CategoryService::factory()->saveCategoryAttrValMap($cid, $aid, $args)
                 ? [0, '操作成功'] : [1, '操作失败'];
             ResponseUtil::json(null, $status, $msg);
         }

@@ -9,7 +9,8 @@ use Yii;
  *
  * @property string $id
  * @property string $cid
- * @property string $avid
+ * @property string $aid
+ * @property string $vid
  * @property integer $sort
  */
 class CategoryAttrValMap extends \yii\db\ActiveRecord
@@ -28,8 +29,8 @@ class CategoryAttrValMap extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cid', 'avid'], 'required'],
-            [['cid', 'avid', 'sort'], 'integer']
+            [['cid', 'aid', 'vid'], 'required'],
+            [['cid', 'aid', 'sort', 'vid'], 'integer']
         ];
     }
 
@@ -41,7 +42,8 @@ class CategoryAttrValMap extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cid' => 'Cid',
-            'avid' => 'Avid',
+            'aid' => 'Aid',
+            'vid' => 'Vid',
             'sort' => 'Sort',
         ];
     }

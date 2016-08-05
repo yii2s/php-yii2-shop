@@ -9,7 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $aid
- * @property string $value
+ * @property string $name
  * @property integer $status
  * @property integer $sort
  */
@@ -29,9 +29,9 @@ class AttrValue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['aid', 'value'], 'required'],
+            [['aid', 'name'], 'required'],
             [['aid', 'status', 'sort'], 'integer'],
-            [['value'], 'string', 'max' => 50]
+            [['name'], 'string', 'max' => 50]
         ];
     }
 
@@ -43,7 +43,7 @@ class AttrValue extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'aid' => 'Aid',
-            'value' => 'Value',
+            'name' => 'Name',
             'status' => 'Status',
             'sort' => 'Sort',
         ];

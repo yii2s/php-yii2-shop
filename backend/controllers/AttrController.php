@@ -6,6 +6,8 @@ namespace backend\controllers;
 use common\config\Conf;
 use common\models\Attr;
 use common\models\AttrValue;
+use common\models\Brand;
+use common\models\Category;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
@@ -126,7 +128,7 @@ class AttrController extends Controller
         if (Yii::$app->request->isPost) {
             $data = Yii::$app->request->post();
             $attr = array_map('intval', $data['attr']);
-            $value = explode(',', str_replace('，', ',', $data['value']));
+            $value = explode(',', str_replace('，', ',', $data['name']));
 
             $args = [];
             foreach ($attr as $a) {
@@ -145,6 +147,12 @@ class AttrController extends Controller
         }
     }
 
+    public function actionTest()
+    {
+        $data = CategoryService::factory()->getAttrVals(12);
+        VarDumper::dump($data);
+    }
+
     /**
      * @brief 增加品牌
      * @author wuzhc 2016-08-04
@@ -153,21 +161,22 @@ class AttrController extends Controller
     {
         if ($data = Yii::$app->request->post()) {
             $args_1['aid'] = Conf::BRAND_ATTR_ID;
-            $args_1['id'] = (int)$data['id'];
-            $args_1['value'] = $data['name'];
+            $args_1['name'] = $data['name'];
             $args_1['sort'] = (int)$data['sort'];
             $args_1['status'] = $data['status'];
-            $avid = CategoryService::factory()->addAttrValue($args_1);
-            if (empty($avid)) {
+            $args_1 = array_filter($args_1);
+            $vid = CategoryService::factory()->addAttrValue($args_1);
+            if (empty($vid)) {
                 ResponseUtil::json(null, 1, '操作失败');
             }
 
-            $args_2['avid'] = $avid;
+            $args_2['vid'] = $vid;
             $args_2['name'] = $data['name'];
             $args_2['logo'] = $data['logo'];
             $args_2['url'] = $data['url'];
             $args_2['sort'] = (int)$data['sort'];
             $args_2['description'] = $data['description'];
+            $args_2 = array_filter($args_2);
             list($status, $msg) = CategoryService::factory()->addBrand($args_2)
                 ? [0, '操作成功'] : [1, '操作失败'];
             ResponseUtil::json(null, $status, $msg);
@@ -176,6 +185,68 @@ class AttrController extends Controller
         {
             return $this->render('addBrand');
         }
+    }
+
+    /**
+     * @brief 更新品牌
+     * @TODO 需要优化
+     * @author wuzhc 2016-08-05
+     */
+    public function actionEditBrand()
+    {
+        if ($data = Yii::$app->request->post()) {
+            $args['id'] = $data['id'];
+            $args['name'] = $data['name'];
+            $args['logo'] = $data['logo'];
+            $args['url'] = $data['url'];
+            $args['sort'] = (int)$data['sort'];
+            $args['description'] = $data['description'];
+            $args = array_filter($args);
+            if ($brandID = CategoryService::factory()->addBrand($args)) {
+                $brand = Brand::findOne($brandID);
+                $attrValID = $brand->vid;
+                if (empty($attrValID)) {
+                    $args_1['aid'] = Conf::BRAND_ATTR_ID;
+                    $args_1['name'] = $data['name'];
+                    $args_1['sort'] = (int)$data['sort'];
+                    $args_1['status'] = $data['status'];
+                    $args_1 = array_filter($args_1);
+                    $attrValID = CategoryService::factory()->addAttrValue($args_1);
+                    list($status, $msg) = Brand::updateAll(['vid' => $attrValID], ['id' => $brandID])
+                        ? [0, '操作成功'] : [1, '操作失败'];
+                } else {
+                    $attrVal = AttrValue::findOne($attrValID);
+                    $attrVal->name = $data['name'];
+                    list($status, $msg) = $attrVal->save() ? [0, '操作成功'] : [1, '操作失败'];
+                }
+                ResponseUtil::json(null, $status, $msg);
+            } else {
+                ResponseUtil::json(null, 1, '操作失败');
+            }
+        }
+    }
+
+    /**
+     * @brief 品牌列表
+     * @return string
+     * @author wuzhc 2016-08-05
+     */
+    public function actionListBrand() 
+    {
+        if (Yii::$app->request->isAjax) {
+            $data['rows'] = Brand::find()
+                ->offset(intval($_POST['start']))
+                ->limit(intval($_POST['limit']))
+                ->orderBy(['id' => SORT_DESC, 'sort' => SORT_ASC])
+                ->asArray()
+                ->all();
+            $data['results'] = Brand::find()->count();
+            $data['hasError'] = false;
+            $data['error'] = '';
+            echo Json::encode($data);exit;
+        }
+
+        return $this->render('listBrand');
     }
 
     /**

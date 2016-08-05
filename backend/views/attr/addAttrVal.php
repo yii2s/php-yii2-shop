@@ -65,7 +65,7 @@ use yii\helpers\Html;
         <div class="control-group">
             <label class="control-label">属性值：</label>
             <div class="controls  control-row-auto">
-                <textarea name="value" class="control-row4" style="width: 500px" data-tip="{text:'多个属性值用英文逗号隔开'}" data-rules="{required : true}"></textarea>
+                <textarea name="name" class="control-row4" style="width: 500px" data-tip="{text:'多个属性值用英文逗号隔开'}" data-rules="{required : true}"></textarea>
             </div>
         </div>
         <div class="row">

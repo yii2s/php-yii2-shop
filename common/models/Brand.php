@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%iwebshop_brand}}".
  *
  * @property string $id
- * @property integer $avid
+ * @property integer $vid
  * @property string $name
  * @property string $logo
  * @property string $url
@@ -32,8 +32,8 @@ class Brand extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['avid', 'name'], 'required'],
-            [['avid', 'sort'], 'integer'],
+            [['vid', 'name'], 'required'],
+            [['vid', 'sort'], 'integer'],
             [['description'], 'string'],
             [['name', 'logo', 'url', 'category_ids'], 'string', 'max' => 255]
         ];
@@ -46,7 +46,7 @@ class Brand extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'avid' => 'Avid',
+            'vid' => 'Vid',
             'name' => 'Name',
             'logo' => 'Logo',
             'url' => 'Url',

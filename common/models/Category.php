@@ -68,13 +68,39 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(IwebshopCategoryExtend::className(), ['category_id' => 'id']);
     }
 
+    /**
+     * @brief 获取类别关联属性
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategoryAttrMaps()
     {
         return $this->hasMany(CategoryAttrMap::className(), ['cid' => 'id']);
     }
 
+    /**
+     * @brief 获取属性
+     * @return \yii\db\ActiveQuery
+     */
     public function getAttrs()
     {
         return $this->hasMany(Attr::className(), ['id' => 'aid'])->via('categoryAttrMaps');
+    }
+
+    /**
+     * @brief 获取属性关联值
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoryAttrValMaps()
+    {
+        return $this->hasMany(CategoryAttrValMap::className(), ['cid' => 'id']);
+    }
+
+    /**
+     * @brief 获取类别关联属性值
+     * @return $this
+     */
+    public function getAttrVals()
+    {
+        return $this->hasMany(AttrValue::className(), ['id' => 'vid'])->via('categoryAttrValMaps');
     }
 }
