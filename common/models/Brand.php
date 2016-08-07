@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%iwebshop_brand}}".
+ * This is the model class for table "{{%zc_brand}}".
  *
  * @property string $id
  * @property integer $vid
@@ -23,7 +23,7 @@ class Brand extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%iwebshop_brand}}';
+        return '{{%zc_brand}}';
     }
 
     /**

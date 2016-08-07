@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%iwebshop_category}}".
+ * This is the model class for table "{{%zc_category}}".
  *
  * @property string $id
  * @property string $name
@@ -17,7 +17,7 @@ use Yii;
  * @property string $title
  * @property string $seller_id
  *
- * @property IwebshopCategoryExtend[] $iwebshopCategoryExtends
+ * @property zcCategoryExtend[] $zcCategoryExtends
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -26,7 +26,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%iwebshop_category}}';
+        return '{{%zc_category}}';
     }
 
     /**
@@ -63,9 +63,9 @@ class Category extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIwebshopCategoryExtends()
+    public function getzcCategoryExtends()
     {
-        return $this->hasMany(IwebshopCategoryExtend::className(), ['category_id' => 'id']);
+        return $this->hasMany(zcCategoryExtend::className(), ['category_id' => 'id']);
     }
 
     /**

@@ -12,7 +12,7 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=iwebshop',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=shop',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

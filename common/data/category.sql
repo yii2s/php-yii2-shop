@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `iwebshop_category` (
+CREATE TABLE IF NOT EXISTS `zc_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `name` varchar(50) NOT NULL COMMENT '分类名称',
   `parent_id` int(11) unsigned NOT NULL COMMENT '父分类ID',
@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS `iwebshop_category` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='产品分类表' AUTO_INCREMENT=48 ;
 
 --
--- 属性表 `iwebshop_attr`
+-- 属性表 `zc_attr`
 --
-CREATE TABLE IF NOT EXISTS `iwebshop_attr` (
+CREATE TABLE IF NOT EXISTS `zc_attr` (
  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '属性ID',
  `name` VARCHAR(50) NOT NULL COMMENT '属性名称',
  `status` tinyint(1) NOT NULL DEFAULT  '0' COMMENT '状态,0可用，1不可用',
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `iwebshop_attr` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='属性名称' AUTO_INCREMENT=1;
 
 --
--- 类别与属性关联表 `iwebshop_category_attr_map`
+-- 类别与属性关联表 `zc_category_attr_map`
 --
-CREATE TABLE IF NOT EXISTS `iwebshop_category_attr_map` (
+CREATE TABLE IF NOT EXISTS `zc_category_attr_map` (
  `id` INT(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
  `cid` INT(11) unsigned NOT NULL COMMENT '类别ID，对应category.id',
  `aid` INT(11) unsigned NOT NULL COMMENT '属性ID,对应attribute.id',
@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `iwebshop_category_attr_map` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='类别与属性关联表' AUTO_INCREMENT=1;
 
 --
--- 属性值表 `iwebshop_attr_value`
+-- 属性值表 `zc_attr_value`
 --
-CREATE TABLE IF NOT EXISTS `iwebshop_attr_value` (
+CREATE TABLE IF NOT EXISTS `zc_attr_value` (
  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
  `aid` int(11) unsigned NOT NULL COMMENT '属性ID，对应attribute.id',
  `name` VARCHAR(50) NOT NULL COMMENT '属性值',
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS `iwebshop_attr_value` (
 
 
 --
--- 类别，属性，属性值关联表 `iwebshop_category_attr_val_map`
+-- 类别，属性，属性值关联表 `zc_category_attr_val_map`
 --
-CREATE TABLE IF NOT EXISTS `iwebshop_category_attr_val_map` (
+CREATE TABLE IF NOT EXISTS `zc_category_attr_val_map` (
  `id` INT(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
  `cid` INT(11) unsigned NOT NULL COMMENT '类别ID，对应category.id',
  `aid` INT(11) unsigned NOT NULL COMMENT '属性ID,attr.id',
@@ -61,9 +61,9 @@ CREATE TABLE IF NOT EXISTS `iwebshop_category_attr_val_map` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='属性与属性值关联表' AUTO_INCREMENT=1;
 
 --
--- 商品与属性值关联表 `iwebshop_good_attr_value`
+-- 商品与属性值关联表 `zc_good_attr_value`
 --
-CREATE TABLE IF NOT EXISTS `iwebshop_good_attr_val_map` (
+CREATE TABLE IF NOT EXISTS `zc_good_attr_val_map` (
  `id` INT(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
  `gid` INT(11) unsigned NOT NULL COMMENT '商品ID,goods.id',
  `aid` INT(11) unsigned NOT NULL COMMENT '属性值ID，attr_value.id',

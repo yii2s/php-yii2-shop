@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%iwebshop_attr_val_map}}".
+ * This is the model class for table "{{%zc_attr_val_map}}".
  *
  * @property string $id
  * @property string $aid
@@ -18,7 +18,7 @@ class AttrValMap extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%iwebshop_attr_val_map}}';
+        return '{{%zc_attr_val_map}}';
     }
 
     /**

@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%iwebshop_attr_value}}".
+ * This is the model class for table "{{%zc_attr_value}}".
  *
  * @property string $id
  * @property string $aid
@@ -20,7 +20,7 @@ class AttrValue extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%iwebshop_attr_value}}';
+        return '{{%zc_attr_value}}';
     }
 
     /**

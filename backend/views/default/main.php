@@ -56,7 +56,7 @@
                 <tr><td class="td-left">MYSQL版本</td><td class="td-right"><?= @mysql_get_server_info()?></td></tr>
                 <tr><td class="td-left">当前时间</td><td class="td-right"><?= date('Y-m-d')?></td></tr>
                 <tr><td class="td-left">上传文件大小</td><td class="td-right"><?= ini_get('post_max_size')?></td></tr>
-                <tr><td class="td-left">官网地址</td><td class="td-right"><a href="javascript:void(0);">http://iwebshop.cm</a></td></tr>
+                <tr><td class="td-left">官网地址</td><td class="td-right"><a href="javascript:void(0);">http://zc.cm</a></td></tr>
             </table>
         </div>
     </div>
