@@ -55,6 +55,7 @@
 
     </form>
 
+    <input id="categoryID" value="" type="hidden">
     <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
 
 </div>
@@ -107,6 +108,7 @@
             $(".attr-val-list").empty().hide();
             $(".attr-list").empty();
             var categoryID = $(this).val();
+            $("#categoryID").val(categoryID);
             $.ajax({
                 type : "GET",
                 url : '<?= Yii::$app->urlManager->createUrl("category/ajax-get-attrs")?>',
@@ -128,11 +130,12 @@
         //选择属性值
         $(".attr-list").change(function(){
             $(".attr-val-list").empty();
-            var attrID = $(this).val();
+            var aid = $(this).val();
+            var cid = $("#categoryID").val();
             $.ajax({
                 type : 'POST',
                 url : '<?= Yii::$app->urlManager->createUrl('attr/list-attr-val')?>',
-                data : {attrID : attrID},
+                data : {aid : aid},
                 dataType : 'JSON',
                 success : function (data) {
                     var attr_val_list = data['rows'] || {};

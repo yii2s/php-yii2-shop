@@ -5,8 +5,12 @@ namespace backend\controllers;
 use common\config\Conf;
 use common\models\Attr;
 use common\models\AttrValMap;
+use common\models\AttrValue;
+use common\models\Brand;
 use common\models\Categories;
 use common\models\Category;
+use common\models\CategoryAttrMap;
+use common\models\CategoryAttrValMap;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
@@ -26,11 +30,101 @@ class CategoryController extends Controller
 
     public function actionTest()
     {
-        $filePath = Yii::getAlias('@uploads') . '/tempFile/sg.xls';
-        $data = ExcelUtil::read($filePath);
+
+        $data = Yii::$app->cache->get('category-cache');
+        if ($data) {
+            print_r($data);exit;
+        }
+        $filePath = Yii::getAlias('@uploads') . '/tempFile/test2.xlsx';
+        $data = ExcelUtil::read_2($filePath);
+        Yii::$app->cache->set('category-cache', $data);
         echo '总计：' . count($data['data']);
         echo PHP_EOL;
-        print_r($data['data']);
+        //print_r($data['data']);
+    }
+
+    public function actionCats()
+    {
+        set_time_limit(0);
+
+        $data = Yii::$app->cache->get('category-cache');
+        if (!$data) {
+            echo 'no data';exit;
+        }
+
+        //$data = [array_shift($data)];
+
+        //第一级分类
+        foreach ((array)$data as $levelOne) {
+            $a['name'] = $levelOne['name'];
+            $levelOneID = CategoryService::factory()->save($a);
+            //echo '-第三级级分类：（ID：' . $levelOneID . '，名称：' . $levelOne['name'] . '）<br>' . PHP_EOL;
+
+            //第二级分类
+            if ($levelOneID) {
+                foreach ((array)$levelOne['B'] as $levelTwo) {
+                    $b['name'] = $levelTwo['name'];
+                    $b['parent_id'] = $levelOneID;
+                    $levelTwoID = CategoryService::factory()->save($b);
+                    //echo '--第三级级分类：（ID：' . $levelTwoID . '，名称：' . $levelTwo['name'] . '）<br>' . PHP_EOL;
+
+                    //第三级分类
+                    if ($levelTwoID) {
+                        foreach ((array)$levelTwo['C'] as $levelThree) {
+                            $c['name'] = $levelThree['name'];
+                            $c['parent_id'] = $levelTwoID;
+                            $levelThreeID = CategoryService::factory()->save($c);
+                            //echo '---第三级级分类：（ID：' . $levelThreeID . '，名称：' . $levelThree['name'] . '）<br>' . PHP_EOL;
+
+                            if ($levelThreeID) {
+                                $brands = explode('、', $levelThree['attr']);
+                                foreach ((array)$brands as $name) {
+
+                                    //插入品牌属性值
+                                    $attrVal = AttrValue::find()->where(['name' => $name])->one();
+                                    if (!$attrVal) {
+                                        $d['name'] = $name;
+                                        $d['aid'] = Conf::BRAND_ATTR_ID;
+                                        $attrID = CategoryService::factory()->addAttrValue($d);
+                                    } else {
+                                       $attrID = $attrVal->id;
+                                    }
+
+                                    if ($attrID) {
+
+                                        //插入品牌
+                                        $brand = Brand::find()->where(['name' => $name])->one();
+                                        if (!$brand) {
+                                            $brand = new Brand();
+                                            $brand->vid = $attrID;
+                                            $brand->name = $name;
+                                            $brand->save();
+                                        }
+
+                                        //关联分类与品牌属性
+                                        $catsAttrMap = new CategoryAttrMap();
+                                        $catsAttrMap->aid = Conf::BRAND_ATTR_ID;
+                                        $catsAttrMap->cid = $levelThreeID;
+                                        $catsAttrMap->save();
+
+                                        //关联分类与品牌值
+                                        $catsAttrValMap = new CategoryAttrValMap();
+                                        $catsAttrValMap->cid = $levelThreeID;
+                                        $catsAttrValMap->aid = Conf::BRAND_ATTR_ID;
+                                        $catsAttrValMap->vid = $attrID;
+                                        $catsAttrValMap->save();
+
+
+                                        //echo '----属性值：（ID：' . $attrID . '，名称：' . $name . '）<br>' . PHP_EOL;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     /**
