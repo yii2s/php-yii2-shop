@@ -105,13 +105,13 @@ use yii\helpers\Html;
                 ]
             },
             {
-                id:'good',
+                id:'goods',
                 menu:[
                     {
                         text:'商品管理',
                         items:[
-                            {id:'good_list',text:'商品列表',href:'<?= Yii::$app->urlManager->createUrl('good/list')?>'},
-                            {id:'good_add',text:'商品添加',href:'<?= Yii::$app->urlManager->createUrl('good/add')?>'}
+                            {id:'goods_list',text:'商品列表',href:'<?= Yii::$app->urlManager->createUrl('goods/list')?>'},
+                            {id:'goods_add',text:'商品添加',href:'<?= Yii::$app->urlManager->createUrl('goods/add')?>'}
                         ]
                     },
                     {

@@ -16,5 +16,10 @@ class GoodsService extends AbstractService
         return parent::factory($className);
     }
 
+    public function save($args)
+    {
+
+    }
+
 
 }
