@@ -11,11 +11,14 @@ use common\models\Categories;
 use common\models\Category;
 use common\models\CategoryAttrMap;
 use common\models\CategoryAttrValMap;
+use common\models\GoodsPhoto;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
+use Imagine\Image\ImageInterface;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\imagine\Image;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
@@ -28,7 +31,7 @@ class CategoryController extends Controller
 
     public $enableCsrfValidation = false;
 
-    public function actionTest()
+    public function actionReadExcelCategory()
     {
 
         $data = Yii::$app->cache->get('category-cache');
@@ -41,6 +44,34 @@ class CategoryController extends Controller
         echo '总计：' . count($data['data']);
         echo PHP_EOL;
         //print_r($data['data']);
+    }
+
+    public function actionTest()
+    {
+        $data = Category::find()->with([
+            'attrVals' => function($query) {
+                $query->andWhere(['status' => 1]);
+            }
+        ])->asArray()->all();
+        print_r($data);
+    }
+
+    public function actionPhoto()
+    {
+        $photo = new GoodsPhoto();
+        $photo->img = 'test1';
+        echo $photo->save() ? 'success' : 'fail';
+    }
+
+    public function actionImage() 
+    {
+        $data = Image::text('uploads/tempFile/123.jpg', '555555555555', 'uploads/tempFile/simfang.ttf')
+                    ->save('uploads/tempFile/test.jpg', ['quality' => 100]);
+        print_r($data);
+
+        /*Image::frame('uploads/tempFile/123.jpg', 5, '666', 0)
+            ->rotate(-8)
+            ->save('uploads/tempFile/123000.jpg', ['quality' => 50]);*/
     }
 
     public function actionCats()
@@ -77,6 +108,13 @@ class CategoryController extends Controller
                             //echo '---第三级级分类：（ID：' . $levelThreeID . '，名称：' . $levelThree['name'] . '）<br>' . PHP_EOL;
 
                             if ($levelThreeID) {
+
+                                //关联分类与品牌属性
+                                $catsAttrMap = new CategoryAttrMap();
+                                $catsAttrMap->aid = Conf::BRAND_ATTR_ID;
+                                $catsAttrMap->cid = $levelThreeID;
+                                $catsAttrMap->save();
+
                                 $brands = explode('、', $levelThree['attr']);
                                 foreach ((array)$brands as $name) {
 
@@ -101,20 +139,12 @@ class CategoryController extends Controller
                                             $brand->save();
                                         }
 
-                                        //关联分类与品牌属性
-                                        $catsAttrMap = new CategoryAttrMap();
-                                        $catsAttrMap->aid = Conf::BRAND_ATTR_ID;
-                                        $catsAttrMap->cid = $levelThreeID;
-                                        $catsAttrMap->save();
-
                                         //关联分类与品牌值
                                         $catsAttrValMap = new CategoryAttrValMap();
                                         $catsAttrValMap->cid = $levelThreeID;
                                         $catsAttrValMap->aid = Conf::BRAND_ATTR_ID;
                                         $catsAttrValMap->vid = $attrID;
                                         $catsAttrValMap->save();
-
-
                                         //echo '----属性值：（ID：' . $attrID . '，名称：' . $name . '）<br>' . PHP_EOL;
                                     }
                                 }
@@ -123,7 +153,6 @@ class CategoryController extends Controller
                     }
                 }
             }
-
         }
     }
 

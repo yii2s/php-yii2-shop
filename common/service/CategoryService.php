@@ -50,7 +50,7 @@ class CategoryService extends AbstractService
      */
     public function getCategoriesBySort()
     {
-        if (Yii::$app->cache->exists(Conf::CATEGORIES_BY_SORT)) {
+        if (CACHE_ON && Yii::$app->cache->exists(Conf::CATEGORIES_BY_SORT)) {
             return Yii::$app->cache->get(Conf::CATEGORIES_BY_SORT);
         }
 
@@ -61,7 +61,7 @@ class CategoryService extends AbstractService
             ->all();
 
         $data = $this->_recurToData($categories, 0);
-        if ($data) {
+        if (CACHE_ON && $data) {
             Yii::$app->cache->set(Conf::CATEGORIES_BY_SORT, $data);
         }
 
@@ -104,7 +104,7 @@ class CategoryService extends AbstractService
      */
     public function getCategoriesTree()
     {
-        if (Yii::$app->cache->exists(Conf::CATEGORIES_TREE_CACHE)) {
+        if (CACHE_ON && Yii::$app->cache->exists(Conf::CATEGORIES_TREE_CACHE)) {
             return Yii::$app->cache->get(Conf::CATEGORIES_TREE_CACHE);
         }
 
@@ -115,7 +115,7 @@ class CategoryService extends AbstractService
             ->all();
 
         $data = $this->_recurToDataTree($categories, 0);
-        if ($data) {
+        if (CACHE_ON && $data) {
             Yii::$app->cache->set(Conf::CATEGORIES_TREE_CACHE, $data);
         }
 
@@ -158,7 +158,7 @@ class CategoryService extends AbstractService
      */
     public function getCategoriesMap()
     {
-        if (Yii::$app->cache->exists(Conf::CATEGORIES_MAP_CACHE)) {
+        if (CACHE_ON && Yii::$app->cache->exists(Conf::CATEGORIES_MAP_CACHE)) {
             return Yii::$app->cache->get(Conf::CATEGORIES_MAP_CACHE);
         }
 
@@ -175,7 +175,7 @@ class CategoryService extends AbstractService
             $data[$c['parent_id']][] = $temp;
         }
 
-        if ($data) {
+        if (CACHE_ON && $data) {
             Yii::$app->cache->set(Conf::CATEGORIES_MAP_CACHE, $data);
         }
 
@@ -277,24 +277,20 @@ class CategoryService extends AbstractService
     }
 
     /**
-     * @brief 获取分类关联的属性值
+     * @brief 获取分类ID获取关联的属性值
      * @param int $categoryID
      * @return array
      * @author wuzhc 2016-08-05
      */
-    public function getAttrVals($categoryID = 12)
+    public function getAttrValsByCatsID($categoryID)
     {
-        $data = [];
-        $object = Category::findOne($categoryID);
-        foreach ($object->attrVals as $r) {
-            $temp['id'] = $r->id;
-            $temp['name'] = $r->name;
-            $data[$r->aid][] = $temp;
-        }
-        return $data;
+        $record = Category::find()
+            ->with('attrVals')
+            ->where(['id' => $categoryID])
+            ->asArray()
+            ->one();
+        return $record['attrVals'];
     }
-
-
 
 
     //endregion 类别管理

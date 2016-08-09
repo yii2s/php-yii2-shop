@@ -3,6 +3,10 @@
 namespace common\service;
 
 
+use common\config\Conf;
+use common\hybrid\GoodsHybrid;
+use Faker\Provider\DateTime;
+
 class GoodsService extends AbstractService
 {
 
@@ -18,6 +22,30 @@ class GoodsService extends AbstractService
 
     public function save($args)
     {
+
+        if ($args['is_del'] == Conf::DOWN_GOODS)
+        {
+            $args['up_time'] = DateTime::date('Y-m-d H:i:s');
+        }
+        elseif ($args['is_del'] == Conf::UP_GOODS)
+        {
+            $args['down_time'] = DateTime::date('Y-m-d H:i:s');
+        }
+
+        $args['create_time'] = DateTime::date('Y-m-d H:i:s');
+
+        //保存商品基本数据
+        $goodsHybrid = new GoodsHybrid();
+        $goodsID = $goodsHybrid->save($args);
+        if (!$goodsID) {
+            return false;
+        }
+
+        //保存商品图集
+
+
+
+
 
     }
 
