@@ -146,7 +146,8 @@ class AttrController extends Controller
 
     public function actionTest()
     {
-        $data = CategoryService::factory()->getAttrVals(12);
+        $data = CategoryService::factory()->getAttrValsByCatsID(12);
+        echo count($data);
         VarDumper::dump($data);
     }
 

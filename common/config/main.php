@@ -1,4 +1,8 @@
 <?php
+
+/** 是否开启缓存 */
+define('CACHE_ON', true);
+
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [

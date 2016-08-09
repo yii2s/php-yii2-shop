@@ -29,5 +29,12 @@ class Conf
     /** 品牌属性ID */
     const BRAND_ATTR_ID = 1;
 
+    /** 下架商品 */
+    const DOWN_GOODS = 2;
+
+    /** 上架商品 */
+    const UP_GOODS = 3;
+
+
 
 }
