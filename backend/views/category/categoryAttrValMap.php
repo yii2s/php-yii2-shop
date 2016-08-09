@@ -36,9 +36,9 @@
         </div>
         <!--属性 start-->
         <div class="row">
-            <div class="control-group span15">
+            <div class="control-group">
                 <label class="control-label">选择属性值：</label>
-                <div class="controls attr-val-list" style="display: none">
+                <div class="controls attr-val-list" style="display: none;margin: 10px 30px;width: 70%; height: auto">
                     <label class="checkbox"><input name="range" type="checkbox" value="1">范围1</label>
                     <label class="checkbox"><input name="range" type="checkbox" value="2">范围2</label>
                     <label class="checkbox"><input name="range" type="checkbox" value="3">范围3</label>
@@ -46,6 +46,7 @@
             </div>
         </div>
         <!--属性 end-->
+        <br style="clear:both;" />
         <div class="row">
             <div class="form-actions offset3">
                 <button type="submit" class="button button-primary">保存</button>
@@ -63,7 +64,20 @@
 </html>
 <script type="text/javascript">
     $(function(){
-        var categories = <?= $categories ?>;
+
+        var categories = (function () {
+            var cats = null;
+            $.ajax({
+                url : '<?= Yii::$app->urlManager->createUrl(['category/ajax-get-category-map'])?>',
+                dataType : 'JSON',
+                async : false,
+                data : {},
+                success : function (data) {
+                    cats = data.data || {};
+                }
+            });
+            return cats;
+        })();
 
         (function(){
             var first_categories = categories[0] || {};
@@ -133,16 +147,19 @@
             var aid = $(this).val();
             var cid = $("#categoryID").val();
             $.ajax({
-                type : 'POST',
-                url : '<?= Yii::$app->urlManager->createUrl('attr/list-attr-val')?>',
-                data : {aid : aid},
+                type : 'get',
+                url : '<?= Yii::$app->urlManager->createUrl('category/ajax-get-attr-vals')?>',
+                data : {
+                    aid : aid,
+                    cid : cid
+                },
                 dataType : 'JSON',
                 success : function (data) {
-                    var attr_val_list = data['rows'] || {};
+                    var attr_val_list = data.data || {};
                     if (attr_val_list) {
                         var html = '';
                         for (var a in attr_val_list) {
-                            html += '<label class="checkbox"><input name="vid[]" type="checkbox" value="'+attr_val_list[a].id+'">'+attr_val_list[a].name+'</label>';
+                            html += '<label class="checkbox" style="margin-right:20px"><input name="vid[]" type="checkbox" value="'+attr_val_list[a].id+'">'+attr_val_list[a].name+'</label>';
                         }
                         $(".attr-val-list").show().append(html);
                     }
