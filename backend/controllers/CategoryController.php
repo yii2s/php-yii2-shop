@@ -15,8 +15,10 @@ use common\models\GoodsPhoto;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
+use Imagine\Image\ImageInterface;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\imagine\Image;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
@@ -59,6 +61,17 @@ class CategoryController extends Controller
         $photo = new GoodsPhoto();
         $photo->img = 'test1';
         echo $photo->save() ? 'success' : 'fail';
+    }
+
+    public function actionImage() 
+    {
+        $data = Image::text('uploads/tempFile/123.jpg', '555555555555', 'uploads/tempFile/simfang.ttf')
+                    ->save('uploads/tempFile/test.jpg', ['quality' => 100]);
+        print_r($data);
+
+        /*Image::frame('uploads/tempFile/123.jpg', 5, '666', 0)
+            ->rotate(-8)
+            ->save('uploads/tempFile/123000.jpg', ['quality' => 50]);*/
     }
 
     public function actionCats()
@@ -140,7 +153,6 @@ class CategoryController extends Controller
                     }
                 }
             }
-
         }
     }
 
