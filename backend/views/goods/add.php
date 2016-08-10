@@ -74,7 +74,6 @@ use yii\helpers\Html;
                             <input name="cost_price" type="text" class="input-small" data-rules="{required : true}" value="9">
                         </div>
                     </div>
-                    <select  multiple="multiple"></select>
                     <div class="control-group">
                         <label class="control-label">选择分类：</label>
                         <div class="controls bui-form-group-select" data-type="type1">
