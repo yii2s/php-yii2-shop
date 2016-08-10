@@ -126,10 +126,10 @@
             $.ajax({
                 type : "GET",
                 url : '<?= Yii::$app->urlManager->createUrl("category/ajax-get-attrs")?>',
-                data : {categoryID : categoryID},
+                data : {cid : categoryID},
                 dataType : 'json',
                 success : function(data) {
-                    var attr_list = data || {};
+                    var attr_list = data.data || {};
                     if (attr_list) {
                         var html = '<option>--请选择--</option>';
                         for (var k in attr_list) {
@@ -148,7 +148,7 @@
             var cid = $("#categoryID").val();
             $.ajax({
                 type : 'get',
-                url : '<?= Yii::$app->urlManager->createUrl('category/ajax-get-attr-vals')?>',
+                url : '<?= Yii::$app->urlManager->createUrl('category/ajax-attr-val-map')?>',
                 data : {
                     aid : aid,
                     cid : cid
@@ -159,7 +159,8 @@
                     if (attr_val_list) {
                         var html = '';
                         for (var a in attr_val_list) {
-                            html += '<label class="checkbox" style="margin-right:20px"><input name="vid[]" type="checkbox" value="'+attr_val_list[a].id+'">'+attr_val_list[a].name+'</label>';
+                            console.log(attr_val_list[a].isSelect);
+                            html += '<label class="checkbox" style="margin-right:20px"><input name="vid[]" type="checkbox" '+ (attr_val_list[a].isSelect == 1 ? "checked=checked" : "") +' value="'+attr_val_list[a].id+'">'+attr_val_list[a].name+'</label>';
                         }
                         $(".attr-val-list").show().append(html);
                     }

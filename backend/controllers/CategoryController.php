@@ -221,7 +221,7 @@ class CategoryController extends CController
         {
             $cid = (int)Yii::$app->request->post('cid');
             $aids = Yii::$app->request->post('aids');
-            $aids = array_map('intval', explode(',', $aids));
+            $aids = array_map('intval', $aids);
 
             if ( !($cid && $aids) ) {
                 ResponseUtil::json(null, 1, '参数错误');
@@ -234,10 +234,8 @@ class CategoryController extends CController
         }
         else
         {
-            $categories = CategoryService::factory()->getCategoriesMap();
             return $this->render('categoryAttrMap', [
                 'attrs' => Attr::find()->all(),
-                'categories' => json_encode($categories)
             ]);
         }
     }
@@ -277,6 +275,17 @@ class CategoryController extends CController
     }
 
     /**
+     * @brief ajax获取分类
+     * @author wuzhc 2016-08-09
+     */
+    public function actionAjaxGetCategoryMap()
+    {
+        $this->checkAjaxRequest();
+        $categories = CategoryService::factory()->getCategoriesMap();
+        ResponseUtil::json(['data' => $categories]);
+    }
+
+    /**
      * @brief ajax获取属性
      * @param int $cid 分类ID
      * @author wuzhc 2016-08-05
@@ -299,23 +308,12 @@ class CategoryController extends CController
     }
 
     /**
-     * @brief ajax获取分类
-     * @author wuzhc 2016-08-09
-     */
-    public function actionAjaxGetCategoryMap()
-    {
-        $this->checkAjaxRequest();
-        $categories = CategoryService::factory()->getCategoriesMap();
-        ResponseUtil::json(['data' => $categories]);
-    }
-
-    /**
-     * @brief ajax获取属性值
+     * @brief 关联分类与属性值
      * @param int $aid 属性ID
      * @param int $cid 类型ID
      * @author wuzhc 2016-08-09
      */
-    public function actionAjaxGetAttrVals($aid = 0, $cid = 0)
+    public function actionAjaxAttrValMap($aid = 0, $cid = 0)
     {
         $this->checkAjaxRequest();
 
@@ -323,7 +321,8 @@ class CategoryController extends CController
             ResponseUtil::json(null, 1, '参数错误');
         }
 
-        $data = Category::find()
+        //查找之前已经关联过的数据
+        $record = Category::find()
             ->with([
                 'attrVals' => function($query) use ($aid) {
                     $aid and $query->andWhere(['aid' => $aid]);
@@ -332,8 +331,61 @@ class CategoryController extends CController
             ->where(['id' => $cid])
             ->asArray()
             ->one();
+        $hasSelect = $record['attrVals'];
 
-        ResponseUtil::json(['data' => $data['attrVals']]);
+        //已经关联的属性值ID
+        $selectIDs = ArrayHelper::getColumn($hasSelect, 'id');
+
+        //属性下的所有属性值
+        $data = AttrValue::find()->where(['aid' => $aid])->asArray()->all();
+
+        $return = $temp = $sort = [];
+        foreach ($data as $d) {
+            $temp['id'] = $d['id'];
+            $temp['name'] = $d['name'];
+            $temp['isSelect'] = $sort[] = in_array($d['id'], $selectIDs) ? 1 : 0;
+            $return[] = $temp;
+        }
+
+        //将之前选中的属性值排在最前面
+        array_multisort($return, $sort, SORT_DESC);
+
+        ResponseUtil::json(['data' => $return]);
+    }
+
+    /**
+     * @brief 根据分类ID获取对应属性和属性值
+     * @param int $cid 分类ID
+     * @author wuzhc 2016-08-10
+     */
+    public function actionGetAttrValByCid($cid = 4)
+    {
+        $this->checkAjaxRequest();
+
+        if (!is_numeric($cid)) {
+            ResponseUtil::json(null, 1, '参数错误');
+        }
+
+        //分类对应属性值
+        $catVals = Category::findOne($cid)->attrVals;
+        $val = $temp = array();
+        foreach ($catVals as $v) {
+            $temp['id'] = $v->id;
+            $temp['name'] = $v->name;
+            $val[$v->aid][] = $temp;
+        }
+
+        //分类对应属性
+        $catAttrs = Category::findOne($cid)->attrs;
+        $attr = $temp = array();
+        foreach ($catAttrs as $a) {
+            $temp['id'] = $a->id;
+            $temp['name'] = $a->name;
+            $temp['value'] = $val[$a->id] ?: array();
+            $attr[] = $temp;
+        }
+
+        ResponseUtil::json(['data' => $attr]);
     }
 
     /**

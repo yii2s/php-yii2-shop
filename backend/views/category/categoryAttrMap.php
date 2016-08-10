@@ -42,7 +42,7 @@
         <br style="clear:both;" />
         <div class="row">
             <div class="form-actions offset3">
-                <button type="submit" class="button button-primary">保存</button>
+                <button type="submit" class="button button-primary" id="submit-form">保存</button>
                 <button type="reset" class="button">重置</button>
             </div>
         </div>
@@ -55,7 +55,20 @@
 </html>
 <script type="text/javascript">
     $(function(){
-        var categories = <?= $categories ?>;
+
+        var categories = (function () {
+            var cats = null;
+            $.ajax({
+                url : '<?= Yii::$app->urlManager->createUrl(['category/ajax-get-category-map'])?>',
+                dataType : 'JSON',
+                async : false,
+                data : {},
+                success : function (data) {
+                    cats = data.data || {};
+                }
+            });
+            return cats;
+        })();
 
         (function(){
             var first_categories = categories[0] || {};
@@ -98,6 +111,27 @@
             var val = $(this).val();
             $("#cid").val(val);
         });
+
+        //提交表单
+        $("#submit-form").on("click", function(e) {
+            e.preventDefault();
+            $.ajax({
+                url : $("#J_Form").attr("action"),
+                data : $("#J_Form").serialize(),
+                type : "POST",
+                dataType : "Json",
+                success : function (data) {
+                    if (data.status == 0) {
+                        alert("操作成功");
+                    } else {
+                        alert("操作失败");
+                    }
+                },
+                error : function () {
+                    alert("操作失败");
+                }
+            });
+        })
 
     })
 </script>

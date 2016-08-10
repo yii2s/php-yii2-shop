@@ -3,7 +3,7 @@ use yii\helpers\Html;
 ?>
 <?= Html::cssFile('public/common/wangEditor/css/wangEditor.min.css')?>
 <?= Html::jsFile('public/common/wangEditor/js/wangEditor.min.js')?>
-<div class="control-group" style="height: 360px;margin-bottom: 10px;">
+<div class="control-group" style="height: 360px;margin-bottom: 5px;">
     <label class="control-label">商品描述：</label>
     <div class="controls control-row4" style="width:80%;">
         <textarea type="text" name="content" id="editor-trigger" style="clear:both;height:350px;"></textarea>

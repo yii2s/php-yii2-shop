@@ -55,11 +55,15 @@ use yii\helpers\Html;
 <div class="container">
     <br>
     <form id="J_Form" action="<?= Yii::$app->urlManager->createUrl(['attr/add-attr-val'])?>" class="form-horizontal" method="post">
-        <div class="" style="padding-left: 50px;margin-bottom: 20px;">
-            <div class="checkbox" style="width: 100%;line-height: 30px">
-                <?php foreach((array)$attrs as $a) { ?>
-                <input name="attr[]" type="checkbox" value="<?= $a->id; ?>"> <?= Html::encode($a->name)?>
-                <?php } ?>
+        <div class="control-group">
+            <label class="control-label">选择分类：</label>
+            <div class="controls bui-form-group-select" data-type="type1">
+                <select class="input-normal" name="aid">
+                    <option>--请选择--</option>
+                    <?php foreach((array)$attrs as $a) { ?>
+                        <option value="<?= $a->id; ?>"><?= Html::encode($a->name); ?></option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
         <div class="control-group">

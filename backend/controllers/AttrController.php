@@ -125,16 +125,15 @@ class AttrController extends Controller
     {
         if (Yii::$app->request->isPost) {
             $data = Yii::$app->request->post();
-            $attr = array_map('intval', $data['attr']);
+            $aid = intval($data['aid']);
             $value = explode(',', str_replace('，', ',', $data['name']));
 
             $args = [];
-            foreach ($attr as $a) {
-                foreach ($value as $v) {
-                    $args[] = [$a, $v]; //[属性ID, 属性值]
-                }
+            foreach ($value as $v) {
+                $args[] = [$aid, $v]; //[属性ID, 属性值]
             }
-            list($status, $msg) = CategoryService::factory()->batchAddAttrValue($args)
+
+            list($status, $msg) = CategoryService::factory()->batchAddAttrValue($aid, $args)
                 ? [0, '操作成功'] : [1, '操作失败'];
             ResponseUtil::json(null, $status, $msg);
         }
