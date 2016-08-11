@@ -32,3 +32,6 @@ phpunit.phar
 /frontend/web/assets
 /backend/web/assets
 /uploads/tempFile
+
+/backend/runtime
+/frontend/runtime
