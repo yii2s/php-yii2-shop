@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 
+use common\components\CController;
 use common\config\Conf;
 use common\models\Attr;
 use common\models\AttrValMap;
@@ -26,7 +27,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use backend\form\LoginForm;
 
-class CategoryController extends Controller
+class CategoryController extends CController
 {
 
     public $enableCsrfValidation = false;
@@ -212,44 +213,31 @@ class CategoryController extends Controller
 
     /**
      * @brief 关联属性
-     * @author wuzhc 2016-08-03
+     * @author wuzhc 2016-08-09
      */
     public function actionCategoryAttrMap()
     {
-        if (Yii::$app->request->isPost) {
-            $categoryID = (int)Yii::$app->request->post('categoryID');
-            $attrIDs = Yii::$app->request->post('attrIDs');
-            $attrIDs = array_map('intval', explode(',', $attrIDs));
-            list($status, $msg) = CategoryService::factory()->saveCategoryAttrMap($categoryID, $attrIDs)
+        if (Yii::$app->request->isPost)
+        {
+            $cid = (int)Yii::$app->request->post('cid');
+            $aids = Yii::$app->request->post('aids');
+            $aids = array_map('intval', $aids);
+
+            if ( !($cid && $aids) ) {
+                ResponseUtil::json(null, 1, '参数错误');
+            }
+
+            list($status, $msg) = CategoryService::factory()->saveCategoryAttrMap($cid, $aids)
                 ? [0, '操作成功'] : [1, '操作失败'];
+
             ResponseUtil::json(null, $status, $msg);
         }
         else
         {
-            $id = (int)Yii::$app->request->get('categoryID');
-            $category = array();
-            if ($id) {
-                $category = Category::findOne($id);
-                $caMaps = $category->categoryAttrMaps;
-                $attrIDs = implode(',', ArrayHelper::getColumn($caMaps, 'aid'));
-            }
-            $attrs = Attr::find()->all();
-            $attrs = ArrayHelper::map($attrs, 'id', 'name');
-            $attrs = Json::encode($attrs);
-
             return $this->render('categoryAttrMap', [
-                'curCategory' => $category,
-                'attrs' => $attrs,
-                'attrIDs' => $attrIDs,
-                'categories' => CategoryService::factory()->getCategoriesMap()
+                'attrs' => Attr::find()->all(),
             ]);
         }
-    }
-
-    public function actionTest1()
-    {
-        $data = CategoryService::factory()->getCategoryAttr(12);
-        print_r($data);
     }
 
     /**
@@ -287,16 +275,117 @@ class CategoryController extends Controller
     }
 
     /**
-     * @brief ajax根据分类ID获取属性
+     * @brief ajax获取分类
+     * @author wuzhc 2016-08-09
+     */
+    public function actionAjaxGetCategoryMap()
+    {
+        $this->checkAjaxRequest();
+        $categories = CategoryService::factory()->getCategoriesMap();
+        ResponseUtil::json(['data' => $categories]);
+    }
+
+    /**
+     * @brief ajax获取属性
+     * @param int $cid 分类ID
      * @author wuzhc 2016-08-05
      */
-    public function actionAjaxGetAttrs()
+    public function actionAjaxGetAttrs($cid = 0)
     {
-        if (Yii::$app->request->isAjax) {
-            $categoryID = (int)Yii::$app->request->get('categoryID');
-            $data = CategoryService::factory()->getAttrsByCategoryID($categoryID);
-            echo Json::encode(ArrayHelper::toArray($data));
+        $this->checkAjaxRequest();
+
+        if (!is_numeric($cid)) {
+            ResponseUtil::json(null, 1, '参数错误');
         }
+
+        $data = Category::find()
+            ->with('attrs')
+            ->asArray()
+            ->where(['id' => $cid])
+            ->one();
+
+        ResponseUtil::json(['data' => $data['attrs']]);
+    }
+
+    /**
+     * @brief 关联分类与属性值
+     * @param int $aid 属性ID
+     * @param int $cid 类型ID
+     * @author wuzhc 2016-08-09
+     */
+    public function actionAjaxAttrValMap($aid = 0, $cid = 0)
+    {
+        $this->checkAjaxRequest();
+
+        if (!is_numeric($aid) || !is_numeric($cid)) {
+            ResponseUtil::json(null, 1, '参数错误');
+        }
+
+        //查找之前已经关联过的数据
+        $record = Category::find()
+            ->with([
+                'attrVals' => function($query) use ($aid) {
+                    $aid and $query->andWhere(['aid' => $aid]);
+                }
+            ])
+            ->where(['id' => $cid])
+            ->asArray()
+            ->one();
+        $hasSelect = $record['attrVals'];
+
+        //已经关联的属性值ID
+        $selectIDs = ArrayHelper::getColumn($hasSelect, 'id');
+
+        //属性下的所有属性值
+        $data = AttrValue::find()->where(['aid' => $aid])->asArray()->all();
+
+        $return = $temp = $sort = [];
+        foreach ($data as $d) {
+            $temp['id'] = $d['id'];
+            $temp['name'] = $d['name'];
+            $temp['isSelect'] = $sort[] = in_array($d['id'], $selectIDs) ? 1 : 0;
+            $return[] = $temp;
+        }
+
+        //将之前选中的属性值排在最前面
+        array_multisort($return, $sort, SORT_DESC);
+
+        ResponseUtil::json(['data' => $return]);
+    }
+
+    /**
+     * @brief 根据分类ID获取对应属性和属性值
+     * @param int $cid 分类ID
+     * @author wuzhc 2016-08-10
+     */
+    public function actionGetAttrValByCid($cid = 4)
+    {
+        $this->checkAjaxRequest();
+
+        if (!is_numeric($cid)) {
+            ResponseUtil::json(null, 1, '参数错误');
+        }
+
+        //分类对应属性值
+        $catVals = Category::findOne($cid)->attrVals;
+        $val = $temp = array();
+        foreach ($catVals as $v) {
+            $temp['id'] = $v->id;
+            $temp['name'] = $v->name;
+            $val[$v->aid][] = $temp;
+        }
+
+        //分类对应属性
+        $catAttrs = Category::findOne($cid)->attrs;
+        $attr = $temp = array();
+        foreach ($catAttrs as $a) {
+            $temp['id'] = $a->id;
+            $temp['name'] = $a->name;
+            $temp['value'] = $val[$a->id] ?: array();
+            $attr[] = $temp;
+        }
+
+        ResponseUtil::json(['data' => $attr]);
     }
 
     /**

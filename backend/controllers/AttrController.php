@@ -15,6 +15,7 @@ use Yii;
 use common\utils\FileUtil;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -124,16 +125,15 @@ class AttrController extends Controller
     {
         if (Yii::$app->request->isPost) {
             $data = Yii::$app->request->post();
-            $attr = array_map('intval', $data['attr']);
+            $aid = intval($data['aid']);
             $value = explode(',', str_replace('，', ',', $data['name']));
 
             $args = [];
-            foreach ($attr as $a) {
-                foreach ($value as $v) {
-                    $args[] = [$a, $v]; //[属性ID, 属性值]
-                }
+            foreach ($value as $v) {
+                $args[] = [$aid, $v]; //[属性ID, 属性值]
             }
-            list($status, $msg) = CategoryService::factory()->batchAddAttrValue($args)
+
+            list($status, $msg) = CategoryService::factory()->batchAddAttrValue($aid, $args)
                 ? [0, '操作成功'] : [1, '操作失败'];
             ResponseUtil::json(null, $status, $msg);
         }
@@ -256,5 +256,113 @@ class AttrController extends Controller
         $field = Yii::$app->request->get('field', 'Filedata');
         $url = FileUtil::upload($field,'',['xls','xlsx','png','jpg']);
         ResponseUtil::json(['url' => $url]);
+    }
+
+    public function actionUploadToWangEditor()
+    {
+        $targetDir = 'upload_tmp';
+        $uploadDir = 'uploads/wangEditor';
+
+        $cleanupTargetDir = true;
+
+        FileHelper::createDirectory($targetDir, 0777);
+        FileHelper::createDirectory($uploadDir, 0777);
+
+        if (isset($_REQUEST["name"])) {
+            $fileName = $_REQUEST["name"];
+        } elseif (!empty($_FILES)) {
+            $fileName = $_FILES["file"]["name"];
+        } else {
+            $fileName = uniqid("file_");
+        }
+        $fileName = iconv('UTF-8', 'GB2312', $fileName);
+        $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
+        $uploadPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
+
+        $imgUrl="http://shop.cm/".$uploadDir."/".$fileName;
+        echo $imgUrl;
+
+        $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
+        $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 1;
+
+
+        if ($cleanupTargetDir) {
+            if (!is_dir($targetDir) || !$dir = opendir($targetDir)) {
+                die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
+            }
+
+            while (($file = readdir($dir)) !== false) {
+                $tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
+
+                if ($tmpfilePath == "{$filePath}_{$chunk}.part" || $tmpfilePath == "{$filePath}_{$chunk}.parttmp") {
+                    continue;
+                }
+
+                if (preg_match('/\.(part|parttmp)$/', $file) && (@filemtime($tmpfilePath) < time() - $maxFileAge)) {
+                    @unlink($tmpfilePath);
+                }
+            }
+            closedir($dir);
+        }
+
+        if (!$out = @fopen("{$filePath}_{$chunk}.parttmp", "wb")) {
+            die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
+        }
+
+        if (!empty($_FILES)) {
+            if ($_FILES["file"]["error"] || !is_uploaded_file($_FILES["file"]["tmp_name"])) {
+                print_r($_FILES);
+                die('{"jsonrpc" : "2.0", "error" : {"code": 103, "message": "Failed to move uploaded file."}, "id" : "id"}');
+            }
+
+            if (!$in = @fopen($_FILES["file"]["tmp_name"], "rb")) {
+                die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+            }
+        } else {
+            if (!$in = @fopen("php://input", "rb")) {
+                die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+            }
+        }
+
+        while ($buff = fread($in, 4096)) {
+            fwrite($out, $buff);
+        }
+
+        @fclose($out);
+        @fclose($in);
+
+        rename("{$filePath}_{$chunk}.parttmp", "{$filePath}_{$chunk}.part");
+
+        $index = 0;
+        $done = true;
+        for( $index = 0; $index < $chunks; $index++ ) {
+            if ( !file_exists("{$filePath}_{$index}.part") ) {
+                $done = false;
+                break;
+            }
+        }
+        if ( $done ) {
+            if (!$out = @fopen($uploadPath, "wb")) {
+                die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}');
+            }
+
+            if ( flock($out, LOCK_EX) ) {
+                for( $index = 0; $index < $chunks; $index++ ) {
+                    if (!$in = @fopen("{$filePath}_{$index}.part", "rb")) {
+                        break;
+                    }
+
+                    while ($buff = fread($in, 4096)) {
+                        fwrite($out, $buff);
+                    }
+
+                    @fclose($in);
+                    @unlink("{$filePath}_{$index}.part");
+                }
+
+                flock($out, LOCK_UN);
+            }
+            @fclose($out);
+        }
     }
 }

@@ -60,9 +60,9 @@
                 </div>
             </form>
     </div>
-    <div id="c1"</div>
-    <div class="search-grid-container">
-        <div id="grid">
+    <div id="row">
+        <div class="search-grid-container">
+        <div id="grid" style="margin-left: 10px">
         </div>
         <script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
         <script src="http://g.tbcdn.cn/fi/bui/bui-min.js?t=201309041336"></script>
@@ -71,10 +71,10 @@
                 var Grid = Grid,
                     Store = Data.Store,
                     columns = [
-                        {title: 'ID', dataIndex: 'id', width: 100},
-                        {title: '属性值', dataIndex: 'name', width: 100},
-                        {title: '排序', dataIndex: 'sort', width: 200},
-                        {title: '状态', dataIndex: 'status', width: 200},
+                        {title: 'ID', dataIndex: 'id'},
+                        {title: '属性值', dataIndex: 'name'},
+                        {title: '排序', dataIndex: 'sort'},
+                        {title: '状态', dataIndex: 'status'},
                         {
                             title: '操作', renderer: function () {
                             return '<span class="grid-command btn-edit">编辑</span>'
@@ -109,7 +109,7 @@
                         render: '#grid',
                         loadMask: true,
                         forceFit: true,
-                        width: 900,
+                        width: 1000,
                         columns: columns,
                         store: store,
                         plugins: [Grid.Plugins.CheckSelection, Grid.Plugins.AutoFit, editing], //勾选插件、自适应宽度插件

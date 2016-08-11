@@ -4,10 +4,15 @@ namespace backend\controllers;
 use Yii;
 use yii\web\Controller;
 
-class GoodController extends Controller
+class GoodsController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     public function actionAdd()
     {
+        if ($_POST) {
+            print_r($_POST);exit;
+        }
         return $this->render('add');
     }
 

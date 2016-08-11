@@ -22,6 +22,7 @@ class GoodsService extends AbstractService
 
     public function save($args)
     {
+
         if ($args['is_del'] == Conf::DOWN_GOODS)
         {
             $args['up_time'] = DateTime::date('Y-m-d H:i:s');
@@ -41,6 +42,7 @@ class GoodsService extends AbstractService
         }
 
         //保存商品图集
+
 
 
 

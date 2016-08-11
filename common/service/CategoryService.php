@@ -335,13 +335,21 @@ class CategoryService extends AbstractService
     }
 
     /**
-     * @brief 批量保存属性
-     * @param $args
+     * @brief 批量保存属性值
+     * @param int $aid 属性ID
+     * @param array $args
      * @return int
      * @author wuzhc 2016-08-02
      */
-    public function batchAddAttrValue($args)
+    public function batchAddAttrValue($aid, $args)
     {
+        if (empty($aid)) {
+            return false;
+        }
+
+        //删除旧数据
+        AttrValue::deleteAll(['aid' => $aid]);
+
         $attr = new AbstractHybrid();
         return $attr->batchSave(AttrValue::tableName(), ['aid','name'], $args);
     }
