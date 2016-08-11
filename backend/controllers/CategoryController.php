@@ -32,6 +32,11 @@ class CategoryController extends CController
 
     public $enableCsrfValidation = false;
 
+    public function actionTest1()
+    {
+        echo Yii::getAlias('@webroot');
+    }
+
     public function actionReadExcelCategory()
     {
 
