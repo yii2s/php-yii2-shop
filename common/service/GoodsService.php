@@ -3,6 +3,9 @@
 namespace common\service;
 
 
+use common\models\Goods;
+use common\models\GoodsAttribute;
+use common\models\GoodsAttrValMap;
 use common\models\GoodsPhoto;
 use common\models\GoodsPhotoRelation;
 use Yii;
@@ -25,6 +28,12 @@ class GoodsService extends AbstractService
         return parent::factory($className);
     }
 
+    /**
+     * @brief 保存商品
+     * @param $args
+     * @return bool
+     * @author wuzhc 2016-08-13
+     */
     public function save($args)
     {
 
@@ -73,7 +82,66 @@ class GoodsService extends AbstractService
             $hybrid->batchSave(GoodsPhotoRelation::tableName(), ['goods_id', 'photo_id'], $photos);
         }
 
+        //保存商品属性值
+        if ($args['attr_vid']) {
+            $goodsAttrValMap = [];
+            foreach ((array)$args['attr_vid'] as $avid) {
+                list($aid, $vid) = explode('-', $avid);
+                $goodsAttrValMap[] = [$goodsID, intval($aid), intval($vid)];
+            }
+            $hybrid->batchSave(GoodsAttrValMap::tableName(), ['gid', 'aid', 'vid'], $goodsAttrValMap);
+        }
+
         return true;
+    }
+
+    public function getList($args)
+    {
+        $object = Goods::find()->from(Goods::tableName(). 'as t');
+        if ($args['cid']) {
+            if (is_array($args['cid'])) {
+                $object->andFilterWhere(['t.cid' => $args['cid']]);
+            } else {
+                $object->andFilterWhere(['t.cid' => intval($args['cid'])]);
+            }
+        }
+        if ($args['select']) {
+            $object->select((array)$args['select']);
+        }
+        if ($args['keyword']) {
+            $object->Where(['like', 't.name', trim($args['keyword'])]);
+        }
+        if (is_numeric($args['limit'])) {
+            $object->limit(intval($args['limit']));
+        }
+        if (is_numeric($args['offset'])) {
+            $object->offset(intval($args['offset']));
+        }
+
+        //属性值搜索
+        if ($args['vid']) {
+            /*
+            $object->leftJoin(GoodsAttrValMap::tableName(). 'as attrVal', 't.id = attrVal.gid');
+            foreach ((array)$args['avid'] as $aid => $vid) {
+                $object->orWhere(['attrVal.vid' => $vid, 'attrVal.aid' => $aid]);
+            }
+            */
+            foreach ((array)$args['vid'] as $v) {
+                $attrValMap = GoodsAttrValMap::find()
+                    ->select(['gid'])
+                    ->where(['vid' => intval($v)])
+                    ->asArray()
+                    ->groupBy(['gid'])
+                    ->all();
+                $goodIDs = array_map(function($a){return $a['gid'];}, $attrValMap);
+                $object->andFilterWhere(['id' => $goodIDs]);
+            }
+        }
+
+        $args['order'] ? $object->orderBy((array)$args['order']) : $object->orderBy(['t.id' => SORT_DESC]);
+
+        //return $object->createCommand()->getRawSql();
+        return $object->asArray($args['asArray'])->groupBy('t.id')->all();
     }
 
 

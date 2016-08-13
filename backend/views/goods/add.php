@@ -90,7 +90,7 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div id="attr-select">
-                        <div class="control-group">
+                        <!--<div class="control-group">
                             <label class="control-label">品牌：</label>
                             <div class="controls attr-val-list control-row-auto ">
                                 <label class="checkbox"><input name="range" type="checkbox" value="1">范围1</label>
@@ -106,7 +106,7 @@ use yii\helpers\Html;
                                 <label class="checkbox"><input name="range" type="checkbox" value="2">范围2</label>
                                 <label class="checkbox"><input name="range" type="checkbox" value="3">范围3</label>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <!--<div class="control-group">
@@ -147,7 +147,7 @@ use yii\helpers\Html;
                             </select>
                         </div>
                     </div>-->
-                    <div class="control-group">
+                    <div class="control-group" style="clear: both">
                         <label class="control-label">上架时间：</label>
                         <div class="controls control-row-auto">
                             <label class="radio">
@@ -341,11 +341,11 @@ use yii\helpers\Html;
                         var html = '<div class="control-group">';
                         for (var k in attr) {
                             html += '<label class="control-label">'+attr[k].name+'：</label>';
-                            html += '<div class="controls control-row-auto ">';
+                            html += '<div class="controls control-row-auto" style="width: 70%">';
                             var val = attr[k].value || {};
                             for (var v in val) {
-                                html += '<label class="checkbox">';
-                                html += '<input name="vid" type="checkbox" value="'+val[v].id+'">';
+                                html += '<label class="checkbox" style="margin-right: 10px">';
+                                html += '<input name="vid" type="checkbox" value="'+attr[k].id+'-'+val[v].id+'">';
                                 html += val[v].name;
                                 html += '</label>';
                             }
@@ -390,7 +390,8 @@ use yii\helpers\Html;
                 keywords     : keywords,
                 description  : description,
                 recommend    : [],
-                photo        : []
+                photo        : [],
+                attr_vid     : []
             };
 
             //推荐商品
@@ -403,6 +404,12 @@ use yii\helpers\Html;
             $("input[name=photo]").each(function(){
                 var img = $(this).val();
                 data.photo.push(img);
+            });
+
+            //商品属性值
+            $("input[name='vid']:checked").each(function(){
+                var vid = $(this).val();
+                data.attr_vid.push(vid);
             });
 
             $.ajax({

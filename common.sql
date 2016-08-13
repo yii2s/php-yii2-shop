@@ -1,8 +1,10 @@
+
+--批量更改表前缀
 Select CONCAT( 'ALTER TABLE ', table_name, ' RENAME TO ', replace(table_name,'zc_','zc_'),';')
 from information_schema.tables
 where TABLE_SCHEMA = 'zc' and table_name LIKE 'zc_%';
 
-
+--批量更改表前缀
 ALTER TABLE zc_account_log RENAME TO zc_account_log;
 ALTER TABLE zc_ad_manage RENAME TO zc_ad_manage;
 ALTER TABLE zc_ad_position RENAME TO zc_ad_position;
@@ -83,3 +85,8 @@ ALTER TABLE zc_ticket RENAME TO zc_ticket;
 ALTER TABLE zc_user RENAME TO zc_user;
 ALTER TABLE zc_user_group RENAME TO zc_user_group;
 ALTER TABLE zc_withdraw RENAME TO zc_withdraw;
+
+--商品属性值关联查询
+SELECT *
+FROM `shop`.`zc_goods_attr_val_map` AS a, `shop`.`zc_goods_attr_val_map` AS b
+WHERE b.vid = a.vid AND b.aid = 1 AND a.id = 6

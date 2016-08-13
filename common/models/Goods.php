@@ -229,4 +229,13 @@ class Goods extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Relation::className(), ['goods_id' => 'id']);
     }
+
+    /**
+     * @brief 商品属性值
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAttrVal()
+    {
+        return $this->hasMany(GoodsAttrValMap::className(), ['gid' => 'id']);
+    }
 }
