@@ -95,53 +95,121 @@ class GoodsService extends AbstractService
         return true;
     }
 
+    /**
+     * @brief 商品列表
+     * @param $args
+     * @return array|\yii\db\ActiveRecord[]
+     * @author wuzhc 2016-08-14
+     */
     public function getList($args)
     {
         $object = Goods::find()->from(Goods::tableName(). 'as t');
         if ($args['cid']) {
-            if (is_array($args['cid'])) {
                 $object->andFilterWhere(['t.cid' => $args['cid']]);
-            } else {
-                $object->andFilterWhere(['t.cid' => intval($args['cid'])]);
-            }
         }
         if ($args['select']) {
             $object->select((array)$args['select']);
         }
         if ($args['keyword']) {
-            $object->Where(['like', 't.name', trim($args['keyword'])]);
+            $object->Where(['like', 't.name', $args['keyword']]);
         }
         if (is_numeric($args['limit'])) {
-            $object->limit(intval($args['limit']));
+            $object->limit($args['limit']);
         }
         if (is_numeric($args['offset'])) {
-            $object->offset(intval($args['offset']));
+            $object->offset($args['offset']);
         }
 
         //属性值搜索
         if ($args['vid']) {
-            /*
-            $object->leftJoin(GoodsAttrValMap::tableName(). 'as attrVal', 't.id = attrVal.gid');
-            foreach ((array)$args['avid'] as $aid => $vid) {
-                $object->orWhere(['attrVal.vid' => $vid, 'attrVal.aid' => $aid]);
-            }
-            */
-            foreach ((array)$args['vid'] as $v) {
+            $goodIDs = [];
+            foreach ((array)$args['vid'] as $k => $v) {
                 $attrValMap = GoodsAttrValMap::find()
                     ->select(['gid'])
-                    ->where(['vid' => intval($v)])
+                    ->where(['vid' => $v])
                     ->asArray()
                     ->groupBy(['gid'])
                     ->all();
-                $goodIDs = array_map(function($a){return $a['gid'];}, $attrValMap);
-                $object->andFilterWhere(['id' => $goodIDs]);
+                $gids = array_map(function($a){return $a['gid'];}, $attrValMap);
+
+                //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+                if (!$gids) {
+                    return array();
+                }
+
+                //第一次将值赋值goodIDs，之后循环都和之前的结果进行交集运算
+                if ($k == 0) {
+                    $goodIDs = $gids;
+                } else {
+                    $goodIDs = array_intersect($goodIDs, $gids);
+                }
             }
+
+            //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+            if (!$goodIDs) {
+                return array();
+            }
+            $object->andFilterWhere(['id' => $goodIDs]);
         }
 
         $args['order'] ? $object->orderBy((array)$args['order']) : $object->orderBy(['t.id' => SORT_DESC]);
 
         //return $object->createCommand()->getRawSql();
         return $object->asArray($args['asArray'])->groupBy('t.id')->all();
+    }
+
+    /**
+     * @brief 统计商品
+     * @param $args
+     * @return int|string
+     * @author wuzhc 2016-08-14
+     */
+    public function countGoods($args)
+    {
+        $object = Goods::find()->from(Goods::tableName(). 'as t');
+        if ($args['cid']) {
+            $object->andFilterWhere(['t.cid' => $args['cid']]);
+        }
+        if ($args['select']) {
+            $object->select((array)$args['select']);
+        }
+        if ($args['keyword']) {
+            $object->Where(['like', 't.name', $args['keyword']]);
+        }
+
+        //属性值搜索
+        if ($args['vid']) {
+            $goodIDs = [];
+            foreach ((array)$args['vid'] as $k => $v) {
+                $attrValMap = GoodsAttrValMap::find()
+                    ->select(['gid'])
+                    ->where(['vid' => $v])
+                    ->asArray()
+                    ->groupBy(['gid'])
+                    ->all();
+                $gids = array_map(function($a){return $a['gid'];}, $attrValMap);
+
+                //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+                if (!$gids) {
+                    return 0;
+                }
+
+                //第一次将值赋值goodIDs，之后循环都和之前的接口进行交集运算
+                if ($k == 0) {
+                    $goodIDs = $gids;
+                } else {
+                    $goodIDs = array_intersect($goodIDs, $gids);
+                }
+            }
+
+            //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+            if (!$goodIDs) {
+                return 0;
+            }
+            $object->andFilterWhere(['id' => $goodIDs]);
+        }
+
+        return $object->count();
     }
 
 
