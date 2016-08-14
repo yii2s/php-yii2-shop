@@ -21,6 +21,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <style>.navbar-inverse .navbar-brand a{colore}</style>
 </head>
 <body>
 <?php $this->beginBody() ?>

@@ -161,7 +161,7 @@ $this->title = '商品列表';
 <?= Html::jsFile('public/common/js/template.js'); ?>
 
 <?php $this->beginBlock('jquery') ?>
-<!--<script>-->
+
     $(function() {
 
         var reajax = null;
@@ -211,7 +211,7 @@ $this->title = '商品列表';
         function getPage(params) {
             page = null;
             page = new UpLoadPage({
-                len: 10,
+                len: 48,
                 $el: $("#result-page"),
                 callback: getResourcesHandle,
                 params: params
@@ -227,7 +227,7 @@ $this->title = '商品列表';
 
         getPage();
     });
-<!--</script>-->
+
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['jquery'], \yii\web\View::POS_END); ?>
 

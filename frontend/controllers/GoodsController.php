@@ -32,8 +32,8 @@ class GoodsController extends Controller
         $vid    = array_map('intval', explode('-', $vid));
         $word   = Yii::$app->request->get('word');
         $order  = Yii::$app->request->get('order');
-        $limit  = Yii::$app->request->get('pageSize', 10);
-        $limit  = $limit > 10 ? 10 : intval($limit);
+        $limit  = Yii::$app->request->get('pageSize', 48);
+        $limit  = $limit > 48 ? 48 : intval($limit);
         $offset = Yii::$app->request->get('page', 0);
 
         $args = [
