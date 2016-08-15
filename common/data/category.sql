@@ -69,3 +69,10 @@ CREATE TABLE IF NOT EXISTS `zc_good_attr_val_map` (
  `aid` INT(11) unsigned NOT NULL COMMENT '属性值ID，attr_value.id',
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品与属性值关联表' AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `zc_system_setting` (
+  `id` INT (11) unsigned NOT NULL AUTO_INCREMENT COMMIT '主键ID',
+  `set_key` VARCHAR (30) NOT NULL COMMIT '键名',
+  `set_value` varchar(255) DEFAULT NULL COMMENT '值',
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站设置' AUTO_INCREMENT = 1;
