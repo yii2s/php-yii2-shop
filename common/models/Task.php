@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%task_18689}}".
+ * This is the model class for table "{{%task}}".
  *
  * @property integer $id
  * @property string $title
