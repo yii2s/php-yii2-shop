@@ -19,7 +19,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%task_18689}}';
+        return '{{%task}}';
     }
 
     /**

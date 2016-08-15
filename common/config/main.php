@@ -6,11 +6,11 @@ define('CACHE_ON', true);
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'request' => [
+        /*'request' => [
             // !!! insert a secret key in the following (if it is empty) -
             // this is required by cookie validation
             'cookieValidationKey' => 'v7mBbyetv4ls7t8UIqQ2IBO60jY_wf_U',
-        ],
+        ],*/
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -28,13 +28,13 @@ return [
             'enablePrettyUrl' => false,
         ],
         'urlManager' => [
-            'rules' => [
+            /*'rules' => [
                 'posts' => 'post/index',
                 'post/<id:\d+>' => 'post/view',
                 '<controller:(post|comment)>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',
                 'DELETE <controller:\w+>/<id:\d+>' => '<controller>/delete',
                 'http://<user:\w+>.digpage.com/<lang:\w+>/profile' => 'user/profile',
-            ]
+            ]*/
         ],
 
     ],

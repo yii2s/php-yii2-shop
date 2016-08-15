@@ -90,3 +90,6 @@ ALTER TABLE zc_withdraw RENAME TO zc_withdraw;
 SELECT *
 FROM `shop`.`zc_goods_attr_val_map` AS a, `shop`.`zc_goods_attr_val_map` AS b
 WHERE b.vid = a.vid AND b.aid = 1 AND a.id = 6
+
+--删除外键
+ALTER TABLE zc_commend_goods DROP FOREIGN KEY zc_commend_goods_ibfk_1;

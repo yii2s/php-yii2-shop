@@ -117,5 +117,38 @@ class FileUtil
         return false;
     }
 
+    /**
+     * @brief 获取目录下的所有文件
+     * note:包括子目录下的文件
+     * @param $dir
+     * @return array
+     * @author wuzhc
+     * @since 2016-06-20
+     */
+    public static function readDirFile($dir)
+    {
+        $result = array();
+        if (!is_dir($dir)) {
+            return $result;
+        }
+
+        $fileDir = scandir($dir);
+        if (!$fileDir) {
+            return $result;
+        }
+
+        foreach ($fileDir as $file) {
+            if ($file == '.' || $file == '..') {
+                continue;
+            } elseif (is_dir($dir.$file)) {
+                $result = array_merge($result, self::readDirFile($dir.DIRECTORY_SEPARATOR.$file.DIRECTORY_SEPARATOR));
+            } else {
+                array_push($result, $dir.DIRECTORY_SEPARATOR.$file);
+            }
+        }
+
+        return $result;
+    }
+
 
 }

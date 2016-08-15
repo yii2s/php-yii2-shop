@@ -75,7 +75,7 @@ $this->title = '商品列表';
                 </div>
                 <div class="" style="width: 100%">
                     <div class="thumbnail" style="border: #ffffff">
-                        <img src="http://img14.360buyimg.com/n7/jfs/t718/254/983764544/122272/4f92a813/55104384N087402f7.jpg"
+                        <img src="https://img14.360buyimg.com/n7/jfs/t2686/16/1421960568/180042/72e5cc1/573db86aN1be10b39.jpg"
                              alt="通用的占位符缩略图">
                         <div class="caption">
                             <h3 style="color: #E4393C">¥133.00</h3>
@@ -85,7 +85,7 @@ $this->title = '商品列表';
                 </div>
                 <div class="" style="width: 100%">
                     <div class="thumbnail" style="border: #ffffff">
-                        <img src="http://img14.360buyimg.com/n7/jfs/t718/254/983764544/122272/4f92a813/55104384N087402f7.jpg"
+                        <img src="https://img14.360buyimg.com/n7/jfs/t2686/16/1421960568/180042/72e5cc1/573db86aN1be10b39.jpg"
                              alt="通用的占位符缩略图">
                         <div class="caption">
                             <h3 style="color: #E4393C">¥133.00</h3>
@@ -95,7 +95,7 @@ $this->title = '商品列表';
                 </div>
                 <div class="" style="width: 100%">
                     <div class="thumbnail" style="border: #ffffff">
-                        <img src="http://img14.360buyimg.com/n7/jfs/t718/254/983764544/122272/4f92a813/55104384N087402f7.jpg"
+                        <img src="https://img14.360buyimg.com/n7/jfs/t2686/16/1421960568/180042/72e5cc1/573db86aN1be10b39.jpg"
                              alt="通用的占位符缩略图">
                         <div class="caption">
                             <h3 style="color: #E4393C">¥133.00</h3>
