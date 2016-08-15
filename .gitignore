@@ -33,7 +33,7 @@ phpunit.phar
 /frontend/web/assets
 /backend/web/assets
 /uploads/tempFile
-<<<<<<< HEAD
+
 
 /backend/runtime
 /frontend/runtime
