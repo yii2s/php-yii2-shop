@@ -90,7 +90,7 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div id="attr-select">
-                        <div class="control-group">
+                        <!--<div class="control-group">
                             <label class="control-label">品牌：</label>
                             <div class="controls attr-val-list control-row-auto ">
                                 <label class="checkbox"><input name="range" type="checkbox" value="1">范围1</label>
@@ -106,7 +106,7 @@ use yii\helpers\Html;
                                 <label class="checkbox"><input name="range" type="checkbox" value="2">范围2</label>
                                 <label class="checkbox"><input name="range" type="checkbox" value="3">范围3</label>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <!--<div class="control-group">
@@ -147,14 +147,14 @@ use yii\helpers\Html;
                             </select>
                         </div>
                     </div>-->
-                    <div class="control-group">
+                    <div class="control-group" style="clear: both">
                         <label class="control-label">上架时间：</label>
                         <div class="controls control-row-auto">
                             <label class="radio">
-                                <input type="radio" name="is_del" value="now" checked="checked">立刻
+                                <input type="radio" name="is_del" value="3" checked="checked">立刻
                             </label>
                             <label  class="radio">
-                                <input id="chk" type="radio" name="is_del" value="set">稍后
+                                <input type="radio" name="is_del" value="0">稍后
                             </label>
                          </div>
                     </div>
@@ -162,16 +162,16 @@ use yii\helpers\Html;
                         <label class="control-label">推荐类型：</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <input type="checkbox" value="0">最新商品
+                                <input type="checkbox" value="1" name="recommend">最新商品
                             </label>
                             <label class="checkbox">
-                                <input type="checkbox" value="1" checked="checked">特价商品
+                                <input type="checkbox" value="2" checked="checked" name="recommend">特价商品
                             </label>
                             <label class="checkbox">
-                                <input type="checkbox" value="1" checked="checked">热卖商品
+                                <input type="checkbox" value="3" checked="checked" name="recommend">热卖商品
                             </label>
                             <label class="checkbox">
-                                <input type="checkbox" value="1" checked="checked">推荐商品
+                                <input type="checkbox" value="4" checked="checked" name="recommend">推荐商品
                             </label>
                         </div>
                     </div>
@@ -189,13 +189,13 @@ use yii\helpers\Html;
                     <div class="control-group">
                         <label class="control-label"><s>*</s>SEO关键字：</label>
                         <div class="controls">
-                            <input name="sname" type="text" class="input-large" VALUE="商品测试啦">
+                            <input name="keywords" type="text" class="input-large" VALUE="商品测试啦">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">SEO描述：</label>
                         <div class="controls control-row4">
-                            <textarea type="text" class="input-large" data-valid="{}">商品测试啦</textarea>
+                            <textarea type="text" id="description" class="input-large" data-valid="{}">商品测试啦</textarea>
                         </div>
                     </div>
                 </div>
@@ -212,7 +212,7 @@ use yii\helpers\Html;
             </div>
             <br>
             <div class="form-actions span5 offset3">
-                <button id="btnSearch" type="submit" class="button button-primary">提交</button>
+                <button id="submit-form" type="submit" class="button button-primary">提交</button>
             </div>
         </form>
     </div>
@@ -249,7 +249,7 @@ use yii\helpers\Html;
                     //结果的模板，可以根据不同状态进进行设置
                     resultTpl: {
                         'default': '<div class="default">{name}</div>',
-                        'success': '<div class="success"><img src="{url}" width="120px" height="120"/></div>',
+                        'success': '<div class="success"><input class="ablum" name="photo" value="{url}" type="hidden"><img src="{url}" width="120px" height="120"/></div>',
                         'error': '<div class="error"><span class="uploader-error">{msg}</span></div>',
                         'progress': '<div class="progress"><div class="bar" style="width:{loadedPercent}%"></div></div>'
                     }
@@ -302,6 +302,7 @@ use yii\helpers\Html;
             $(".second-categories").show();
             $(".three-categories").empty().hide();
             $("#attr-select").empty().hide();
+            $("#cid").val(val);
             var second_categories = categories[val] || {};
             var html = '<option>--请选择--</option>';
             for(var j in second_categories) {
@@ -315,6 +316,7 @@ use yii\helpers\Html;
             var val = $(this).val();
             $(".three-categories").empty();
             $("#attr-select").empty().hide();
+            $("#cid").val(val);
             var three_categories = categories[val] || {};
             var html = '<option>--请选择--</option>';
             for(var j in three_categories) {
@@ -327,6 +329,7 @@ use yii\helpers\Html;
         $(".three-categories").change(function(){
             $("#attr-select").empty().hide;
             var categoryID = $(this).val();
+            $("#cid").val(categoryID);
             $.ajax({
                 type : "GET",
                 url : '<?= Yii::$app->urlManager->createUrl("category/get-attr-val-by-cid")?>',
@@ -338,11 +341,11 @@ use yii\helpers\Html;
                         var html = '<div class="control-group">';
                         for (var k in attr) {
                             html += '<label class="control-label">'+attr[k].name+'：</label>';
-                            html += '<div class="controls control-row-auto ">';
+                            html += '<div class="controls control-row-auto" style="width: 70%">';
                             var val = attr[k].value || {};
                             for (var v in val) {
-                                html += '<label class="checkbox">';
-                                html += '<input name="vid" type="checkbox" value="'+val[v].id+'">';
+                                html += '<label class="checkbox" style="margin-right: 10px">';
+                                html += '<input name="vid" type="checkbox" value="'+attr[k].id+'-'+val[v].id+'">';
                                 html += val[v].name;
                                 html += '</label>';
                             }
@@ -354,6 +357,76 @@ use yii\helpers\Html;
             });
         });
 
+
+        //提交表单
+        $("#submit-form").on("click", function(e){
+
+            e.preventDefault();
+            var name = $("input[name=name]").val();
+            var goods_no = $("input[name=goods_no]").val();
+            var sell_price = $("input[name=sell_price]").val();
+            var market_price = $("input[name=market_price]").val();
+            var cost_price = $("input[name=cost_price]").val();
+            var categoryID = $("input[name=cid]").val();
+            var is_del = $("input[name=is_del][type=radio][checked]").val();
+            var content = editor.$txt.html();
+            var keywords = $("input[name=keywords]").val();
+            var description = $("#description").text();
+
+            if (!categoryID) {
+                alert("请选择分类");
+                return false;
+            }
+
+            var data = {
+                name         : name,
+                goods_no     : goods_no,
+                sell_price   : sell_price,
+                market_price : market_price,
+                cost_price   : cost_price,
+                categoryID   : categoryID,
+                is_del       : is_del,
+                content      : content,
+                keywords     : keywords,
+                description  : description,
+                recommend    : [],
+                photo        : [],
+                attr_vid     : []
+            };
+
+            //推荐商品
+            $("input[name='recommend']:checked").each(function(){
+                var val = $(this).val();
+                data.recommend.push(val);
+            });
+
+            //相册
+            $("input[name=photo]").each(function(){
+                var img = $(this).val();
+                data.photo.push(img);
+            });
+
+            //商品属性值
+            $("input[name='vid']:checked").each(function(){
+                var vid = $(this).val();
+                data.attr_vid.push(vid);
+            });
+
+            $.ajax({
+                dataType : "Json",
+                type : "post",
+                data : data,
+                url : "<?= Yii::$app->urlManager->createUrl(['goods/add']) ?>",
+                success : function (data) {
+                    if (data.status == 1) {
+                        alert("添加失败");
+                    } else {
+                        alert("添加成功");
+                        //window.location.href = "<?= Yii::$app->urlManager->createUrl(['goods/list']) ?>";
+                    }
+                }
+            });
+        });
 
 
 

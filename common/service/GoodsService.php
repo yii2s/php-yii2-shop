@@ -3,8 +3,16 @@
 namespace common\service;
 
 
+use common\models\Goods;
+use common\models\GoodsAttribute;
+use common\models\GoodsAttrValMap;
+use common\models\GoodsPhoto;
+use common\models\GoodsPhotoRelation;
+use Yii;
 use common\config\Conf;
+use common\hybrid\AbstractHybrid;
 use common\hybrid\GoodsHybrid;
+use common\models\CommentGoods;
 use Faker\Provider\DateTime;
 
 class GoodsService extends AbstractService
@@ -20,33 +28,188 @@ class GoodsService extends AbstractService
         return parent::factory($className);
     }
 
+    /**
+     * @brief 保存商品
+     * @param $args
+     * @return bool
+     * @author wuzhc 2016-08-13
+     */
     public function save($args)
     {
 
-        if ($args['is_del'] == Conf::DOWN_GOODS)
-        {
+        if ($args['is_del'] == Conf::DOWN_GOODS) {
+            $args['down_time'] = DateTime::date('Y-m-d H:i:s');
+        } elseif ($args['is_del'] == Conf::UP_GOODS) {
             $args['up_time'] = DateTime::date('Y-m-d H:i:s');
         }
-        elseif ($args['is_del'] == Conf::UP_GOODS)
-        {
-            $args['down_time'] = DateTime::date('Y-m-d H:i:s');
-        }
 
-        $args['create_time'] = DateTime::date('Y-m-d H:i:s');
+        $hybrid = new AbstractHybrid();
+        $goodsHybrid = new GoodsHybrid();
 
         //保存商品基本数据
-        $goodsHybrid = new GoodsHybrid();
         $goodsID = $goodsHybrid->save($args);
         if (!$goodsID) {
+            echo 'goodsID';
             return false;
         }
 
+        //保存推荐
+        if ($args['recommend']) {
+            CommentGoods::deleteAll(['goods_id' => $goodsID]);
+            $recommend = [];
+            foreach (($args['recommend']) as $commendID) {
+                $recommend[] = [$commendID, $goodsID];
+            }
+            $hybrid->batchSave(CommentGoods::tableName(),['commend_id','goods_id'], $recommend);
+        }
+
         //保存商品图集
+        if ($args['photo']) {
+            GoodsPhotoRelation::deleteAll(['goods_id' => $goodsID]);
+            $photos = [];
+            $root = Yii::getAlias('@webroot');
+            foreach (($args['photo']) as $img) {
+                $filename = $root . DIRECTORY_SEPARATOR . $img;
+                if (!is_file($filename)) {
+                    continue;
+                }
+                $goodsPhotoID = $goodsHybrid->saveGoodsPhoto(md5_file($filename), $img);
+                if (!$goodsPhotoID) {
+                    continue;
+                }
+                $photos[] = [$goodsID, $goodsPhotoID];
+            }
+            $hybrid->batchSave(GoodsPhotoRelation::tableName(), ['goods_id', 'photo_id'], $photos);
+        }
 
+        //保存商品属性值
+        if ($args['attr_vid']) {
+            $goodsAttrValMap = [];
+            foreach ((array)$args['attr_vid'] as $avid) {
+                list($aid, $vid) = explode('-', $avid);
+                $goodsAttrValMap[] = [$goodsID, intval($aid), intval($vid)];
+            }
+            $hybrid->batchSave(GoodsAttrValMap::tableName(), ['gid', 'aid', 'vid'], $goodsAttrValMap);
+        }
 
+        return true;
+    }
 
+    /**
+     * @brief 商品列表
+     * @param $args
+     * @return array|\yii\db\ActiveRecord[]
+     * @author wuzhc 2016-08-14
+     */
+    public function getList($args)
+    {
+        $object = Goods::find()->from(Goods::tableName(). 'as t');
+        if ($args['cid']) {
+                $object->andFilterWhere(['t.cid' => $args['cid']]);
+        }
+        if ($args['select']) {
+            $object->select((array)$args['select']);
+        }
+        if ($args['keyword']) {
+            $object->Where(['like', 't.name', $args['keyword']]);
+        }
+        if (is_numeric($args['limit'])) {
+            $object->limit($args['limit']);
+        }
+        if (is_numeric($args['offset'])) {
+            $object->offset($args['offset']);
+        }
 
+        //属性值搜索
+        if ($args['vid']) {
+            $goodIDs = [];
+            foreach ((array)$args['vid'] as $k => $v) {
+                $attrValMap = GoodsAttrValMap::find()
+                    ->select(['gid'])
+                    ->where(['vid' => $v])
+                    ->asArray()
+                    ->groupBy(['gid'])
+                    ->all();
+                $gids = array_map(function($a){return $a['gid'];}, $attrValMap);
 
+                //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+                if (!$gids) {
+                    return array();
+                }
+
+                //第一次将值赋值goodIDs，之后循环都和之前的结果进行交集运算
+                if ($k == 0) {
+                    $goodIDs = $gids;
+                } else {
+                    $goodIDs = array_intersect($goodIDs, $gids);
+                }
+            }
+
+            //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+            if (!$goodIDs) {
+                return array();
+            }
+            $object->andFilterWhere(['id' => $goodIDs]);
+        }
+
+        $args['order'] ? $object->orderBy((array)$args['order']) : $object->orderBy(['t.id' => SORT_DESC]);
+
+        //return $object->createCommand()->getRawSql();
+        return $object->asArray($args['asArray'])->groupBy('t.id')->all();
+    }
+
+    /**
+     * @brief 统计商品
+     * @param $args
+     * @return int|string
+     * @author wuzhc 2016-08-14
+     */
+    public function countGoods($args)
+    {
+        $object = Goods::find()->from(Goods::tableName(). 'as t');
+        if ($args['cid']) {
+            $object->andFilterWhere(['t.cid' => $args['cid']]);
+        }
+        if ($args['select']) {
+            $object->select((array)$args['select']);
+        }
+        if ($args['keyword']) {
+            $object->Where(['like', 't.name', $args['keyword']]);
+        }
+
+        //属性值搜索
+        if ($args['vid']) {
+            $goodIDs = [];
+            foreach ((array)$args['vid'] as $k => $v) {
+                $attrValMap = GoodsAttrValMap::find()
+                    ->select(['gid'])
+                    ->where(['vid' => $v])
+                    ->asArray()
+                    ->groupBy(['gid'])
+                    ->all();
+                $gids = array_map(function($a){return $a['gid'];}, $attrValMap);
+
+                //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+                if (!$gids) {
+                    return 0;
+                }
+
+                //第一次将值赋值goodIDs，之后循环都和之前的接口进行交集运算
+                if ($k == 0) {
+                    $goodIDs = $gids;
+                } else {
+                    $goodIDs = array_intersect($goodIDs, $gids);
+                }
+            }
+
+            //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
+            if (!$goodIDs) {
+                return 0;
+            }
+            $object->andFilterWhere(['id' => $goodIDs]);
+        }
+
+        return $object->count();
     }
 
 
