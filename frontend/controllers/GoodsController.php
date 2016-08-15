@@ -1,9 +1,12 @@
 <?php
 namespace frontend\controllers;
 
+use common\components\CController;
 use common\models\Goods;
 use common\models\GoodsAttrValMap;
+use common\service\CategoryService;
 use common\service\GoodsService;
+use common\utils\FileUtil;
 use common\utils\ResponseUtil;
 use Yii;
 use yii\web\Controller;
@@ -12,7 +15,7 @@ use yii\web\Controller;
 /**
  * Goods controller
  */
-class GoodsController extends Controller
+class GoodsController extends CController
 {
     public function actionList()
     {
@@ -27,14 +30,14 @@ class GoodsController extends Controller
     {
         $return = [];
 
-        $cid    = Yii::$app->request->get('cid',4);
-        $vid    = Yii::$app->request->get('vid','0');
-        $vid    = array_map('intval', explode('-', $vid));
-        $word   = Yii::$app->request->get('word');
-        $order  = Yii::$app->request->get('order');
-        $limit  = Yii::$app->request->get('pageSize', 48);
+        $cid    = Yii::$app->request->post('cid',608);
+        $vid    = (array)Yii::$app->request->post('vid');
+        $vid    = array_map('intval', $vid);
+        $word   = Yii::$app->request->post('word');
+        $order  = Yii::$app->request->post('order');
+        $limit  = Yii::$app->request->post('pageSize', 48);
         $limit  = $limit > 48 ? 48 : intval($limit);
-        $offset = Yii::$app->request->get('page', 0);
+        $offset = Yii::$app->request->post('page', 0);
 
         $args = [
             'cid' => intval($cid),
@@ -61,11 +64,32 @@ class GoodsController extends Controller
 
     public function actionTest()
     {
-        $data = GoodsAttrValMap::find()->andWhere(['vid'=>1022])->andWhere(['vid'=>29])->andWhere(['ds'=>1])->asArray()->all();
-        print_r($data);
+        $dirPath = Yii::getAlias('@common') . DIRECTORY_SEPARATOR . 'data'. DIRECTORY_SEPARATOR . 'goods';
+        $sqlFiles = FileUtil::readDirFile($dirPath);
+
+       // echo $sqlFiles[0];exit;
+        FileUtil::addFlag($sqlFiles[0]);
+
     }
 
     private function _getOrder($order)
     {
+    }
+
+    /**
+     * @brief 根据分类ID获取对应属性和属性值
+     * @param int $cid 分类ID
+     * @author wuzhc 2016-08-10
+     */
+    public function actionGetAttrValByCid($cid = 611)
+    {
+        $this->checkAjaxRequest();
+
+        if (!is_numeric($cid)) {
+            ResponseUtil::json(null, 1, '参数错误');
+        }
+
+        $attr = CategoryService::factory()->getAttrValByCid($cid);
+        ResponseUtil::json(['data' => $attr]);
     }
 }

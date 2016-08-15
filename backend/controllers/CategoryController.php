@@ -371,25 +371,7 @@ class CategoryController extends CController
             ResponseUtil::json(null, 1, '参数错误');
         }
 
-        //分类对应属性值
-        $catVals = Category::findOne($cid)->attrVals;
-        $val = $temp = array();
-        foreach ($catVals as $v) {
-            $temp['id'] = $v->id;
-            $temp['name'] = $v->name;
-            $val[$v->aid][] = $temp;
-        }
-
-        //分类对应属性
-        $catAttrs = Category::findOne($cid)->attrs;
-        $attr = $temp = array();
-        foreach ($catAttrs as $a) {
-            $temp['id'] = $a->id;
-            $temp['name'] = $a->name;
-            $temp['value'] = $val[$a->id] ?: array();
-            $attr[] = $temp;
-        }
-
+        $attr = CategoryService::factory()->getAttrValByCid($cid);
         ResponseUtil::json(['data' => $attr]);
     }
 

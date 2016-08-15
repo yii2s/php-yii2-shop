@@ -150,5 +150,22 @@ class FileUtil
         return $result;
     }
 
+    /**
+     * @brief 为文件或文件夹名称添加标志 e.g.  rename 'demo.php' to 'demo_lock.php'
+     * @param string $file 文件或文件夹路径
+     * @param string $flag
+     * @return bool
+     * @author wuzhc 2016-08-15
+     */
+    public static function addFlag($file, $flag = '_lock')
+    {
+        if (!file_exists($file)) {
+            return false;
+        }
+        $pathInfo = pathinfo($file);
+        $newName = $pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['filename'];
+        $newName .= $flag . '.' . $pathInfo['extension'];
+        return rename($file, $newName);
+    }
 
 }

@@ -30,6 +30,7 @@ class GoodsHybrid extends AbstractHybrid
             $goods = new Goods();
         }
         $goods->name = $args['name'];
+        $goods->cid = (int)$args['cid'];
         $goods->goods_no = $args['goods_no'];
         $goods->model_id = (int)$args['model_id'];
         $goods->sell_price = $args['sell_price'];

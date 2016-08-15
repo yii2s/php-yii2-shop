@@ -65,7 +65,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container" style="width: 90%">
+    <div class="container" style="width: 100%;padding: 70px 40px 0px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

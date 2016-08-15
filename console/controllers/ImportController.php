@@ -26,20 +26,35 @@ class ImportController extends Controller
     {
         error_reporting(0);
         $hybrid = new GoodsHybrid();
-        $data = Task::find()->asArray()->all();
-        foreach ($data as $k=>$d) {
+
+        while (True) {
+            $task = Task::find()->where(['status' => 0])->one();
+            if (empty($task)) {
+                echo 'all data has inserted';
+                break;
+            }
+
             $args['goods_no'] = 'k' . rand(9999,1000000);
-            $args['name'] = $d['title'];
-            $args['sell_price'] = $d['price'];
-            $args['market_price'] = $d['price'] + 23;
-            $args['cost_price'] = $d['price'] * 0.4;
-            $args['ad_img'] = $d['thumb'];
-            $args['img'] = $d['thumb'];
-            $args['content'] = $d['title'];
+            $args['name'] = $task->title;
+            $args['sell_price'] = floatval($task->price);
+            $args['market_price'] = floatval($task->price) + 23;
+            $args['cost_price'] = floatval($task->price) * 0.4;
+            $args['ad_img'] = $task->thumb;
+            $args['img'] = $task->thumb;
+            $args['content'] = $task->title;
             $args['is_del'] = 3;
+            $args['weight'] = rand(1,300);
+            $args['cid'] = rand(608,611);
             $args['up_time'] = date('Y-m-d H:i:s', time());
-            echo $hybrid->save($args) ? $hybrid->id . ' success' : $hybrid->id . ' fail';
-            echo PHP_EOL;
+            $result = $hybrid->save($args);
+
+            //记录添加行为1成功，2失败
+            $result ? $task->status = 1 : $task->status = 2;
+            $task->save();
+
+            $title = '('.$result.') ' . iconv('UTF-8','GBK',$task->title);
+            echo $result ? $title . ' success' : $title . ' fail';
+            echo PHP_EOL . PHP_EOL;
         }
     }
 
@@ -52,10 +67,13 @@ class ImportController extends Controller
         $dirPath = Yii::getAlias('@common') . DIRECTORY_SEPARATOR . 'data'. DIRECTORY_SEPARATOR . 'goods';
         $sqlFiles = FileUtil::readDirFile($dirPath);
 
-        $j = 0;
+        $row = 1;
         foreach ($sqlFiles as $file) {
             if (!is_file($file)) {
                 echo $file . 'is not a file' . PHP_EOL;
+                continue;
+            }
+            if (stripos(basename($file), '_lock') !== false) {
                 continue;
             }
             $handle = fopen($file, "r");
@@ -65,23 +83,26 @@ class ImportController extends Controller
             }
             $i = 0;
             while (($sql = fgets($handle)) !== false) {
-                $i++;
-                $j++;
 
                 //跳过第一行
+                $i++;
                 if ($i == 1) {
                     continue;
                 }
 
+                $row++;
                 $sql = str_ireplace('task_18689', 'task', $sql);
                 $result = Yii::$app->db->createCommand($sql)->execute();
-                echo $result > 0 ? $j . ' success' : $j . ' fail';
+                echo $result > 0 ? $row . ' success' : $row . ' fail';
                 echo PHP_EOL;
             }
             if (!feof($handle)) {
                 echo "Error: unexpected fgets() fail" . PHP_EOL;
             }
             fclose($handle);
+
+            //锁定文件
+            FileUtil::addFlag($file, '_lock');
         }
     }
 }

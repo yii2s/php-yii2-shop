@@ -295,7 +295,6 @@ class CategoryService extends AbstractService
 
     //endregion 类别管理
 
-
     //region 属性管理
 
     /**
@@ -378,6 +377,36 @@ class CategoryService extends AbstractService
     }
 
     /**
+     * @brief 获取分类对应的属性值
+     * @param $cid
+     * @return array
+     * @author wuzhc 2016-08-15
+     */
+    public function getAttrValByCid($cid)
+    {
+        //分类对应属性值
+        $catVals = Category::findOne($cid)->attrVals;
+        $val = $temp = array();
+        foreach ($catVals as $v) {
+            $temp['id'] = $v->id;
+            $temp['name'] = $v->name;
+            $val[$v->aid][] = $temp;
+        }
+
+        //分类对应属性
+        $catAttrs = Category::findOne($cid)->attrs;
+        $attr = $temp = array();
+        foreach ($catAttrs as $a) {
+            $temp['id'] = $a->id;
+            $temp['name'] = $a->name;
+            $temp['value'] = $val[$a->id] ?: array();
+            $attr[] = $temp;
+        }
+
+        return $attr;
+    }
+
+    /**
      * @brief 属性值列表
      * @param $args
      * @param bool|true $asArray
@@ -418,4 +447,6 @@ class CategoryService extends AbstractService
 
 
     //endregion 属性管理
+
+
 }

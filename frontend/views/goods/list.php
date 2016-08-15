@@ -4,7 +4,12 @@ $this->title = '商品列表';
 ?>
 <?= Html::cssFile('public/frontend/css/base.css'); ?>
 <?= Html::cssFile('public/frontend/css/site.css'); ?>
-
+<style>
+    .body-content{
+        border: 1px solid #DDDDDD;
+        padding: 5px 20px;
+    }
+</style>
 <ol class="breadcrumb">
     <li><a href="#">Home</a></li>
     <li><a href="#">2013</a></li>
@@ -12,61 +17,10 @@ $this->title = '商品列表';
 </ol>
 <div class="site-index">
 
-    <div class="body-content" style="background-color: #ffffff; padding: 5px 5px">
+    <!--属性值选择 start-->
+    <div class="body-content" id="attr-vals" style="background-color: #ffffff; padding: 10px 10px"></div>
+    <!--属性值选择 end-->
 
-        <div class="row" style="margin-bottom: 5px">
-            <div class="col-lg-1">
-                <button type="button" class="btn btn-primary btn-sm">品牌：</button>
-            </div>
-            <div class="col-lg-11 attr-list">
-                <a class="btn btn-danger btn-sm" href="#" role="button">全部</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">鸿星尔克</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">李宁</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">特步</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">海澜之家</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">361</a>
-            </div>
-        </div>
-        <div class="row" style="margin-bottom: 5px">
-            <div class="col-lg-1">
-                <button type="button" class="btn btn-primary btn-sm">品牌：</button>
-            </div>
-            <div class="col-lg-11 attr-list">
-                <a class="btn btn-danger btn-sm" href="#" role="button">全部</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">鸿星尔克</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">李宁</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">特步</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">海澜之家</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">361</a>
-            </div>
-        </div>
-        <div class="row" style="margin-bottom: 5px">
-            <div class="col-lg-1">
-                <button type="button" class="btn btn-primary btn-sm">品牌：</button>
-            </div>
-            <div class="col-lg-11 attr-list">
-                <a class="btn btn-danger btn-sm" href="#" role="button">全部</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">鸿星尔克</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">李宁</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">特步</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">海澜之家</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">361</a>
-            </div>
-        </div>
-        <div class="row" style="margin-bottom: 5px">
-            <div class="col-lg-1">
-                <button type="button" class="btn btn-primary btn-sm">品牌：</button>
-            </div>
-            <div class="col-lg-11 attr-list">
-                <a class="btn btn-danger btn-sm" href="#" role="button">全部</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">鸿星尔克</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">李宁</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">特步</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">海澜之家</a>
-                <a class="btn btn-default btn-sm" href="#" role="button">361</a>
-            </div>
-        </div>
-    </div>
     <div class="body-content">
         <div class="row">
             <div class="col-lg-2">
@@ -127,34 +81,40 @@ $this->title = '商品列表';
                     </div>
                 </div>
                 <div class="row" style="float: right">
-                    <div class="col-sm-6 col-md-12" id="result-page">
-                    <nav>
-                        <ul class="pagination">
-                            <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-                        </ul>
-                        </nav>
-                        </div>
+                    <div class="col-sm-6 col-md-12" id="result-page"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <script type="text/html" id="productTemplate">
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
-            <img src="<%=ad_img%>" alt="通用的占位符缩略图" style="height: 220px">
+            <img src="<%=ad_img%>" alt="<%=name%>" style="height: 220px">
             <div class="caption" style="height: 130px">
                 <h3 style="color: #E4393C">¥<%=sell_price%> <small><del>¥<%=market_price%></del></small></h3>
                 <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail'])?>&id=<%=id%>" style="color: #333333"><%=name%></a></p>
             </div>
         </div>
     </div>
+</script>
+
+<script type="text/html" id="attrValTemplate">
+    <% for (var i = 0,  len = list.length; i < len; i++) { %>
+    <div class="row" style="margin-bottom: 5px">
+        <div class="col-lg-1 text-right">
+            <a class="btn btn-primary btn-xs" href="#" role="button"><%=list[i].name%>：</a>
+        </div>
+        <div class="col-lg-11" style="padding-left:0px">
+            <a class="btn btn-danger attr-select btn-xs" href="#" role="button">全部</a>
+            <% var attr_val = list[i].value || [];  %>
+            <% for (var j = 0, len2 = attr_val.length; j < len2; j++) { %>
+            <a class="btn btn-xs attr-select" href="#" role="button" data-i="<%=attr_val[j].id%>"><%=attr_val[j].name%></a>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
 </script>
 
 <?= Html::jsFile('public/common/js/upload-page.js'); ?>
@@ -179,11 +139,11 @@ $this->title = '商品列表';
             data.page = cur;
             data.pageSize = len;
             data.keyWord = key_Word;    // 获取关键字
-            $list.html('<div class="col-sm-12 col-md-12"><article style="width:400px;margin: 150px auto;"><img src="public/common/images/loading.gif"><span style="font-size: 24px;margin-left: 20px;">正在加载信息，请稍候...</span></article></div>');
+            $list.html('<div class="col-sm-12 col-md-12"><article style="width:400px;margin: 150px auto;"><img src="public/common/images/loading.gif"><span style="font-size: 24px;margin-left: 20px;">正在加载中，请稍候...</span></article></div>');
             reajax && reajax.abort();           //取消上一个同等请求
             reajax = $.ajax({
                 url: "<?= Yii::$app->urlManager->createUrl(['goods/ajax-list']);?>",
-                type: "GET",
+                type: "POST",
                 dataType: "json",
                 data: data,
                 success: function(data) {
@@ -197,12 +157,12 @@ $this->title = '商品列表';
                         items += template.render("productTemplate", list[i]);
                     }
                     if (leni == 0) {
-                        items = '<p class="text-center" style="font-size:24px;color:orange;height:300px;line-height:300px;">暂无内容！</p>';
+                        items = '<p class="text-center" style="font-size:24px;color:orange;height:300px;line-height:300px;">暂无商品！</p>';
                     }
                     $list.html(items);
                 },
                 error: function() {
-                    reajax.statusText != "abort" && $list.html('<p class="f24 orange font-y tc" style="height:300px;line-height:300px;">暂无内容！</p>');
+                    reajax.statusText != "abort" && $list.html('<p class="f24 orange font-y tc" style="height:300px;line-height:300px;">暂无商品！</p>');
                 }
             });
         }
@@ -220,12 +180,46 @@ $this->title = '商品列表';
         }
 
         //搜索条件
-        function getConditions()
-        {
-            return {};
+        function getConditions() {
+            var data = {
+                vid : []
+            };
+
+            //属性值集合
+            $("#attr-vals").children().find(".btn-danger").each(function(){
+                data.vid.push($(this).data("i"));
+            });
+
+            return data;
         }
 
         getPage();
+
+        //属性值列表
+        (function(){
+            $.ajax({
+                url : "<?= Yii::$app->urlManager->createUrl(['goods/get-attr-val-by-cid'])?>",
+                dataType : "json",
+                type : "get",
+                success : function (data){
+                    var vals = data.data ? data.data : [];
+                    var items = template.render("attrValTemplate", {list : vals});
+                    if (vals.length == 0) {
+                        $("#attr-vals").html("");
+                    } else {
+                        $("#attr-vals").html(items);
+                    }
+                }
+            });
+        })();
+
+        $(document.body).on("click", ".attr-select", function(){
+            var vid = $(this).data("i");
+            $(this).addClass("btn-danger").siblings().removeClass("btn-danger");
+            getPage();
+        });
+
+
     });
 
 <?php $this->endBlock() ?>
