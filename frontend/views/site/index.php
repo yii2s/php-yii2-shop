@@ -7,11 +7,11 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Welcome To ZCshop</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">ZCshop基于YII2.0框架开发的一套商城系统，相对于其他系统，它具有高效，稳定，安全的优势</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><a class="btn btn-lg btn-success" href="<?= Yii::$app->urlManager->createUrl(['goods/list', 'cid' => 4])?>">ZC商城系统</a></p>
     </div>
 
     <div class="body-content">

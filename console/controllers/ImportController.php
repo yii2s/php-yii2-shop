@@ -10,6 +10,8 @@ namespace console\controllers;
 
 
 use common\hybrid\GoodsHybrid;
+use common\models\CommentGoods;
+use common\models\GoodsAttrValMap;
 use common\models\Task;
 use common\utils\FileUtil;
 use Yii;
@@ -43,14 +45,46 @@ class ImportController extends Controller
             $args['img'] = $task->thumb;
             $args['content'] = $task->title;
             $args['is_del'] = 3;
-            $args['weight'] = rand(1,300);
-            $args['cid'] = rand(608,611);
+            $args['weight'] = rand(5,300);
+            $args['cid'] = rand(3,4);
             $args['up_time'] = date('Y-m-d H:i:s', time());
             $result = $hybrid->save($args);
 
             //记录添加行为1成功，2失败
             $result ? $task->status = 1 : $task->status = 2;
             $task->save();
+
+            //保存属性值关系
+            $goodsAttr = new GoodsAttrValMap();
+            $goodsAttr->vid = rand(1, 25);
+            $goodsAttr->aid = 1;
+            $goodsAttr->gid = $result;
+            $goodsAttr->save();
+
+            $goodsAttr = new GoodsAttrValMap();
+            $goodsAttr->vid = rand(1036, 1037);
+            $goodsAttr->aid = 9;
+            $goodsAttr->gid = $result;
+            $goodsAttr->save();
+
+            $goodsAttr = new GoodsAttrValMap();
+            $goodsAttr->vid = rand(1024, 1035);
+            $goodsAttr->aid = 10;
+            $goodsAttr->gid = $result;
+            $goodsAttr->save();
+
+            $goodsAttr = new GoodsAttrValMap();
+            $goodsAttr->vid = rand(1021, 1023);
+            $goodsAttr->aid = 2;
+            $goodsAttr->gid = $result;
+            $goodsAttr->save();
+
+            //推荐商品
+            $commend = new CommentGoods();
+            $commend->goods_id = $result;
+            $commend->commend_id = rand(1,4);
+            $commend->save();
+
 
             $title = '('.$result.') ' . iconv('UTF-8','GBK',$task->title);
             echo $result ? $title . ' success' : $title . ' fail';
@@ -64,7 +98,7 @@ class ImportController extends Controller
      */
     public function actionReadSql()
     {
-        $dirPath = Yii::getAlias('@common') . DIRECTORY_SEPARATOR . 'data'. DIRECTORY_SEPARATOR . 'goods';
+        $dirPath = Yii::getAlias('@common') . DIRECTORY_SEPARATOR . 'data'. DIRECTORY_SEPARATOR . 'goods/drink';
         $sqlFiles = FileUtil::readDirFile($dirPath);
 
         $row = 1;
@@ -91,7 +125,7 @@ class ImportController extends Controller
                 }
 
                 $row++;
-                $sql = str_ireplace('task_18689', 'task', $sql);
+                $sql = str_ireplace('task_18689', 'zc_task', $sql);
                 $result = Yii::$app->db->createCommand($sql)->execute();
                 echo $result > 0 ? $row . ' success' : $row . ' fail';
                 echo PHP_EOL;

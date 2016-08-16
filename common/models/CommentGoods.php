@@ -31,7 +31,7 @@ class CommentGoods extends \yii\db\ActiveRecord
         return [
             [['commend_id', 'goods_id'], 'required'],
             [['commend_id', 'goods_id'], 'integer'],
-            [['goods_id'], 'exist', 'skipOnError' => true, 'targetClass' => zcGoods::className(), 'targetAttribute' => ['goods_id' => 'id']],
+            [['goods_id'], 'exist', 'skipOnError' => true, 'targetClass' => Goods::className(), 'targetAttribute' => ['goods_id' => 'id']],
         ];
     }
 

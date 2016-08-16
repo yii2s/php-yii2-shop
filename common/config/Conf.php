@@ -35,6 +35,9 @@ class Conf
     const IMG_CROP = 'crop';
     /** 图片缩略图标识 */
     const IMG_THUMB = 'thumb';
+    /** 推荐商品 */
+    const GOODS_RECOMMEND = 4;
+
 
 
 

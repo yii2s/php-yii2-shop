@@ -127,7 +127,8 @@ class GoodsService extends AbstractService
         //属性值搜索
         if ($args['vid']) {
             $goodIDs = [];
-            foreach ((array)$args['vid'] as $k => $v) {
+            $first = 1;
+            foreach ((array)$args['vid'] as $v) {
                 $attrValMap = GoodsAttrValMap::find()
                     ->select(['gid'])
                     ->where(['vid' => $v])
@@ -142,11 +143,13 @@ class GoodsService extends AbstractService
                 }
 
                 //第一次将值赋值goodIDs，之后循环都和之前的结果进行交集运算
-                if ($k == 0) {
+                if ($first == 1) {
                     $goodIDs = $gids;
                 } else {
                     $goodIDs = array_intersect($goodIDs, $gids);
                 }
+
+                $first++;
             }
 
             //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组
@@ -160,6 +163,29 @@ class GoodsService extends AbstractService
 
         //return $object->createCommand()->getRawSql();
         return $object->asArray($args['asArray'])->groupBy('t.id')->all();
+    }
+
+    /**
+     * @brief 推荐类商品
+     * @param array $args
+     * @return array|\yii\db\ActiveRecord[]
+     * @author wuzhc 2016-08-16
+     */
+    public function getCommendGoods(array $args)
+    {
+        $limit = $args['limit'] ?: 10;
+        $order = $args['order'] ?: ['t.id' => SORT_DESC];
+        $select = $args['select'] ?: ['t.id','t.ad_img','t.name', 't.sell_price'];
+
+        $object = Goods::find()->from(Goods::tableName(). 'as t');
+        $object->leftJoin(CommentGoods::tableName() . 'as cg', 't.id = cg.goods_id');
+        $object->andFilterWhere(['t.cid' => $args['cid']]);
+        $object->andFilterWhere(['cg.commend_id' => $args['commend_id']]);
+        $object->select($select);
+        $object->asArray();
+        $object->limit($limit);
+        $object->orderBy($order);
+        return $object->all();
     }
 
     /**
@@ -184,7 +210,8 @@ class GoodsService extends AbstractService
         //属性值搜索
         if ($args['vid']) {
             $goodIDs = [];
-            foreach ((array)$args['vid'] as $k => $v) {
+            $first = 1;
+            foreach ((array)$args['vid'] as $v) {
                 $attrValMap = GoodsAttrValMap::find()
                     ->select(['gid'])
                     ->where(['vid' => $v])
@@ -199,11 +226,13 @@ class GoodsService extends AbstractService
                 }
 
                 //第一次将值赋值goodIDs，之后循环都和之前的接口进行交集运算
-                if ($k == 0) {
+                if ($first == 1) {
                     $goodIDs = $gids;
                 } else {
                     $goodIDs = array_intersect($goodIDs, $gids);
                 }
+
+                $first++;
             }
 
             //如果没有找到对应的商品ID，说明没有对应属性值的商品，直接返回空数组

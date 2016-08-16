@@ -33,7 +33,7 @@ AppAsset::register($this);
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
-        ],
+        ]
     ]);
     $menuItems = [
         ['label' => '主页', 'url' => ['/site/index']],

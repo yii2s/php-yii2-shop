@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\components\CController;
+use common\config\Conf;
 use common\models\Goods;
 use common\models\GoodsAttrValMap;
 use common\service\CategoryService;
@@ -36,6 +37,7 @@ class GoodsController extends CController
         $vid    = array_map('intval', $vid);
         $word   = Yii::$app->request->post('word');
         $order  = Yii::$app->request->post('order');
+        $sort   = (int)Yii::$app->request->post('sort');
         $limit  = Yii::$app->request->post('pageSize', 48);
         $limit  = $limit > 48 ? 48 : intval($limit);
         $offset = Yii::$app->request->post('page', 0);
@@ -52,7 +54,7 @@ class GoodsController extends CController
 
         $args['limit'] = intval($limit);
         $args['offset'] = intval($offset);
-        $args['order'] = $this->_getOrder($order);
+        $args['order'] = $this->_getOrder($order, $sort);
 
         $return['list'] = GoodsService::factory()->getList($args);
         ResponseUtil::json(['data' => $return]);
@@ -71,9 +73,24 @@ class GoodsController extends CController
         //echo FileUtil::suffix($file);
     }
 
-    private function _getOrder($order)
+    /**
+     * @brief 排序
+     * @param string $order 排序标识
+     * @param int $sort 正序或倒序
+     * @return array
+     * @author wuzhc 2016-08-16
+     */
+    private function _getOrder($order, $sort = SORT_DESC)
     {
-
+        if ($order == 'sale') {
+            return ['t.sale' => $sort];
+        } elseif ($order == 'comment') {
+            return ['t.comments' => $sort];
+        } elseif ($order == 'price') {
+            return ['t.sell_price' => $sort];
+        } else {
+            return ['t.id' => $sort];
+        }
     }
 
     /**
@@ -91,5 +108,32 @@ class GoodsController extends CController
 
         $attr = CategoryService::factory()->getAttrValByCid($cid);
         ResponseUtil::json(['data' => $attr]);
+    }
+
+    /**
+     * @brief 商品推荐
+     * @param $cid
+     * @author wuzhc 2016-08-16
+     */
+    public function actionRecommendGoods($cid)
+    {
+        $args = [
+            'cid' => $cid,
+            'limit' => 11,
+            'commend_id' => Conf::GOODS_RECOMMEND
+        ];
+        $data = GoodsService::factory()->getCommendGoods($args);
+        ResponseUtil::json(['data' => $data]);
+    }
+
+    public function actionT()
+    {
+        $args = [
+            'cid' => 4,
+            'limit' => 11,
+            'commend_id' => Conf::GOODS_RECOMMEND
+        ];
+        $data = GoodsService::factory()->getCommendGoods($args);
+        print_r($data);
     }
 }
