@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_notify_registry}}".
+ * This is the model class for table "{{%notify_registry}}".
  *
  * @property string $id
  * @property string $goods_id
@@ -25,7 +25,7 @@ class NotifyRegistry extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_notify_registry}}';
+        return '{{%notify_registry}}';
     }
 
     /**

@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_refer}}".
+ * This is the model class for table "{{%refer}}".
  *
  * @property string $id
  * @property string $question
@@ -27,7 +27,7 @@ class Refer extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_refer}}';
+        return '{{%refer}}';
     }
 
     /**

@@ -5,21 +5,20 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%goods_attr_val_map}}".
+ * This is the model class for table "{{%goods_image}}".
  *
  * @property string $id
  * @property string $gid
- * @property string $aid
- * @property integer $vid
+ * @property string $img
  */
-class GoodsAttrValMap extends \yii\db\ActiveRecord
+class GoodsImage extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%goods_attr_val_map}}';
+        return '{{%goods_image}}';
     }
 
     /**
@@ -28,8 +27,9 @@ class GoodsAttrValMap extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['gid', 'aid', 'vid'], 'required'],
-            [['gid', 'aid', 'vid'], 'integer']
+            [['gid'], 'required'],
+            [['gid'], 'integer'],
+            [['img'], 'string', 'max' => 255]
         ];
     }
 
@@ -41,8 +41,7 @@ class GoodsAttrValMap extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'gid' => 'Gid',
-            'aid' => 'Aid',
-            'vid' => 'Vid',
+            'img' => 'Img',
         ];
     }
 }

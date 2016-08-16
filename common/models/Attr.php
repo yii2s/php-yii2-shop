@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_attr}}".
+ * This is the model class for table "{{%attr}}".
  *
  * @property string $id
  * @property string $name
@@ -19,7 +19,7 @@ class Attr extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_attr}}';
+        return '{{%attr}}';
     }
 
     /**

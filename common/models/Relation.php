@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_relation}}".
+ * This is the model class for table "{{%relation}}".
  *
  * @property string $id
  * @property string $goods_id
@@ -21,7 +21,7 @@ class Relation extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_relation}}';
+        return '{{%relation}}';
     }
 
     /**

@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_commend_goods}}".
+ * This is the model class for table "{{%commend_goods}}".
  *
  * @property string $id
  * @property string $commend_id
@@ -20,7 +20,7 @@ class CommentGoods extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_commend_goods}}';
+        return '{{%commend_goods}}';
     }
 
     /**

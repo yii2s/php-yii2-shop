@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_favorite}}".
+ * This is the model class for table "{{%favorite}}".
  *
  * @property string $id
  * @property string $user_id
@@ -24,7 +24,7 @@ class Favorite extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_favorite}}';
+        return '{{%favorite}}';
     }
 
     /**

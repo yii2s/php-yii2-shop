@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_products}}".
+ * This is the model class for table "{{%products}}".
  *
  * @property string $id
  * @property string $goods_id
@@ -26,7 +26,7 @@ class Products extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_products}}';
+        return '{{%products}}';
     }
 
     /**

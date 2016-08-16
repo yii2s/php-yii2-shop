@@ -20,6 +20,7 @@ return [
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
+            'tablePrefix' => 'zc_',
         ],
         'frontUrl' => [
             'class' => 'yii\web\UrlManager',

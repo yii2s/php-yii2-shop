@@ -7,6 +7,7 @@ use common\models\GoodsAttrValMap;
 use common\service\CategoryService;
 use common\service\GoodsService;
 use common\utils\FileUtil;
+use common\utils\ImageUtil;
 use common\utils\ResponseUtil;
 use Yii;
 use yii\web\Controller;
@@ -43,8 +44,8 @@ class GoodsController extends CController
             'cid' => intval($cid),
             'vid' => array_filter($vid),
             'keyword' => trim($word),
-            'select' => ['t.name', 't.id', 't.sell_price', 't.market_price', 't.ad_img'],
             'asArray' => true,
+            'select' => ['t.name', 't.id', 't.sell_price', 't.market_price', 't.ad_img'],
         ];
 
         $return['total'] = GoodsService::factory()->countGoods($args);//总数
@@ -65,15 +66,14 @@ class GoodsController extends CController
     public function actionTest()
     {
         $dirPath = Yii::getAlias('@common') . DIRECTORY_SEPARATOR . 'data'. DIRECTORY_SEPARATOR . 'goods';
-        $sqlFiles = FileUtil::readDirFile($dirPath);
-
-       // echo $sqlFiles[0];exit;
-        FileUtil::addFlag($sqlFiles[0]);
-
+        $file = FileUtil::readDirFile($dirPath);
+        ImageUtil::watermark($file[1], [320,180], $file[0]);
+        //echo FileUtil::suffix($file);
     }
 
     private function _getOrder($order)
     {
+
     }
 
     /**

@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_regiment}}".
+ * This is the model class for table "{{%regiment}}".
  *
  * @property string $id
  * @property string $title
@@ -33,7 +33,7 @@ class Regiment extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_regiment}}';
+        return '{{%regiment}}';
     }
 
     /**

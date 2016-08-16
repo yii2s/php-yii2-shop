@@ -13,27 +13,28 @@ class Conf
     /** ???????? */
     const UPLOAD_DEFAULT_DIR = 'uploads';
     const THUMB_DEFAULT = 'public/common/images/thumb_default.jpg';
-
     /** ??????????????? */
     const EMPTY_DATA = 'public/common/images/none_data.png';
-
     /** ?????ID????????з?????????????? */
     const CATEGORIES_MAP_CACHE = 'categories_map_cache_key';
-
     /** ????????????????? */
     const CATEGORIES_BY_SORT = 'categories_by_sort_key';
-
     /** ???ν????????? */
     const CATEGORIES_TREE_CACHE = 'categories_tree_key';
-
     /** 品牌属性ID */
     const BRAND_ATTR_ID = 1;
-
     /** 下架商品 */
     const DOWN_GOODS = 2;
-
     /** 上架商品 */
     const UP_GOODS = 3;
+    /** 水印图片 */
+    const WATER_MARK = 'water_mark.png';
+    /** 图片水印标识 */
+    const IMG_WATER = 'water';
+    /** 图片裁剪标识 */
+    const IMG_CROP = 'crop';
+    /** 图片缩略图标识 */
+    const IMG_THUMB = 'thumb';
 
 
 

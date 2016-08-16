@@ -159,13 +159,56 @@ class FileUtil
      */
     public static function addFlag($file, $flag = '_lock')
     {
-        if (!file_exists($file)) {
+        if (!self::isExists($file)) {
             return false;
         }
         $pathInfo = pathinfo($file);
         $newName = $pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['filename'];
         $newName .= $flag . '.' . $pathInfo['extension'];
         return rename($file, $newName);
+    }
+
+    /**
+     * @brief 检测文件是否存在，支持别名路劲
+     * @param $file
+     * @return bool
+     * @author wuzhc 2016-08-16
+     */
+    public static function isExists($file)
+    {
+        $file = Yii::getAlias($file);
+        return file_exists($file);
+    }
+
+    /**
+     * @brief 生成新文件名
+     * @param $file
+     * @param string $newName 自定义新文件名，如果为空，将自动生成一个随机文件名
+     * @return mixed
+     * @author wuzhc 2016-08-16
+     */
+    public static function newName($file, $newName = '')
+    {
+        $fileInfo = pathinfo($file);
+        if (!$newName) {
+            $newName = md5(uniqid(microtime(true),true));
+        }
+        return str_replace($fileInfo['filename'], $newName, $file);
+    }
+
+    /**
+     * @brief 文件后缀名
+     * @param string $file 文件路径或文件名
+     * @param bool $flag 后缀是否带点，true返回'.jpg', false返回 'jpg'
+     * @return string
+     * @author wuzhc 2016-08-16
+     */
+    public static function suffix($file, $flag = false)
+    {
+        $filename = basename($file);
+        $start = strrpos($filename, '.', 0);
+        $flag == false and $start = $start + 1;
+        return substr($filename, $start);
     }
 
 }

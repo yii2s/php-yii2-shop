@@ -70,9 +70,24 @@ CREATE TABLE IF NOT EXISTS `zc_good_attr_val_map` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品与属性值关联表' AUTO_INCREMENT=1;
 
+--
+-- 网站设置
+--
 CREATE TABLE IF NOT EXISTS `zc_system_setting` (
-  `id` INT (11) unsigned NOT NULL AUTO_INCREMENT COMMIT '主键ID',
-  `set_key` VARCHAR (30) NOT NULL COMMIT '键名',
+  `id` INT (11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `set_key` VARCHAR (30) NOT NULL COMMENT '键名',
   `set_value` varchar(255) DEFAULT NULL COMMENT '值',
-
+  `name` VARCHAR (50) NOT NULL COMMENT '名称',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站设置' AUTO_INCREMENT = 1;
+
+--
+-- 商品图集
+--
+CREATE TABLE IF NOT EXISTS `zc_goods_image` (
+  `id` INT (11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `gid` INT(11) unsigned NOT NULL COMMENT '商品ID,goods.id',
+  `img` varchar(255) DEFAULT NULL COMMENT '图像地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品图集' AUTO_INCREMENT = 1;
+

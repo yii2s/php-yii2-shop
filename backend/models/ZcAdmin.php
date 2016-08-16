@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_admin}}".
+ * This is the model class for table "{{%admin}}".
  *
  * @property integer $adminID
  * @property integer $wzc_roleID
@@ -21,7 +21,7 @@ class ZcAdmin extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_admin}}';
+        return '{{%admin}}';
     }
 
     /**

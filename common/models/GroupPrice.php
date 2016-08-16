@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%zc_group_price}}".
+ * This is the model class for table "{{%group_price}}".
  *
  * @property string $id
  * @property string $goods_id
@@ -23,7 +23,7 @@ class GroupPrice extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%zc_group_price}}';
+        return '{{%group_price}}';
     }
 
     /**

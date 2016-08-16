@@ -6,6 +6,7 @@ namespace common\service;
 use common\models\Goods;
 use common\models\GoodsAttribute;
 use common\models\GoodsAttrValMap;
+use common\models\GoodsImage;
 use common\models\GoodsPhoto;
 use common\models\GoodsPhotoRelation;
 use Yii;
@@ -64,7 +65,7 @@ class GoodsService extends AbstractService
         }
 
         //保存商品图集
-        if ($args['photo']) {
+        /*if ($args['photo']) {
             GoodsPhotoRelation::deleteAll(['goods_id' => $goodsID]);
             $photos = [];
             $root = Yii::getAlias('@webroot');
@@ -80,6 +81,18 @@ class GoodsService extends AbstractService
                 $photos[] = [$goodsID, $goodsPhotoID];
             }
             $hybrid->batchSave(GoodsPhotoRelation::tableName(), ['goods_id', 'photo_id'], $photos);
+        }*/
+        if ($args['photo']) {
+            GoodsImage::deleteAll(['gid' => $goodsID]);
+            $photos = [];
+            foreach (($args['photo']) as $img) {
+                $filename = Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . $img;
+                if (!is_file($filename)) {
+                    continue;
+                }
+                $photos[] = [$goodsID, $img];
+            }
+            $hybrid->batchSave(GoodsImage::tableName(), ['gid', 'img'], $photos);
         }
 
         //保存商品属性值
