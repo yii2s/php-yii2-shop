@@ -9,6 +9,7 @@ use common\models\GoodsAttrValMap;
 use common\models\GoodsImage;
 use common\models\GoodsPhoto;
 use common\models\GoodsPhotoRelation;
+use common\utils\ImageUtil;
 use Yii;
 use common\config\Conf;
 use common\hybrid\AbstractHybrid;
@@ -47,6 +48,12 @@ class GoodsService extends AbstractService
         $hybrid = new AbstractHybrid();
         $goodsHybrid = new GoodsHybrid();
 
+        if ($args['mainImg'] && is_file($args['mainImg'])) {
+            $args['img'] = $args['mainImg'];
+            $args['ad_img'] = ImageUtil::thumbnail($args['mainImg'], 220, 220);
+            unset($args['mainImg']);
+        }
+
         //保存商品基本数据
         $goodsID = $goodsHybrid->save($args);
         if (!$goodsID) {
@@ -64,24 +71,6 @@ class GoodsService extends AbstractService
             $hybrid->batchSave(CommentGoods::tableName(),['commend_id','goods_id'], $recommend);
         }
 
-        //保存商品图集
-        /*if ($args['photo']) {
-            GoodsPhotoRelation::deleteAll(['goods_id' => $goodsID]);
-            $photos = [];
-            $root = Yii::getAlias('@webroot');
-            foreach (($args['photo']) as $img) {
-                $filename = $root . DIRECTORY_SEPARATOR . $img;
-                if (!is_file($filename)) {
-                    continue;
-                }
-                $goodsPhotoID = $goodsHybrid->saveGoodsPhoto(md5_file($filename), $img);
-                if (!$goodsPhotoID) {
-                    continue;
-                }
-                $photos[] = [$goodsID, $goodsPhotoID];
-            }
-            $hybrid->batchSave(GoodsPhotoRelation::tableName(), ['goods_id', 'photo_id'], $photos);
-        }*/
         if ($args['photo']) {
             GoodsImage::deleteAll(['gid' => $goodsID]);
             $photos = [];
@@ -91,6 +80,8 @@ class GoodsService extends AbstractService
                     continue;
                 }
                 $photos[] = [$goodsID, $img];
+                ImageUtil::thumbnail($img, 50, 50);
+                ImageUtil::thumbnail($img, 220, 220);
             }
             $hybrid->batchSave(GoodsImage::tableName(), ['gid', 'img'], $photos);
         }

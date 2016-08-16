@@ -31,7 +31,7 @@ class GoodsController extends CController
     {
         $return = [];
 
-        $cid    = Yii::$app->request->post('cid',608);
+        $cid    = Yii::$app->request->post('cid',4);
         $vid    = (array)Yii::$app->request->post('vid');
         $vid    = array_map('intval', $vid);
         $word   = Yii::$app->request->post('word');
@@ -81,7 +81,7 @@ class GoodsController extends CController
      * @param int $cid 分类ID
      * @author wuzhc 2016-08-10
      */
-    public function actionGetAttrValByCid($cid = 611)
+    public function actionGetAttrValByCid($cid = 4)
     {
         $this->checkAjaxRequest();
 

@@ -160,7 +160,7 @@ use yii\helpers\Html;
                     </div>
                     <div class="control-group">
                         <label class="control-label">推荐类型：</label>
-                        <div class="controls">
+                        <div class="controls control-row-auto">
                             <label class="checkbox">
                                 <input type="checkbox" value="1" name="recommend">最新商品
                             </label>
@@ -176,9 +176,11 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">商品描述：</label>
-                        <div class="controls control-row4">
-                            <textarea type="text" class="input-large" data-valid="{}"></textarea>
+                        <label class="control-label"><s>*</s>主图：</label>
+                        <div class="controls control-row-auto">
+                            <div style="width: 100%;">
+                                <div id="mainImgView"></div>
+                            </div>
                         </div>
                     </div>
                     <?= \common\widgets\WangEditorWidget::widget(); ?>
@@ -232,8 +234,8 @@ use yii\helpers\Html;
                 itemStatusCls : {
                     'selected' : 'active'
                 },
-                panelContainer : '#panel',//如果不指定容器的父元素，会自动生成
-                selectedEvent : 'mouseenter'//默认为click,可以更改事件
+                panelContainer : '#panel'//如果不指定容器的父元素，会自动生成
+                //selectedEvent : 'mouseenter'//默认为click,可以更改事件
             }).render();
 
         });
@@ -243,10 +245,8 @@ use yii\helpers\Html;
             //添加自定义主题
             Uploader.Theme.addTheme('imageView', {
                 elCls: 'imageViewTheme',
-                //可以设定该主题统一的上传路径
                 url: '<?= Yii::$app->urlManager->createUrl('attr/upload')?>',
                 queue:{
-                    //结果的模板，可以根据不同状态进进行设置
                     resultTpl: {
                         'default': '<div class="default">{name}</div>',
                         'success': '<div class="success"><input class="ablum" name="photo" value="{url}" type="hidden"><img src="{url}" width="120px" height="120"/></div>',
@@ -257,12 +257,43 @@ use yii\helpers\Html;
             });
 
             var uploader = new Uploader.Uploader({
-                //指定使用主题
                 theme: 'imageView',
-                render: '#J_Uploader'
-                //不设时使用主题配置的上传路径
-                //url: '../../../test/upload/upload.php'
+                render: '#J_Uploader',
+                rules: {
+                    ext: ['.jpg,.jpeg,.png,.bmp','文件类型只能为{0}'],
+                    maxSize: [2048, '文件大小不能大于2M']
+                }
             }).render();
+        });
+
+        BUI.use('bui/uploader',function (Uploader) {
+
+            //添加自定义主题
+            Uploader.Theme.addTheme('mainImgView', {
+                elCls: 'imageViewTheme',
+                url: '<?= Yii::$app->urlManager->createUrl('attr/upload')?>',
+                queue:{
+                    resultTpl: {
+                        'default': '<div class="default">{name}</div>',
+                        'success': '<div class="success"><input class="ablum" name="mainImg" value="{url}" type="hidden"><img src="{url}" width="120px" height="120"/></div>',
+                        'error': '<div class="error"><span class="uploader-error">{msg}</span></div>',
+                        'progress': '<div class="progress"><div class="bar" style="width:{loadedPercent}%"></div></div>'
+                    }
+                }
+            });
+
+            var uploader = new Uploader.Uploader({
+                //指定使用主题
+                theme: 'mainImgView',
+                render: '#mainImgView',
+                rules: {
+                    ext: ['.jpg,.jpeg,.png,.bmp','文件类型只能为{0}'],
+                    max: [1, '文件的最大个数不能超过{0}个'],
+                    minSize: [1, '文件的大小不能小于{0}KB'],
+                    maxSize: [2048, '文件大小不能大于2M']
+                }
+            }).render();
+
         });
 
     </script>
@@ -357,11 +388,11 @@ use yii\helpers\Html;
             });
         });
 
-
         //提交表单
         $("#submit-form").on("click", function(e){
 
             e.preventDefault();
+            var cid = $("#cid").val();
             var name = $("input[name=name]").val();
             var goods_no = $("input[name=goods_no]").val();
             var sell_price = $("input[name=sell_price]").val();
@@ -372,6 +403,7 @@ use yii\helpers\Html;
             var content = editor.$txt.html();
             var keywords = $("input[name=keywords]").val();
             var description = $("#description").text();
+            var mainImg = $("input[name=mainImg]").val();
 
             if (!categoryID) {
                 alert("请选择分类");
@@ -379,6 +411,7 @@ use yii\helpers\Html;
             }
 
             var data = {
+                cid          : cid,
                 name         : name,
                 goods_no     : goods_no,
                 sell_price   : sell_price,
@@ -389,6 +422,7 @@ use yii\helpers\Html;
                 content      : content,
                 keywords     : keywords,
                 description  : description,
+                mainImg      : mainImg,
                 recommend    : [],
                 photo        : [],
                 attr_vid     : []
@@ -427,8 +461,6 @@ use yii\helpers\Html;
                 }
             });
         });
-
-
 
     })
 </script>
