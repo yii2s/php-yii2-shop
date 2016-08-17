@@ -43,4 +43,5 @@ class AttrValMap extends \yii\db\ActiveRecord
             'vid' => 'Vid',
         ];
     }
+
 }

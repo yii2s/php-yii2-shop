@@ -18,6 +18,11 @@ if (!YII_ENV_TEST) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'generators' => [
+            'sphinxModel' => [
+                'class' => 'yii\sphinx\gii\model\Generator'
+            ]
+        ],
     ];
 }
 

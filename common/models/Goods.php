@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\GoodsBehavior;
 use Yii;
 
 /**
@@ -56,6 +57,11 @@ use Yii;
 class Goods extends \yii\db\ActiveRecord
 {
     /**
+     * @see GoodsBehavior::test
+     * @method array test 获取备课项详情
+     */
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -78,6 +84,13 @@ class Goods extends \yii\db\ActiveRecord
             [['goods_no'], 'string', 'max' => 20],
             [['img', 'ad_img', 'keywords', 'description'], 'string', 'max' => 255],
             [['unit'], 'string', 'max' => 10],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            GoodsBehavior::className()
         ];
     }
 
@@ -237,5 +250,14 @@ class Goods extends \yii\db\ActiveRecord
     public function getAttrVal()
     {
         return $this->hasMany(GoodsAttrValMap::className(), ['gid' => 'id']);
+    }
+
+    /**
+     * @brief 获取图集
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImage()
+    {
+        return $this->hasMany(GoodsImage::className(), ['gid' => 'id']);
     }
 }

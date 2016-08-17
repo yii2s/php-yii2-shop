@@ -3,6 +3,7 @@
 namespace common\service;
 
 
+use common\models\Category;
 use common\models\Goods;
 use common\models\GoodsAttribute;
 use common\models\GoodsAttrValMap;
@@ -243,6 +244,58 @@ class GoodsService extends AbstractService
         }
 
         return $object->count();
+    }
+
+    /**
+     * @brief 根据分类统计商品数量
+     * @return array|\yii\db\ActiveRecord[]
+     * <pre>
+     *      [
+     *          [
+     *              'num' => 数量,
+     *              'cid' => 类别ID,
+     *              'name' => '分类名称'
+     *          ],
+     *      ]
+     * </pre>
+     * @author wuzhc 2016-08-17
+     */
+    public function statByCategoryID()
+    {
+        return Goods::find()->from(Goods::tableName() . 'as t')
+            ->leftJoin(Category::tableName() . 'as cat', 'cat.id = t.cid')
+            ->select(['count(t.id) as num','t.cid', 'cat.name'])
+            ->groupBy('t.cid')
+            ->asArray()
+            ->all();
+    }
+
+    /**
+     * @brief 商品信息
+     * @param $goodsID
+     * @return array
+     * @author wuzhc 2016-08-17
+     */
+    public function detail($goodsID)
+    {
+        $return = [];
+
+        $object = Goods::findOne($goodsID);
+        if (!$object) {
+            return $return;
+        }
+
+        $return['id'] = $object->id;
+        $return['name'] = $object->name;
+        $return['img'] = $object->img;
+        $return['adImg'] = $object->ad_img;
+        $return['createTime'] = $object->create_time;
+
+        $return['photos'] = $object->images();
+        $return['comments'] = $object->comments();
+        $return['attrVals'] = $object->attrVals();
+
+        return $return;
     }
 
 
