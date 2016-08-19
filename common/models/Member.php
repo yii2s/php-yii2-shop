@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "wzc_member".
+ * This is the model class for table "{{%member}}".
  *
  * @property integer $id
  * @property string $loginName
@@ -39,7 +39,7 @@ class Member extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return 'wzc_member';
+        return '{{%member}}';
     }
 
     /**

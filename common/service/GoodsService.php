@@ -81,8 +81,13 @@ class GoodsService extends AbstractService
                     continue;
                 }
                 $photos[] = [$goodsID, $img];
-                ImageUtil::thumbnail($img, 50, 50);
-                ImageUtil::thumbnail($img, 220, 220);
+
+                //缩略图规格
+                $thumbStandards = Yii::$app->params['thumbStandards'];
+                foreach ($thumbStandards as $size) {
+                    ImageUtil::thumbnail($img, $size[0], $size[1]);
+                }
+
             }
             $hybrid->batchSave(GoodsImage::tableName(), ['gid', 'img'], $photos);
         }

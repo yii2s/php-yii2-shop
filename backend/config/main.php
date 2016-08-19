@@ -19,7 +19,7 @@ return [
             'enableAutoLogin' => true,
             'loginUrl' => ['admin/login'], //设置未登录是的跳转地址
         ],
-        'log' => [
+        /*'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
@@ -27,7 +27,7 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ],
+        ],*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

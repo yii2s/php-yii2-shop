@@ -40,7 +40,6 @@ class MemberController extends Controller
      */
     public function actionLogin()
     {
-       // echo $hash = Yii::$app->getSecurity()->generatePasswordHash('gaga');
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -154,6 +153,19 @@ class MemberController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionTest()
+    {
+        //Yii::getLogger()->log("开始写自定义日志",Logger::LEVEL_ERROR);
+
+        Yii::trace("trace,开发调试时候记录");
+
+        Yii::error("error,错误日志");
+
+        Yii::warning("warning,警告信息");
+
+        Yii::info("info,记录操作提示");
     }
 
 }

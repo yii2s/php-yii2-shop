@@ -2,7 +2,7 @@
 namespace frontend\form;
 
 use common\models\Member;
-use common\utils\ClientUtils;
+use common\utils\ClientUtil;
 use yii\base\Model;
 use Yii;
 
@@ -67,7 +67,7 @@ class SignupForm extends Model
             $member->nickname   = $this->nickname;
             $member->phone      = $this->phone;
             $member->createTime = date('Y-m-d H:i:s',time());
-            $member->lastIP     = ClientUtils::getClientIp();
+            $member->lastIP     = ClientUtil::getClientIp();
             $member->lastTime   = date('Y-m-d H:i:s',time());
             $member->setPassword($this->password);
             //$member->generateAuthKey();

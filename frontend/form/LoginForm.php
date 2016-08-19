@@ -2,6 +2,7 @@
 namespace frontend\form;
 
 use common\models\Member;
+use common\utils\ClientUtil;
 use common\utils\ClientUtils;
 use Yii;
 use yii\base\Model;
@@ -63,12 +64,11 @@ class LoginForm extends Model
             if (Yii::$app->user->login($member, $this->rememberMe ? 3600 * 24 * 30 : 0)) {
                 $member->updateMemberAttributes([
                     'lastTime' => date('Y-m-d H:i:s',time()),
-                    'lastIP'   => ClientUtils::getClientIp(),
+                    'lastIP'   => ClientUtil::getClientIp(),
                 ]);
                 return true;
             }
         }
-
         return false;
     }
 
