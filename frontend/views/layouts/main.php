@@ -18,10 +18,11 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <style>.navbar-inverse .navbar-brand a{colore}</style>
+    <?= Html::cssFile('public/frontend/css/site.css')?>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -29,13 +30,15 @@ AppAsset::register($this);
 <div class="wrap" style="background-color: #F5F5F5">
     <?php
     NavBar::begin([
-        'brandLabel' => 'zc商城系统',
+        'brandLabel' => '<strong style=""color:#fff">zc商城系统</strong>',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
+            'style' => ''
         ]
     ]);
     $menuItems = [
+        ['label' => '列表', 'url' => ['/goods/list','cid' => 4]],
         ['label' => '主页', 'url' => ['/site/index']],
         ['label' => '详情', 'url' => ['/site/about']],
         ['label' => '联系', 'url' => ['/site/contact']],
@@ -65,6 +68,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
+
     <div class="container" style="width: 100%;padding: 70px 40px 0px">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -74,7 +78,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer" style="background-color: #ffffff">
     <div class="container">
         <p class="pull-left">&copy; zc商城系统 <?= date('Y') ?></p>
 

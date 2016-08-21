@@ -1,5 +1,51 @@
 .attr-list a{margin-bottom: 5px;}
 .body-content{background-color: #ffffff; padding: 5px 5px; margin-bottom: 10px}
 .breadcrumb {background-color: #ffffff}
-.footer {background-color: #101010}
-.footer p{color: #ffffff}
+.navbar-inverse {
+    background:-moz-linear-gradient(0% 100% 90deg, #B1191A, #B1191A) repeat #03d178;
+    border-color: #B1191A;
+    background-color:#B1191A;
+    background-image:-o-linear-gradient(-90deg,#B1191A);
+    background-image:-moz-linear-gradient(-90deg,#B1191A);
+    background-image:-webkit-gradient(linear,50% 0%,50% 100%,from(#B1191A),to(#B1191A));
+    background-image:-webkit-linear-gradient(-90deg,#B1191A,#B1191A);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* LOGO 部分背景色和字体颜色*/
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+/* LOGO 部分hover时背景色和字体颜色*/
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: #eee;
+    background-color: transparent;
+}
+
+/* 普通菜单项的颜色和背景  */
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+/* 普通菜单项hover时的字体颜色和背景  */
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-nav>li>a:focus {
+    color: #ddd;
+    background-color: transparent;
+}
+
+/* 当前选中菜单项的字体颜色和背景  */
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus {
+    color: #B1191A;
+    border-color: #fff;
+    background-color:#fff;
+}
+
+/*修复bootstrap3.0的bug*/
+.nav > li.active{
+    font-weight:bold;
+}

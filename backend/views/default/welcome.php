@@ -3,6 +3,7 @@
 <head>
     <title> 可编辑表格</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <?= Html::cssFile('public/backend/css/bs3/dpl-min.css')?>
     <?= Html::cssFile('public/backend/css/bs3/bui-min.css')?>
     <?= Html::cssFile('public/backend/css/page-min.css')?>

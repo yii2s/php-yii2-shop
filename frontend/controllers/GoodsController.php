@@ -62,7 +62,9 @@ class GoodsController extends CController
 
     public function actionDetail()
     {
-
+        $id = (int)Yii::$app->request->get('id');
+        $data = GoodsService::factory()->detail($id);
+        print_r($data);
     }
 
     public function actionTest()
@@ -101,11 +103,12 @@ class GoodsController extends CController
     public function actionGetAttrValByCid($cid = 4)
     {
         $this->checkAjaxRequest();
-
+		
         if (!is_numeric($cid)) {
             ResponseUtil::json(null, 1, '参数错误');
         }
 
+		$cid = $cid ?: 4;
         $attr = CategoryService::factory()->getAttrValByCid($cid);
         ResponseUtil::json(['data' => $attr]);
     }
@@ -115,7 +118,7 @@ class GoodsController extends CController
      * @param $cid
      * @author wuzhc 2016-08-16
      */
-    public function actionRecommendGoods($cid)
+    public function actionRecommendGoods($cid = 4)
     {
         $args = [
             'cid' => $cid,

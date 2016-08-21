@@ -6,6 +6,7 @@ use yii\helpers\Html;
 <head>
     <title>商城管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <?= Html::cssFile('public/backend/css/dpl-min.css')?>
     <?= Html::cssFile('public/backend/css/bui-min.css')?>
     <?= Html::cssFile('public/backend/css/main-min.css')?>
