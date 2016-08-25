@@ -93,3 +93,10 @@ WHERE b.vid = a.vid AND b.aid = 1 AND a.id = 6
 
 --删除外键
 ALTER TABLE zc_commend_goods DROP FOREIGN KEY zc_commend_goods_ibfk_1;
+
+--从库设置
+change master to master_host = '23.83.254.46',
+master_user='repl',
+master_password='p4ssword',
+master_log_file='mysql-bin.000001',
+master_log_pos=9082032;

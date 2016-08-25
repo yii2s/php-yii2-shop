@@ -16,12 +16,20 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=shop',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'tablePrefix' => 'zc_',
+        ],
+        /*'db' => [
+            'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=23.83.240.107;dbname=shop',
             'username' => 'wuzhc',
             'password' => 'wuzhc2580',
             'charset' => 'utf8',
             'tablePrefix' => 'zc_',
-        ],
+        ],*/
         'frontUrl' => [
             'class' => 'yii\web\UrlManager',
             'scriptUrl' => '/myweb2/index.php',   //���������֮����ܹ���������

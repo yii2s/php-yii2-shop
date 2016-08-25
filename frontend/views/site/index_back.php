@@ -37,8 +37,10 @@ $this->title = 'zcShop商城系统';
     .banner-circle li{border-radius:10px;margin:2px;display:inline-block;display:-moz-inline-stack;vertical-align:middle;zoom:1;}
     .banner-circle li a{display:block;padding-top:9px;width:9px;height:0;border-radius:50%;background:#B7B7B7;overflow:hidden;}
     .banner-circle .selected a{background:#F40;}
+
 </style>
-<?= Html::cssFile('public/common/menu/css/jquery.tmailsider.css')?>
+<?= Html::cssFile('public/frontend/css/head.css')?>
+<?= Html::cssFile('public/common/menu/css/main.css')?>
 <div class="site-index">
 
     <!--<div class="jumbotron">
@@ -50,835 +52,334 @@ $this->title = 'zcShop商城系统';
     <div class="body-content">
         <div class="row">
             <div class="col-lg-3">
-                <div id="Z_TypeList" class="Z_TypeList">
-                    <h1 class="title">所有商品分类</h1>
-                    <div class="Z_MenuList">
-                        <ul>
-                            <li class="list-item0">
-                                <h3>服装/内衣/配件</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">女装</a>
-                                    <a href="http://www.17sucai.com/">男装</a>
-                                    <a href="http://www.17sucai.com/">内衣</a>
-                                    <a href="http://www.17sucai.com/">羽绒</a>
-                                    <a href="http://www.17sucai.com/">呢大衣</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">毛衣</a>
-                                    <a href="http://www.17sucai.com/">保暖</a>
-                                    <a href="http://www.17sucai.com/">睡衣</a>
-                                    <a href="http://www.17sucai.com/">男羽绒</a>
-                                    <a href="http://www.17sucai.com/">男毛衣</a>
-                                </p>
+                <div class="hc_lnav jslist">
+                    <div class="allbtn">
+                        <h2><a href="#"><strong>&nbsp;</strong>全部商品分类<i>&nbsp;</i></a></h2>
+                        <ul style="width:290px" class="jspop box">
+                            <li class=a1>
+                                <div class=tx><a href="#"><i>&nbsp;</i>各地名优茶</a> </div>
+                                <dl>
+                                    <dt>热门</dt>
+                                    <dd>
+                                        <a href="#">西湖龙井</a>
+                                        <a href="#">金骏眉</a>
+                                        <a href="#">大红袍</a>
+                                        <a href="#">铁观音</a>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>名茶</dt>
+                                    <dd>
+                                        <a href="#">红茶</a>
+                                        <a href="#">绿茶</a>
+                                        <a href="#">乌龙茶</a>
+                                        <a href="#">黑茶</a>
+                                        <a href="#">白茶 </a>
+                                    </dd>
+                                </dl>
+                                <div class=pop>
+                                    <h3><a href="#">各地名优茶</a></h3>
+                                    <dl>
+                                        <dl>
+                                            <dt>绿茶</dt>
+                                            <dd>
+                                                <a class="ui-link" href="#">西湖龙井</a>
+                                                <a class="ui-link"  href="#">龙井</a>
+                                                <a class="ui-link" href="#">黄山毛峰</a>
+                                                <a class="ui-link"   href="#">安吉白茶</a>
+                                                <a class="ui-link" href="#">其他绿茶</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>乌龙茶</dt>
+                                            <dd>
+                                                <a class="ui-link" href="">铁观音</a>
+                                                <a class="ui-link"  href="">大红袍</a>
+                                                <a class="ui-link" href="">水仙</a>
+                                                <a class="ui-link"  href="">肉桂</a>
+                                                <a class="ui-link" href="">台湾乌龙</a>
+                                                <a class="ui-link" href="">其他乌龙茶</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>红茶</dt>
+                                            <dd>
+                                                <a class="ui-link" href="" >金骏眉</a>
+                                                <a class="ui-link"  href="">正山小种</a>
+                                                <a class="ui-link"  href="">祁门红茶</a>
+                                                <a class="ui-link"   href="">坦洋工夫</a>
+                                                <a class="ui-link" href="javascript:;">其他红茶</a>
+                                                <a class="un ui-link"    href="">政和工夫</a>
+                                                <a class="ui-link"   href="">滇红工夫</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>黑茶</dt>
+                                            <dd>
+                                                <a class="ui-link" href="">白沙溪黑茶</a>
+                                                <a class="ui-link"  href="">普洱茶饼</a>
+                                                <a class="ui-link" href="">普洱沱茶</a>
+                                                <a class="ui-link"  href="">普洱茶砖</a>
+                                                <a class="ui-link"  href="">普洱散茶</a>
+                                                <a class="ui-link" href="">其他黑茶</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>白茶</dt>
+                                            <dd>
+                                                <a class="ui-link" href="#">白牡丹</a>
+                                                <a class="ui-link"  href="">白毫银针</a>
+                                                <a class="ui-link" href="">寿眉</a>
+                                                <a class="ui-link" href="">其他白茶</a>
+                                            </dd>
+                                        </dl>
+                                    </dl>
+                                    <dl>
+                                        <dt>品牌</dt>
+                                        <dd>
+                                            <a  href="">滋恩</a>
+                                            <a  href="">远荣</a>
+                                            <a  href="">顶峰</a>
+                                            <a  href="">公泰</a>
+                                            <a  href="">一品堂</a>
+                                            <a  href="">好吉</a>
+                                            <a   href="">绿雪芽</a>
+                                            <a  href="">台湾梅山制茶</a>
+                                            <a href="" >白沙溪</a>
+                                            <a href="">联兴茶叶</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>价格</dt>
+                                        <dd>
+                                            <a  href="">100元及以下</a>
+                                            <a  href="">100-300元</a>
+                                            <a  href="">300元及以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>净含量</dt>
+                                        <dd>
+                                            <a  href="" >50g及以下</a>
+                                            <a   href="">51-100g</a>
+                                            <a  href="">101-250g</a>
+                                            <a   href="">250g以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>包装</dt>
+                                        <dd>
+                                            <a href="">经济自饮装</a>
+                                            <a href="" >精美礼品装</a>
+                                        </dd>
+                                    </dl>
+                                    <div class=clr></div>
+                                    <div class=act><a href=""><img src="public/common/menu/images/20150518092317.jpg" /></a> </div>
+                                </div>
                             </li>
-                            <li class="list-item1 alt">
-                                <h3>鞋/箱包</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">女鞋</a>
-                                    <a href="http://www.17sucai.com/">男鞋</a>
-                                    <a href="http://www.17sucai.com/">雪地靴</a>
-                                    <a href="http://www.17sucai.com/">靴子</a>
-                                    <a href="http://www.17sucai.com/">男靴</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">箱包</a>
-                                    <a href="http://www.17sucai.com/">女包</a>
-                                    <a href="http://www.17sucai.com/">男包</a>
-                                    <a href="http://www.17sucai.com/">拉杆箱</a>
-                                    <a href="http://www.17sucai.com/">钱包</a>
-                                </p>
+                            <li class=a2>
+                                <div class=tx><a href=""><i>&nbsp;</i>花草保健茶</a> </div>
+                                <dl>
+                                    <dt>推荐</dt>
+                                    <dd>
+                                        <a href="">大麦茶</a>
+                                        <a href="">苦荞茶</a>
+                                        <a href="" >玫瑰花茶</a>
+                                        <a href="">雪菊</a>
+                                        <a href="" >蜂蜜木瓜粉</a>
+                                    </dd>
+                                </dl>
+                                <div class=pop>
+                                    <h3><a href="">花草保健茶</a></h3>
+                                    <dl>
+                                        <dl>
+                                            <dt>瘦身</dt>
+                                            <dd>
+                                                <a class="ui-link" href="" >玫瑰荷叶茶</a>
+                                                <a class="ui-link"    href="">玄米茶</a>
+                                                <a  class="ui-link" href="">兰香子</a>
+                                                <a class="ui-link"   href="" >纤维泡腾片</a>
+                                                <a class="ui-link"   href="" >青梅苹果酸</a>
+                                                <a class="ui-link"   href="">三草茶</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>美容</dt>
+                                            <dd>
+                                                <a class="ui-link" href="" >法兰西玫瑰</a>
+                                                <a class="ui-link"  href=""  >冻干柠檬片</a>
+                                                <a class="un ui-link"   href="">果粒茶</a>
+                                                <a    class="ui-link" href="" >大麦茶</a>
+                                                <a class="ui-link"   href="">蜂蜜抹茶粉</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>丰胸</dt>
+                                            <dd>
+                                                <a class="ui-link" href="" >木瓜葛根粉</a>
+                                                <a class="ui-link"    href=""  >蜂蜜木瓜粉</a>
+                                                <a class="ui-link"   href="">红酒木瓜丽人饮</a>
+                                            </dd>
+                                        </dl>
+                                    </dl>
+                                    <dl>
+                                        <dt>品牌</dt>
+                                        <dd>
+                                            <a href="">与花香</a>
+                                            <a href="">美丽快攻</a>
+                                            <a href="" >顶峰</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>价格</dt>
+                                        <dd>
+                                            <a href="" >100元及以下</a>
+                                            <a   href="" >100-300元</a>
+                                            <a  href="">300元及以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>净含量</dt>
+                                        <dd>
+                                            <a href="">50g及以下</a>
+                                            <a href="">51-100g</a>
+                                            <a href="">101-250g</a>
+                                            <a href="">250g以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>包装</dt>
+                                        <dd>
+                                            <a href="">经济自饮装</a>
+                                            <a href="">精美礼品装</a>
+                                        </dd>
+                                    </dl>
+                                    <div class=clr></div>
+                                    <div class=act><a href=""><img src="public/common/menu/images/20150518092236.jpg" /></a></div>
+                                </div>
                             </li>
-                            <li class="list-item2">
-                                <h3>珠宝饰品/手表眼睛</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">珠宝</a>
-                                    <a href="http://www.17sucai.com/">足金</a>
-                                    <a href="http://www.17sucai.com/">钻戒</a>
-                                    <a href="http://www.17sucai.com/">玉镯</a>
-                                    <a href="http://www.17sucai.com/">珍珠</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">手表</a>
-                                    <a href="http://www.17sucai.com/">饰品</a>
-                                    <a href="http://www.17sucai.com/">毛衣链</a>
-                                    <a href="http://www.17sucai.com/">手链</a>
-                                    <a href="http://www.17sucai.com/">瑞士军刀</a>
-                                </p>
+                            <li class=a3>
+                                <div class=tx><a href=""><i>&nbsp;</i>精选茶具</a> </div>
+                                <dl>
+                                    <dt>推荐</dt>
+                                    <dd>
+                                        <a href="" >功夫茶具</a>
+                                        <a href="">个人杯</a>
+                                        <a href="">茶宠</a>
+                                        <a href="">茶叶罐</a>
+                                    </dd>
+                                </dl>
+                                <div class=pop>
+                                    <h3><a href="">精选茶具</a></h3>
+                                    <dl>
+                                        <dl>
+                                            <dt>陶瓷</dt>
+                                            <dd>
+                                                <a class="ui-link" href="">茶叶罐</a>
+                                                <a class="ui-link"  href="">功夫茶具</a>
+                                                <a class="ui-link" href="" >茶壶</a>
+                                                <a class="ui-link"  href="">茶宠</a>
+                                                <a class="ui-link" href=""  >茶杯</a>
+                                                <a class="ui-link"  href="">茶具礼盒</a>
+                                            </dd>
+                                        </dl>
+                                    </dl>
+                                    <dl>
+                                        <dt>品牌</dt>
+                                        <dd>
+                                            <a  href="">恒越</a>
+                                            <a  href="">卓越</a>
+                                            <a   href="">国尊陶瓷</a>
+                                            <a  href="">宏远达</a>
+                                            <a href="">福万利</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>价格</dt>
+                                        <dd>
+                                            <a href="">100元及以下</a>
+                                            <a  href="">100-300元</a>
+                                            <a  href="">300元及以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>包装</dt>
+                                        <dd>
+                                            <a href="">经济自饮装</a>
+                                            <a  href="">精美礼品装</a>
+                                        </dd>
+                                    </dl>
+                                    <div class=clr></div>
+                                    <div class=act><a href=""><img src="public/common/menu/images/20150518092152.jpg" /></a></div>
+                                </div>
                             </li>
-                            <li class="list-item3 alt">
-                                <h3>化妆品</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">护肤</a>
-                                    <a href="http://www.17sucai.com/">彩妆</a>
-                                    <a href="http://www.17sucai.com/">假发</a>
-                                    <a href="http://www.17sucai.com/">香水</a>
-                                    <a href="http://www.17sucai.com/">男士护肤</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">套装</a>
-                                    <a href="http://www.17sucai.com/">面膜</a>
-                                    <a href="http://www.17sucai.com/">洁面</a>
-                                    <a href="http://www.17sucai.com/">眼霜</a>
-                                    <a href="http://www.17sucai.com/">BB霜</a>
-                                    <a href="http://www.17sucai.com/">爽肤水</a>
-                                </p>
-                            </li>
-                            <li class="list-item4">
-                                <h3>运动户外</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">运动鞋</a>
-                                    <a href="http://www.17sucai.com/">运动服</a>
-                                    <a href="http://www.17sucai.com/">户外</a>
-                                    <a href="http://www.17sucai.com/">用品</a>
-                                    <a href="http://www.17sucai.com/">板鞋</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">跑步鞋</a>
-                                    <a href="http://www.17sucai.com/">羽绒服</a>
-                                    <a href="http://www.17sucai.com/">冲锋衣</a>
-                                    <a href="http://www.17sucai.com/">跑步机</a>
-                                </p>
-                            </li>
-                            <li class="list-item5 alt">
-                                <h3>手机数码</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">手机</a>
-                                    <a href="http://www.17sucai.com/">相机</a>
-                                    <a href="http://www.17sucai.com/">笔记本</a>
-                                    <a href="http://www.17sucai.com/">平板</a>
-                                    <a href="http://www.17sucai.com/">硬件</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">配件</a>
-                                    <a href="http://www.17sucai.com/">视听</a>
-                                    <a href="http://www.17sucai.com/">移动存储</a>
-                                    <a href="http://www.17sucai.com/">台式机</a>
-                                </p>
-                            </li>
-                            <li class="list-item6">
-                                <h3>家用电器</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">大家电</a>
-                                    <a href="http://www.17sucai.com/">影音</a>
-                                    <a href="http://www.17sucai.com/">电视</a>
-                                    <a href="http://www.17sucai.com/">耳机</a>
-                                    <a href="http://www.17sucai.com/">厨房</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">生活电器</a>
-                                    <a href="http://www.17sucai.com/">取暖器</a>
-                                    <a href="http://www.17sucai.com/">个人护理/保健</a>
-                                </p>
-                            </li>
-                            <li class="list-item7 alt">
-                                <h3>家具建材</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">灯具</a>
-                                    <a href="http://www.17sucai.com/">卫浴</a>
-                                    <a href="http://www.17sucai.com/">油漆</a>
-                                    <a href="http://www.17sucai.com/">开关</a>
-                                    <a href="http://www.17sucai.com/">地板</a>
-                                    <a href="http://www.17sucai.com/">墙纸</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">沙发</a>
-                                    <a href="http://www.17sucai.com/">床</a>
-                                    <a href="http://www.17sucai.com/">衣柜</a>
-                                    <a href="http://www.17sucai.com/">床垫</a>
-                                    <a href="http://www.17sucai.com/">架类</a>
-                                    <a href="http://www.17sucai.com/">工具</a>
-                                </p>
-                            </li>
-                            <li class="list-item8">
-                                <h3>家纺/居家</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">四件套</a>
-                                    <a href="http://www.17sucai.com/">蚕丝被</a>
-                                    <a href="http://www.17sucai.com/">冬被</a>
-                                    <a href="http://www.17sucai.com/">枕头</a>
-                                    <a href="http://www.17sucai.com/">家饰</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">厨房</a>
-                                    <a href="http://www.17sucai.com/">杯子</a>
-                                    <a href="http://www.17sucai.com/">清洁</a>
-                                    <a href="http://www.17sucai.com/">收纳</a>
-                                    <a href="http://www.17sucai.com/">宠物</a>
-                                    <a href="http://www.17sucai.com/">居家</a>
-                                </p>
-                            </li>
-                            <li class="list-item9 alt">
-                                <h3>母婴玩具</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">奶粉</a>
-                                    <a href="http://www.17sucai.com/">尿裤</a>
-                                    <a href="http://www.17sucai.com/">童装</a>
-                                    <a href="http://www.17sucai.com/">孕产</a>
-                                    <a href="http://www.17sucai.com/">玩具</a>
-                                    <a href="http://www.17sucai.com/">车床</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">辅食</a>
-                                    <a href="http://www.17sucai.com/">用品</a>
-                                    <a href="http://www.17sucai.com/">童鞋</a>
-                                    <a href="http://www.17sucai.com/">月子</a>
-                                    <a href="http://www.17sucai.com/">大人玩乐</a>
-                                </p>
-                            </li>
-                            <li class="list-item10">
-                                <h3>食品</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">零食</a>
-                                    <a href="http://www.17sucai.com/">坚果</a>
-                                    <a href="http://www.17sucai.com/">茶叶</a>
-                                    <a href="http://www.17sucai.com/">冲饮</a>
-                                    <a href="http://www.17sucai.com/">粮油</a>
-                                    <a href="http://www.17sucai.com/">生鲜</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">酒水</a>
-                                    <a href="http://www.17sucai.com/">白酒</a>
-                                    <a href="http://www.17sucai.com/">葡萄酒</a>
-                                    <a href="http://www.17sucai.com/">巧克力</a>
-                                    <a href="http://www.17sucai.com/">进口</a>
-                                </p>
-                            </li>
-                            <li class="list-item11 alt">
-                                <h3>医药保健</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">保健</a>
-                                    <a href="http://www.17sucai.com/">滋补</a>
-                                    <a href="http://www.17sucai.com/">养生</a>
-                                    <a href="http://www.17sucai.com/">食疗</a>
-                                    <a href="http://www.17sucai.com/">提高免疫</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">药品</a>
-                                    <a href="http://www.17sucai.com/">血压</a>
-                                    <a href="http://www.17sucai.com/">美瞳</a>
-                                    <a href="http://www.17sucai.com/">计生</a>
-                                    <a href="http://www.17sucai.com/">体检</a>
-                                </p>
-                            </li>
-                            <li class="list-item12">
-                                <h3>汽车配件</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">汽车</a>
-                                    <a href="http://www.17sucai.com/">汽车用品</a>
-                                    <a href="http://www.17sucai.com/">坐垫</a>
-                                    <a href="http://www.17sucai.com/">座套</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">脚垫</a>
-                                    <a href="http://www.17sucai.com/">GPS</a>
-                                    <a href="http://www.17sucai.com/">儿童安全座椅</a>
-                                    <a href="http://www.17sucai.com/">改装</a>
-                                </p>
-                            </li>
-                            <li class="list-item13 alt">
-                                <h3>图书音像</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">考试</a>
-                                    <a href="http://www.17sucai.com/">儿童</a>
-                                    <a href="http://www.17sucai.com/">小说</a>
-                                    <a href="http://www.17sucai.com/">外语</a>
-                                    <a href="http://www.17sucai.com/">社科</a>
-                                    <a href="http://www.17sucai.com/">艺术</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">养生</a>
-                                    <a href="http://www.17sucai.com/">文学</a>
-                                    <a href="http://www.17sucai.com/">动漫</a>
-                                    <a href="http://www.17sucai.com/">杂志</a>
-                                    <a href="http://www.17sucai.com/">心理</a>
-                                    <a href="http://www.17sucai.com/">管理</a>
-                                </p>
-                            </li>
-                            <li class="list-item14">
-                                <h3>文化娱乐</h3>
-                                <p>
-                                    <a href="http://www.17sucai.com/">电子凭证</a>
-                                    <a href="http://www.17sucai.com/">小猫提货</a>
-                                    <a href="http://www.17sucai.com/">乐器</a>
-                                    <a href="http://www.17sucai.com/">旅游</a>
-                                </p>
-                                <p>
-                                    <a href="http://www.17sucai.com/">网店软件</a>
-                                    <a href="http://www.17sucai.com/">古董字画</a>
-                                    <a href="http://www.17sucai.com/">个性定制</a>
-                                </p>
-                            </li>
-                            <li class="list-item15 alt">
-                                <h3>手机/网游点卡</h3>
+                            <li class=a4>
+                                <div class=tx><a href=""><i>&nbsp;</i>可口茶食</a> </div>
+                                <dl>
+                                    <dt>推荐</dt>
+                                    <dd>
+                                        <a href="">橄榄</a>
+                                        <a   href="">冰糖杨梅</a>
+                                        <a  href="">酸甜梅</a>
+                                    </dd>
+                                </dl>
+                                <div class=pop>
+                                    <h3><a href="">可口茶食</a></h3>
+                                    <dl>
+                                        <dl>
+                                            <dt>干果</dt>
+                                            <dd>
+                                                <a class="ui-link" href="">杏仁</a>
+                                                <a class="ui-link"   href="">瓜子</a>
+                                                <a  class="un ui-link" href="">开心果</a>
+                                            </dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>零食</dt>
+                                            <dd>
+                                                <a class="ui-link"  href="">水晶柠檬片</a>
+                                                <a class="ui-link"  href="">方块酥</a>
+                                                <a class="ui-link" href="javascript:;">凤梨酥</a>
+                                                <a  class="ui-link" href="">燕麦巧克力</a>
+                                            </dd>
+                                        </dl>
+                                    </dl>
+                                    <dl>
+                                        <dt>品牌</dt>
+                                        <dd>
+                                            <a href="">赛园</a>
+                                            <a  href="">新味</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>价格</dt>
+                                        <dd>
+                                            <a  href="">100元及以下</a>
+                                            <a  href="">100-300元</a>
+                                            <a  href="">300元及以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>净含量</dt>
+                                        <dd>
+                                            <a  href="" >50g及以下</a>
+                                            <a   href="">51-100g</a>
+                                            <a  href="">101-250g</a>
+                                            <a  href="">250g以上</a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>包装</dt>
+                                        <dd>
+                                            <a  href="">经济自饮装</a>
+                                            <a   href="">精美礼品装</a>
+                                        </dd>
+                                    </dl>
+                                    <div class=clr></div>
+                                    <div class=act><a href=""><img src="public/common/menu/images/20150518092213.jpg" /></a> </div>
+                                </div>
                             </li>
                         </ul>
-                    </div>
-                    <div class="Z_SubList">
-                        <div class="subView">
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">服装/内衣/配件</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">羽绒服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">棉衣棉服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛呢外套</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">打底裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">休闲裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">连衣裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">牛仔裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中老年服装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">针织衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">T恤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卫衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">半身裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮草</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">婚纱/礼服/旗袍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">真皮皮衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衬衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">风衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">婚纱</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">波司登</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">ochirly</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">韩都衣舍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">裂帛</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">优衣库</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">only</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">秋水伊人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">哥弟</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">粉红大布娃娃</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">三彩</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">歌莉娅</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">茵曼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">艾莱依</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衣香丽影</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">江南布衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">纳纹</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">播</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">香影</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雅鹿</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">OSA</a>
-                                    </p>
-                                </li>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">服饰配件</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">女士丝巾/围巾/披肩</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男士皮带</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">女士腰带</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛线</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">手套</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">帽子</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男士围巾</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">领带/领结</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">Rayli</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">CARTELO</a>
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">精品男装</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">羽绒服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">棉衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">牛仔裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">呢大衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">风衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夹克</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">羊绒衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">休闲裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卫衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">马甲/背心</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衬衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">t恤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">针织衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西服套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中老年服装</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">JACKJONES</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">太平鸟</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">GXG</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">恒源祥</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">劲霸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">马克华菲</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">九牧王</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">利郎</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">LEE</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">柒牌</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">LEVI'S</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">SELECTED</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">杉杉</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雅戈尔</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">DICKIES</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">诺帝卡</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">报喜鸟</a>
-                                    </p>
-                                </li>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">时尚家居</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">睡衣套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夹棉家居服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">珊瑚绒家居服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">情侣套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卡通睡衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡袍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡裤</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">芬腾</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">安之伴</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">派邦奴</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">秋鹿</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睦隆世家</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雪俐</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">爱帝</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">美梦</a>
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">精致内衣</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖上衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">精品文胸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">塑身衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">女式内裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">文胸套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中筒袜</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">连裤袜</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男式内裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">聚拢文胸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">美腿袜</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">浪莎</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">波司登</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">南极人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">恒源祥</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">北极绒</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">爱慕</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">曼妮芬</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">歌瑞尔</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">古今</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">猫人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">安莉芳</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夏娃之秀</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">黛安芬</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">金三塔</a>
-                                    </p>
-                                </li>
-                                <p class="subItemAd">
-                                    <a target="_blank" href="http://www.17sucai.com/"><img width="218" height="32" alt="潮流服饰精选" src="http://img04.taobaocdn.com/tps/i4/T1dVzWXbpjXXb12rTm-218-32.png"></a>
-                                </p>
-                            </ul>
-                        </div>
-                        <div class="subView">
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">鞋/箱包</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">羽绒服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">棉衣棉服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛呢外套</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">打底裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">休闲裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">连衣裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">牛仔裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中老年服装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">针织衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">T恤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卫衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">半身裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮草</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">婚纱/礼服/旗袍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">真皮皮衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衬衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">风衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">婚纱</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">波司登</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">ochirly</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">韩都衣舍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">裂帛</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">优衣库</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">only</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">秋水伊人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">哥弟</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">粉红大布娃娃</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">三彩</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">歌莉娅</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">茵曼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">艾莱依</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衣香丽影</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">江南布衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">纳纹</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">播</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">香影</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雅鹿</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">OSA</a>
-                                    </p>
-                                </li>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">服饰配件</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">女士丝巾/围巾/披肩</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男士皮带</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">女士腰带</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛线</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">手套</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">帽子</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男士围巾</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">领带/领结</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">Rayli</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">CARTELO</a>
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">精品男装</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">羽绒服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">棉衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">牛仔裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">呢大衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">风衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夹克</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">羊绒衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">休闲裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卫衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">马甲/背心</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衬衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">t恤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">针织衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西服套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中老年服装</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">JACKJONES</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">太平鸟</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">GXG</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">恒源祥</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">劲霸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">马克华菲</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">九牧王</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">利郎</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">LEE</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">柒牌</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">LEVI'S</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">SELECTED</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">杉杉</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雅戈尔</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">DICKIES</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">诺帝卡</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">报喜鸟</a>
-                                    </p>
-                                </li>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">时尚家居</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">睡衣套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夹棉家居服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">珊瑚绒家居服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">情侣套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卡通睡衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡袍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡裤</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">芬腾</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">安之伴</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">派邦奴</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">秋鹿</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睦隆世家</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雪俐</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">爱帝</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">美梦</a>
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">精致内衣</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖上衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">精品文胸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">塑身衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">女式内裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">文胸套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中筒袜</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">连裤袜</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男式内裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">聚拢文胸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">美腿袜</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">浪莎</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">波司登</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">南极人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">恒源祥</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">北极绒</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">爱慕</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">曼妮芬</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">歌瑞尔</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">古今</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">猫人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">安莉芳</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夏娃之秀</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">黛安芬</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">金三塔</a>
-                                    </p>
-                                </li>
-                                <p class="subItemAd">
-                                    <a target="_blank" href="http://www.17sucai.com/"><img width="218" height="32" alt="潮流服饰精选" src="http://img04.taobaocdn.com/tps/i4/T1dVzWXbpjXXb12rTm-218-32.png"></a>
-                                </p>
-                            </ul>
-                        </div>
-                        <div class="subView">
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">珠宝饰品/手表眼睛</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">羽绒服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">棉衣棉服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛呢外套</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">打底裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">休闲裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">连衣裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">牛仔裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中老年服装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">针织衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">T恤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卫衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">半身裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮草</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">婚纱/礼服/旗袍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">真皮皮衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衬衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">风衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">婚纱</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">波司登</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">ochirly</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">韩都衣舍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">裂帛</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">优衣库</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">only</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">秋水伊人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">哥弟</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">粉红大布娃娃</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">三彩</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">歌莉娅</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">茵曼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">艾莱依</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衣香丽影</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">江南布衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">纳纹</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">播</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">香影</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雅鹿</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">OSA</a>
-                                    </p>
-                                </li>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">服饰配件</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">女士丝巾/围巾/披肩</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男士皮带</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">女士腰带</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛线</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">手套</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">帽子</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男士围巾</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">领带/领结</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">Rayli</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">CARTELO</a>
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">精品男装</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">羽绒服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">毛衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">棉衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">牛仔裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">呢大衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">风衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夹克</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">羊绒衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">休闲裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卫衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">马甲/背心</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">衬衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">t恤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">针织衫</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">皮裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">西服套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中老年服装</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">JACKJONES</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">太平鸟</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">GXG</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">恒源祥</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">劲霸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">马克华菲</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">九牧王</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">利郎</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">LEE</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">柒牌</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">LEVI'S</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">SELECTED</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">杉杉</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雅戈尔</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">DICKIES</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">诺帝卡</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">报喜鸟</a>
-                                    </p>
-                                </li>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">时尚家居</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">睡衣套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夹棉家居服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">珊瑚绒家居服</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">情侣套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">卡通睡衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡袍</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡裙</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睡裤</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">芬腾</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">安之伴</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">派邦奴</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">秋鹿</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">睦隆世家</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">雪俐</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">爱帝</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">美梦</a>
-                                    </p>
-                                </li>
-                            </ul>
-
-                            <ul>
-                                <li class="subItem">
-                                    <h3 class="subItem-hd"><a target="_blank" href="http://www.17sucai.com/">精致内衣</a></h3>
-                                    <p class="subItem-cat">
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖上衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">精品文胸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">塑身衣</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">女式内裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">文胸套装</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">中筒袜</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">连裤袜</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">男式内裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">保暖裤</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">聚拢文胸</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">美腿袜</a>
-                                    </p>
-                                    <h4 class="subItem-title brandTitle">品牌：</h4>
-                                    <p class="subItem-brand">
-                                        <a target="_blank" href="http://www.17sucai.com/">七匹狼</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">浪莎</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">波司登</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">南极人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">恒源祥</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">北极绒</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">爱慕</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">曼妮芬</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">歌瑞尔</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">古今</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">猫人</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">安莉芳</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">夏娃之秀</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">黛安芬</a>
-                                        <a target="_blank" href="http://www.17sucai.com/">金三塔</a>
-                                    </p>
-                                </li>
-                                <p class="subItemAd">
-                                    <a target="_blank" href="http://www.17sucai.com/"><img width="218" height="32" alt="潮流服饰精选" src="http://img04.taobaocdn.com/tps/i4/T1dVzWXbpjXXb12rTm-218-32.png"></a>
-                                </p>
-                            </ul>
-                        </div>
-                        <div class="subView">4、化妆品</div>
-                        <div class="subView">5、运动户外</div>
-                        <div class="subView">6、手机数码</div>
-                        <div class="subView">7、家用电器</div>
-                        <div class="subView">8、家具建材</div>
-                        <div class="subView">9、家纺/居家</div>
-                        <div class="subView">10、母婴玩具</div>
-                        <div class="subView">11、食品</div>
-                        <div class="subView">12、医药保健</div>
-                        <div class="subView">13、汽车配件</div>
-                        <div class="subView">14、图书音像</div>
-                        <div class="subView">15、文化娱乐</div>
-                        <div class="subView">16、手机/网游点卡</div>
                     </div>
                 </div>
             </div>
@@ -889,14 +390,14 @@ $this->title = 'zcShop商城系统';
                         <a href="javascript:;" class="nextBtn"><i></i></a>
                     </div>
                     <ul class="banner-img">
-                        <li><a href="#"><img src="https://gw.alicdn.com/tps/TB1lK1PLpXXXXcDXFXXXXXXXXXX-714-398.jpg_790x10000q90.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/002.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/003.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/004.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/005.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/006.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/006.jpg" ></a></li>
-                        <li><a href="#"><img src="public/common/images/006.jpg" ></a></li>
+                        <li><a href="#"><img src="https://gw.alicdn.com/tps/TB1lK1PLpXXXXcDXFXXXXXXXXXX-714-398.jpg_790x10000q90.jpg" width="906px" ></a></li>
+                        <li><a href="#"><img src="public/common/images/002.jpg" width="906px"></a></li>
+                        <li><a href="#"><img src="public/common/images/003.jpg" width="906px"></a></li>
+                        <li><a href="#"><img src="public/common/images/004.jpg" width="906px"></a></li>
+                        <li><a href="#"><img src="public/common/images/005.jpg" width="906px"></a></li>
+                        <li><a href="#"><img src="public/common/images/006.jpg" width="906px"></a></li>
+                        <li><a href="#"><img src="public/common/images/006.jpg" width="906px"></a></li>
+                        <li><a href="#"><img src="public/common/images/006.jpg" width="906px"></a></li>
                     </ul>
                     <ul class="banner-circle"></ul>
                 </div>
@@ -939,16 +440,12 @@ $this->title = 'zcShop商城系统';
     </div>
 </div>
 <?php
-    $this->registerJsFile('public/common/menu/js/jquery.tmailsider.js',
+    /*$this->registerJsFile('public/common/menu/js/jquery.tmailsider.js',
         ['depends' => [JqueryAsset::className()],'position'=>$this::POS_END]
-    );
+    );*/
 ?>
 
 <?php $this->beginBlock('jquery') ?>
-
-    $('#Z_TypeList').Z_TMAIL_SIDER({
-        target : $(".banner")
-    });
 
     $(function(){
         var $banner=$('.banner');
@@ -1044,7 +541,9 @@ $this->title = 'zcShop商城系统';
             page=index+1;
             cirMove();
         });
+
     });
+</script>
 <?php $this->endBlock() ?>
 <?php $this->registerJs($this->blocks['jquery'], \yii\web\View::POS_END); ?>
 

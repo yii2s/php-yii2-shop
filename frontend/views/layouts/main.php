@@ -69,7 +69,7 @@ AppAsset::register($this);
     ?>
 
 
-    <div class="container" style="width: 100%;padding: 70px 40px 0px">
+    <div class="container" style="width: 100%;">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

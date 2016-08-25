@@ -72,7 +72,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index_back');
+        //$this->layout = 'empty';
+        return $this->render('index_back_3');
     }
 
     /**
