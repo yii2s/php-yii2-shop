@@ -12,10 +12,11 @@ use yii\filters\VerbFilter;
  */
 class SiteController extends Controller
 {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
+   /* public function behaviors()
     {
         return [
             'access' => [
@@ -39,7 +40,7 @@ class SiteController extends Controller
                 ],
             ],
         ];
-    }
+    }*/
 
     /**
      * @inheritdoc
@@ -60,6 +61,8 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+        $this->layout = 'main-login';
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }

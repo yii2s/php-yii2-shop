@@ -19,7 +19,7 @@ return [
     ],
     'components' => [
         'user' => [
-            'identityClass' => 'common\models\Member',
+            'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
         ],
         'authManager' => [

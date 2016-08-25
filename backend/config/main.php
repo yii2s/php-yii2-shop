@@ -8,14 +8,26 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
-    'defaultRoute' => 'admin/index', //默认控制器
+    'defaultRoute' => 'site/index', //默认控制器
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'permission' => [
+            'class' => 'backend\module\permission\Module',
+            //'layout' => 'left-menu',//yii2-admin的导航菜单
+        ]
+    ],
     'components' => [
+       /* 'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                ],
+            ],
+        ],*/
         'user' => [
-            'identityClass' => 'backend\models\Admin',
+            'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => ['admin/login'], //设置未登录是的跳转地址
         ],
@@ -34,6 +46,16 @@ return [
         'assetManager' => [
             'basePath' => '@webroot/backend/web/assets',
             'baseUrl' => '@web/backend/web/assets'
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // 使用数据库管理配置文件
+        ],
+        'as access' => [
+            'class' => 'backend\module\permission\components\AccessControl',
+            'allowActions' => [
+                //'site/*',//允许访问的节点，可自行添加
+                //'admin/*',//允许所有人访问admin节点及其子节点
+            ]
         ],
     ],
     'params' => $params,
