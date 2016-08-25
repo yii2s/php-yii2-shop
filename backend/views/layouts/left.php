@@ -1,5 +1,6 @@
 <?php
-foreach ($menus as $menu) {
+$data = [];
+foreach ((array)$menus as $menu) {
     $temp['label'] = $menu['label'];
     $temp['url'] = $menu['url'];
     $data[] = $temp;
@@ -15,7 +16,7 @@ foreach ($menus as $menu) {
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p><?= Yii::$app->user->identity->username?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -36,7 +37,8 @@ foreach ($menus as $menu) {
         <?= backend\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu'],
-                'items' => [
+                'items' => $data,
+                /*'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
@@ -67,7 +69,7 @@ foreach ($menus as $menu) {
                             ],
                         ],
                     ],
-                ],
+                ],*/
             ]
         ) ?>
 

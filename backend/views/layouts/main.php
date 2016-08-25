@@ -13,7 +13,7 @@ AdminLteAsset::register($this);
 $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@public/backend/dist');
 
 $controller = $this->context;
-$menus = $controller->module->menus;
+$menus = isset($controller->module->menus) ? $controller->module->menus : [];
 
 ?>
 

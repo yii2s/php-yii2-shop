@@ -16,7 +16,13 @@ return [
         'permission' => [
             'class' => 'backend\module\permission\Module',
             //'layout' => 'left-menu',//yii2-admin的导航菜单
-        ]
+        ],
+        'goods' => [
+            'class' => 'backend\module\goods\goodsModule',
+        ],
+        'admin' => [
+            'class' => 'backend\module\admin\adminModule'
+        ],
     ],
     'components' => [
        /* 'view' => [
@@ -29,7 +35,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['admin/login'], //设置未登录是的跳转地址
+            'loginUrl' => ['site/login'], //设置未登录是的跳转地址
         ],
         /*'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

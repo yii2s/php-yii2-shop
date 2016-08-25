@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">ZC</span><span class="logo-lg">zcShop商城后台管理系统</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -230,7 +230,7 @@ use yii\helpers\Html;
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs"><?= Yii::$app->user->identity->username?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -280,10 +280,13 @@ use yii\helpers\Html;
 
         <ul class="nav navbar-nav navbar-left">
             <li>
-                <a href="#" data-toggle="control-sidebar">系统</a>
+                <a href="#">系统</a>
             </li>
             <li>
-                <a href="#" data-toggle="control-sidebar">商品</a>
+                <a href="<?= Yii::$app->urlManager->createUrl(['goods/default/index'])?>">商品</a>
+            </li>
+            <li>
+                <a href="<?= Yii::$app->urlManager->createUrl(['admin/default/index'])?>">管理员</a>
             </li>
             <li>
                 <a href="#" data-toggle="control-sidebar">会员</a>
