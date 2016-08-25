@@ -1,3 +1,4 @@
+<?php use yii\bootstrap\Html; ?>
 <!DOCTYPE HTML>
 <html>
 <head>

@@ -14,7 +14,7 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'db' => [
+        /*'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;dbname=shop',
             'username' => 'root',
@@ -30,6 +30,16 @@ return [
             'charset' => 'utf8',
             'tablePrefix' => 'zc_',
         ],*/
+
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=shop',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'tablePrefix' => 'zc_',
+        ],
+
         'frontUrl' => [
             'class' => 'yii\web\UrlManager',
             'scriptUrl' => '/myweb2/index.php',   //���������֮����ܹ���������
@@ -50,6 +60,11 @@ return [
             'dsn' => 'mysql:host=127.0.0.1;port=9306;',
             'username' => '',
             'password' => '',
+        ],
+        'request' => [
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => 'sfsfdsfsdf',
         ],
     ],
 ];
