@@ -1,5 +1,7 @@
 <?php
 //Yii::$app->params['paramsName']
+use common\config\Conf;
+
 return [
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'support@example.com',
@@ -54,6 +56,13 @@ return [
     'thumbStandards' => [
         's1' => [200, 120],
         's2' => [50, 50],
+    ],
+
+    'goodsStatus' => [
+        Conf::DOWN_GOODS => '下架',
+        Conf::UP_GOODS => '下架',
+        Conf::ENABLE => '审核通过',
+        Conf::DISABLE => '审核不通过',
     ],
 
 ];
