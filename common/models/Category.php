@@ -49,13 +49,13 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'parent_id' => 'Parent ID',
-            'sort' => 'Sort',
-            'visibility' => 'Visibility',
-            'keywords' => 'Keywords',
-            'descript' => 'Descript',
-            'title' => 'Title',
+            'name' => '分类名称',
+            'parent_id' => '所属父类',
+            'sort' => '排序',
+            'visibility' => '是否首页显示',
+            'keywords' => 'SEO关键字',
+            'descript' => 'SEO描述',
+            'title' => 'SEO标题',
             'seller_id' => 'Seller ID',
         ];
     }

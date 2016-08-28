@@ -36,8 +36,10 @@ class GoodsModule extends \yii\base\Module
      * @see [[menus]]
      */
     private $_coreItems = [
-        'default/create' => '新建商品',
         'default/index' => '商品列表',
+        'default/create' => '新建商品',
+        'category/index' => '分类列表',
+        'category/create' => '新建分类',
     ];
 
     private $_menus = [];

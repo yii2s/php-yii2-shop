@@ -12,7 +12,7 @@
 (function ($) {
     "use strict";
 
-    $.fn.fileinput.locales.zh = {
+    $.fn.fileinputLocales.zh = {
         fileSingle: '文件',
         filePlural: '多个文件',
         browseLabel: '选择 &hellip;',
@@ -43,5 +43,5 @@
         }
     };
 
-    $.extend($.fn.fileinput.defaults, $.fn.fileinput.locales.zh);
+    $.extend($.fn.fileinput.defaults, $.fn.fileinputLocales.zh);
 })(window.jQuery);

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\service\CategoryService;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -72,8 +73,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //$this->layout = 'empty';
-        return $this->render('index_back_3');
+        return $this->render('index', [
+            'categories' => CategoryService::factory()->getCategoriesMap()
+        ]);
     }
 
     /**

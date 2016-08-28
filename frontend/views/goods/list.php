@@ -1,6 +1,14 @@
 <?php
 use yii\bootstrap\Html;
-$this->title = '商品列表';
+
+$curCategory = array_pop($parentCats);
+$this->title = $curCategory['name'];
+
+foreach ((array)$parentCats as $cat) {
+    $this->params['breadcrumbs'][] = ['label' => $cat['name'], 'url' => ['goods/cats', 'cid' => $cat['id']]];
+}
+$this->params['breadcrumbs'][] = $curCategory['name'];
+
 ?>
 <?= Html::cssFile('public/frontend/css/base.css'); ?>
 <?= Html::cssFile('public/frontend/css/site.css'); ?>
@@ -14,11 +22,6 @@ $this->title = '商品列表';
         text-decoration: none;
     }
 </style>
-<ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">2013</a></li>
-    <li class="active">十一月</li>
-</ol>
 <div class="site-index">
 
     <!--属性值选择 start-->

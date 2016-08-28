@@ -36,8 +36,10 @@ class FileUtil
                 $savePath = $target.$name;
                 if ($upload->saveAs($savePath)) {
                     return mb_convert_encoding($savePath, 'utf-8', 'gbk');
+                    //return $savePath;
                 }
         }
+
         return '';
     }
 

@@ -14,4 +14,8 @@ $(function(){
         // business logic...
         $btn.button('reset')
     })
+
+    $("input[name='Goods[name]']").blur(function(){
+        alert("hall");
+    });
 });

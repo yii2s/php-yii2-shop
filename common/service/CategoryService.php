@@ -79,8 +79,9 @@ class CategoryService extends AbstractService
     {
         static $data = array();
         static $level = 0;
-        $temp = array();
+
         foreach($arr as $k => $c) {
+            $temp = array();
             if ($c['parent_id'] == $id) {
                 $temp['id'] = $c['id'];
                 $temp['name'] = $c['name'];
@@ -292,6 +293,57 @@ class CategoryService extends AbstractService
         return $record['attrVals'];
     }
 
+    /**
+     * @brief 修改分类名称
+     * @param int $cid 分类ID
+     * @param string $name 名称
+     * @return bool
+     * @since 2016-08-28
+     */
+    public function editName($cid, $name)
+    {
+        $categoryHybrid = new CategoryHybrid();
+        return $categoryHybrid->save(['id' => $cid, 'name' => $name]);
+    }
+
+    /**
+     * @brief 获取多层父类
+     * @param $id
+     * @return array
+     * <pre>
+     *      [
+     *          ['id' => 1， 'name' => '电器', 'parentID' => 0],
+     *          ['id' => 2， 'name' => '电灯', 'parentID' => 1],
+     *          ['id' => 3， 'name' => 'LED', 'parentID' => 2],
+     *      ]
+     * </pre>
+     * @since 2016-08-28
+     */
+    public function getParentCats($id)
+    {
+        $result = [];
+        $findIDs[] = $id;
+
+        while (true) {
+            $temp = [];
+            $id = current($findIDs);
+
+            $cat = Category::findOne($id);
+            if (!$cat || $cat->parent_id === 0) {
+                break;
+            }
+
+            $temp['id'] = $cat->id;
+            $temp['name'] = $cat->name;
+            $temp['parentID'] = $cat->parent_id;
+            array_unshift($result, $temp);
+
+            $findIDs[] = $cat->parent_id;
+            next($findIDs);
+        }
+
+        return $result;
+    }
 
     //endregion 类别管理
 

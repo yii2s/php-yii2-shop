@@ -1671,6 +1671,7 @@
                 $remove.removeAttr('disabled');
                 handler($remove, 'click', function () {
                     var out = self._raise('filesuccessremove', [$thumb.attr('id'), $thumb.data('fileindex')]);
+
                     cleanMemory($thumb);
                     if (out === false) {
                         return;

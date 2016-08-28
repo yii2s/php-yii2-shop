@@ -31,4 +31,15 @@ class CController extends Controller
         }
     }
 
+    /**
+     * @brief 生成链接地址
+     * @param string|array $params @see UrlManager->createUrl()
+     * @return string
+     * @since 2016-08-28
+     */
+    public function createUrl($params)
+    {
+        return Yii::$app->urlManager->createUrl($params);
+    }
+
 }

@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\components\CController;
 use common\config\Conf;
+use common\models\Category;
 use common\models\Goods;
 use common\models\GoodsAttrValMap;
 use common\service\CategoryService;
@@ -21,7 +22,9 @@ class GoodsController extends CController
 {
     public function actionList()
     {
-        return $this->render('list');
+        return $this->render('list', [
+            'parentCats' => CategoryService::factory()->getParentCats(intval($_GET['cid']))
+        ]);
     }
 
     /**
@@ -58,6 +61,17 @@ class GoodsController extends CController
 
         $return['list'] = GoodsService::factory()->getList($args);
         ResponseUtil::json(['data' => $return]);
+    }
+
+    /**
+     * @brief 分类导航
+     * @param $cid
+     * @return string
+     * @since 2016-08-28
+     */
+    public function actionCats($cid)
+    {
+        return $this->render('cats', ['cid' => $cid]);
     }
 
     public function actionDetail()
@@ -131,12 +145,7 @@ class GoodsController extends CController
 
     public function actionT()
     {
-        $args = [
-            'cid' => 4,
-            'limit' => 11,
-            'commend_id' => Conf::GOODS_RECOMMEND
-        ];
-        $data = GoodsService::factory()->getCommendGoods($args);
-        print_r($data);
+        $parentCats= CategoryService::factory()->getParentCats(609);
+        print_r($parentCats);
     }
 }

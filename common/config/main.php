@@ -1,7 +1,7 @@
 <?php
 
 /** 是否开启缓存 */
-define('CACHE_ON', true);
+define('CACHE_ON', false);
 
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
