@@ -42,7 +42,7 @@ class GoodsHybrid extends AbstractHybrid
         $goods->store_nums = (int)$args['store_nums'] ?: 0;
         $goods->img = $args['img'];
         $goods->ad_img = $args['ad_img'];
-        $goods->is_del = $args['is_del'];
+        $goods->is_del = $args['is_del'] ?: 0;
         $goods->content = $args['content'];
         $goods->keywords = $args['keywords'];
         $goods->description = $args['description'];

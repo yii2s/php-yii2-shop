@@ -34,7 +34,7 @@ class ImageUtil
 
         $mode or $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND;
         $img = Image::thumbnail($file, $w, $h, $mode);
-        $img->save($newName, ['quality' => 70]);
+        $img->save($newName, ['quality' => 100]);
         return $newName;
     }
 

@@ -42,4 +42,15 @@ class CController extends Controller
         return Yii::$app->urlManager->createUrl($params);
     }
 
+    /**
+     * @brief 获取类名
+     * @param $object
+     * @return string
+     */
+    public function getShortName($object)
+    {
+        $object = new \ReflectionClass($object);
+        return $object->getShortName();
+    }
+
 }

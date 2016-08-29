@@ -3,14 +3,19 @@
 namespace common\service;
 
 
+use common\models\AttrValue;
 use common\models\Category;
 use common\models\Goods;
 use common\models\GoodsAttribute;
 use common\models\GoodsAttrValMap;
+use common\models\GoodsExtAttr;
 use common\models\GoodsImage;
 use common\models\GoodsPhoto;
 use common\models\GoodsPhotoRelation;
+use common\utils\FileUtil;
+use common\utils\FilterUtil;
 use common\utils\ImageUtil;
+use common\utils\StringUtil;
 use Yii;
 use common\config\Conf;
 use common\hybrid\AbstractHybrid;
@@ -39,7 +44,8 @@ class GoodsService extends AbstractService
      */
     public function save($args)
     {
-
+        //商品状态
+        FilterUtil::isEmptyValue($args['is_del']) or $args['is_del'] = 0;
         if ($args['is_del'] == Conf::DOWN_GOODS) {
             $args['down_time'] = DateTime::date('Y-m-d H:i:s');
         } elseif ($args['is_del'] == Conf::UP_GOODS) {
@@ -49,60 +55,144 @@ class GoodsService extends AbstractService
         $hybrid = new AbstractHybrid();
         $goodsHybrid = new GoodsHybrid();
 
-        if ($args['mainImg'] && is_file($args['mainImg'])) {
-            $args['img'] = $args['mainImg'];
-            $args['ad_img'] = ImageUtil::thumbnail($args['mainImg'], 220, 220);
-            unset($args['mainImg']);
+        //用于列表页封面
+        if ($args['img'] && FileUtil::isExists($args['img'])) {
+            $args['ad_img'] = ImageUtil::thumbnail($args['img'], 220, 220);
         }
 
         //保存商品基本数据
         $goodsID = $goodsHybrid->save($args);
         if (!$goodsID) {
-            echo 'goodsID';
             return false;
         }
 
         //保存推荐
         if ($args['recommend']) {
-            CommentGoods::deleteAll(['goods_id' => $goodsID]);
-            $recommend = [];
-            foreach (($args['recommend']) as $commendID) {
-                $recommend[] = [$commendID, $goodsID];
-            }
-            $hybrid->batchSave(CommentGoods::tableName(),['commend_id','goods_id'], $recommend);
+            $this->_saveRecommend($goodsID, $args['recommend'], $hybrid);
         }
 
-        if ($args['photo']) {
-            GoodsImage::deleteAll(['gid' => $goodsID]);
-            $photos = [];
-            foreach (($args['photo']) as $img) {
-                $filename = Yii::getAlias('@webroot') . DIRECTORY_SEPARATOR . $img;
-                if (!is_file($filename)) {
-                    continue;
-                }
-                $photos[] = [$goodsID, $img];
-
-                //缩略图规格
-                $thumbStandards = Yii::$app->params['thumbStandards'];
-                foreach ($thumbStandards as $size) {
-                    ImageUtil::thumbnail($img, $size[0], $size[1]);
-                }
-
-            }
-            $hybrid->batchSave(GoodsImage::tableName(), ['gid', 'img'], $photos);
+        //图集
+        if ($args['images']) {
+            $this->_saveImages($goodsID, $args['images'], $hybrid);
         }
 
-        //保存商品属性值
-        if ($args['attr_vid']) {
-            $goodsAttrValMap = [];
-            foreach ((array)$args['attr_vid'] as $avid) {
-                list($aid, $vid) = explode('-', $avid);
-                $goodsAttrValMap[] = [$goodsID, intval($aid), intval($vid)];
-            }
-            $hybrid->batchSave(GoodsAttrValMap::tableName(), ['gid', 'aid', 'vid'], $goodsAttrValMap);
+        //保存系统属性值
+        if ($args['sysAttr']) {
+            $this->_saveSysAttr($goodsID, $args['sysAttr'], $hybrid);
         }
 
-        return true;
+        //保存扩展属性
+        if ($args['extAttr']) {
+            $this->_saveExtAttr($goodsID, $args['extAttr'], $hybrid);
+        }
+
+        //保存商品规格
+        if ($args['spec']) {
+            $this->_saveSpec($goodsID, $args['spec'], $hybrid);
+        }
+
+        return $goodsID;
+    }
+
+    /**
+     * @brief 保存推荐信息
+     * @param $goodsID
+     * @param array $recommend
+     * @param AbstractHybrid $hybrid
+     * @since 2016-08-29
+     */
+    private function _saveRecommend($goodsID, array $recommend, AbstractHybrid $hybrid)
+    {
+        CommentGoods::deleteAll(['goods_id' => $goodsID]);
+
+        $values = [];
+        foreach ((array)$recommend as $commendID) {
+            $values[] = [intval($commendID), $goodsID];
+        }
+
+        $values and $hybrid->batchSave(CommentGoods::tableName(),['commend_id','goods_id'], $values);
+    }
+
+    /**
+     * @brief 保存图集
+     * @param $goodsID
+     * @param array $images
+     * @param AbstractHybrid $hybrid
+     * @since 2016-08-29
+     */
+    private function _saveImages($goodsID, array $images, AbstractHybrid $hybrid)
+    {
+        GoodsImage::deleteAll(['gid' => $goodsID]);
+
+        $values = [];
+        foreach ((array)$images as $img) {
+            if (!FileUtil::isExists($img)) {
+                continue;
+            }
+
+            //生成缩略图
+            $thumbStandards = Yii::$app->params['thumbStandards'];
+            foreach ($thumbStandards as $size) {
+                ImageUtil::thumbnail($img, $size[0], $size[1]);
+            }
+
+            $values[] = [$goodsID, $img];
+        }
+
+        $values and $hybrid->batchSave(GoodsImage::tableName(), ['gid', 'img'], $values);
+    }
+
+    /**
+     * @brief 保存系统属性
+     * @param $goodsID
+     * @param array $attr
+     * @param AbstractHybrid $hybrid
+     * @since 2016-08-29
+     */
+    private function _saveSysAttr($goodsID, array $attr, AbstractHybrid $hybrid)
+    {
+        GoodsAttrValMap::deleteAll(['gid' => $goodsID]);
+
+        $values = [];
+        foreach ((array)$attr as $avid) {
+            list($aid, $vid) = explode('-', $avid);
+            $values[] = [$goodsID, intval($aid), intval($vid)];
+        }
+
+        $values and $hybrid->batchSave(GoodsAttrValMap::tableName(), ['gid', 'aid', 'vid'], $values);
+    }
+
+    /**
+     * @brief 保存扩展属性
+     * @param int $goodsID 商品ID
+     * @param array $attr 扩展属性
+     * @param AbstractHybrid $hybrid
+     * @param int $uid 用户ID
+     */
+    private function _saveExtAttr($goodsID, array $attr, AbstractHybrid $hybrid, $uid = 0)
+    {
+        GoodsExtAttr::deleteAll(['gid' => $goodsID]);
+
+        $values = [];
+        foreach ((array)$attr as $a) {
+            $temp = [];
+            $temp['name'] = $a['name'];
+            $temp['value'] = $a['value'];
+            $temp['uid'] = $uid ?: Yii::$app->user->id;
+            $temp['gid'] = $goodsID;
+            $temp['create_time'] = date('Y-m-d H:i:s', time());
+            $temp['status'] = intval($a['status']) ?: Conf::ENABLE;
+            $values[] = $a;
+        }
+
+        $values and $hybrid->batchSave(GoodsExtAttr::tableName(), [
+            'name', 'value', 'uid', 'gid', 'create_time', 'status'
+        ], $values);
+    }
+
+    private function _saveSpec($goodsID, array $attr, AbstractHybrid $hybrid)
+    {
+
     }
 
     /**

@@ -20,7 +20,7 @@ class AbstractHybrid
     public function batchSave($tableName, array $column, array $values)
     {
         return Yii::$app->db->createCommand()
-            ->batchInsert($tableName,$column,$values)
+            ->batchInsert($tableName, $column, $values)
             ->execute();
     }
 }

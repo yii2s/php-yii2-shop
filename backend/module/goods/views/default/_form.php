@@ -35,7 +35,6 @@ $fieldTemplate = "<div class=\"col-sm-1\">{label}</div>\n<div class=\"col-sm-8\"
                     <?= $form->field($model, 'sell_price')->textInput(['maxlength' => true, 'placeholder' => '0.0', 'value'=>12, 'style' => 'width:20%'])->label('销售价格:') ?>
                     <?= $form->field($model, 'market_price')->textInput(['maxlength' => true, 'placeholder' => '0.0', 'style' => 'width:20%'])->label('市场价格:') ?>
                     <?= $form->field($model, 'cost_price')->textInput(['maxlength' => true, 'placeholder' => '0.0', 'style' => 'width:20%'])->label('成本价格:') ?>
-                    <?/*= $form->field($model, 'create_time')->textInput(['readonly' => true]) */?>
                     <?= $form->field($model, 'store_nums')->textInput(['style' => 'width:20%', 'value' => 999])->label('库存:') ?>
                     <?= $form->field($model, 'brand_id')->dropDownList(['7' => '爱丽丝', '8' => '耐克'], ['style' => 'width:20%'])->label('品牌') ?>
                     <?= $form->field($model, 'weight')->textInput(['maxlength' => true, 'placeholder' => '数字 + 单位', 'style' => 'width:20%'])->label('重量:') ?>
@@ -71,7 +70,7 @@ $fieldTemplate = "<div class=\"col-sm-1\">{label}</div>\n<div class=\"col-sm-8\"
                         <div class="col-sm-1"><label class="control-label" for="goods-ad-img">图集:</label></div>
                         <div class="col-sm-10">
                             <?= \common\widgets\UploadWidget::widget([
-                                'hiddenField' => 'goods_images[]',
+                                'hiddenField' => Html::getInputName($model, 'images[]'),
                                 'multiple' => true,
                                 'maxFileCount' => 20,
                                 'dropZoneEnabled' => 1

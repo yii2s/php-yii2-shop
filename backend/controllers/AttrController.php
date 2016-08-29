@@ -11,6 +11,7 @@ use common\models\Category;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
 use common\utils\ResponseUtil;
+use common\utils\StringUtil;
 use Yii;
 use common\utils\FileUtil;
 use yii\filters\AccessControl;
@@ -146,9 +147,8 @@ class AttrController extends Controller
 
     public function actionTest()
     {
-        $data = CategoryService::factory()->getAttrValsByCatsID(12);
-        echo count($data);
-        VarDumper::dump($data);
+        $data = ['name' => '收到', 'age' => 12, 'kill' => ['ge' => '个', 'we' => '为']];
+        print_r(StringUtil::convertToUTF8($data));
     }
 
     /**

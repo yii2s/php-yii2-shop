@@ -3,6 +3,7 @@
 namespace common\utils;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 class ResponseUtil

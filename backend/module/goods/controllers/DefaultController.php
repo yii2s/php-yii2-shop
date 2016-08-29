@@ -2,17 +2,18 @@
 
 namespace backend\module\goods\controllers;
 
+use common\components\CController;
+use common\service\GoodsService;
 use Yii;
 use common\models\Goods;
 use backend\module\goods\models\GoodsSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * DefaultController implements the CRUD actions for Goods model.
  */
-class DefaultController extends Controller
+class DefaultController extends CController
 {
     /**
      * @inheritdoc
@@ -64,12 +65,10 @@ class DefaultController extends Controller
     public function actionCreate()
     {
         $model = new Goods();
-
-        if ($_POST) {
-            print_r($_POST);exit;
-        }
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($data = Yii::$app->request->post()) {
+            return $this->redirect(['view',
+                'id' => GoodsService::factory()->save($data[$this->getShortName($model)])
+            ]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -124,4 +123,5 @@ class DefaultController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

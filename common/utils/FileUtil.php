@@ -31,13 +31,18 @@ class FileUtil
         $allowType = array_map('strtolower', $allowType);
 
         $upload = UploadedFile::getInstanceByName($field);
-        if ($upload && self::validateUpload($upload, $allowType, $checkMimeType)) {
-                $name = $upload->name;
-                $savePath = $target.$name;
-                if ($upload->saveAs($savePath)) {
-                    return mb_convert_encoding($savePath, 'utf-8', 'gbk');
-                    //return $savePath;
-                }
+        if (!$upload) {
+            return '';
+        }
+
+        if (!self::validateUpload($upload, $allowType, $checkMimeType)) {
+            return '';
+        }
+
+        $name = $upload->name;
+        $savePath = StringUtil::transCoding($target.$name, 'UTF-8','GBK'); //防止中文名乱码
+        if ($upload->saveAs($savePath)) {
+            return StringUtil::transCoding($savePath, 'GBK', 'UTF-8'); //返回的是utf8编码，避免写入数据库时乱码
         }
 
         return '';
@@ -171,14 +176,14 @@ class FileUtil
     }
 
     /**
-     * @brief 检测文件是否存在，支持别名路劲
-     * @param $file
+     * @brief 检测文件是否存在，支持别名路劲，支持中文名
+     * @param string $file 文件路劲
      * @return bool
      * @author wuzhc 2016-08-16
      */
     public static function isExists($file)
     {
-        $file = Yii::getAlias($file);
+        $file = Yii::getAlias(StringUtil::transCoding($file, 'UTF-8', 'GBK'));
         return file_exists($file);
     }
 
