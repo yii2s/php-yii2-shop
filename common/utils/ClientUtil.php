@@ -151,7 +151,7 @@ class ClientUtil
      * @param $userAgent
      * @param bool $isReTurnVersion //是否一起返回版本号
      * @return string
-     * @author wuzhc 2016-01-23
+     * @since 2016-01-23
      */
     public static function getPlatForm($userAgent,$isReTurnVersion = false) {
         if(empty($userAgent)) {
@@ -176,7 +176,7 @@ class ClientUtil
      * @see self::$versionRegexs
      * @param $userAgent
      * @return string
-     * @author wuzhc 2016-01-22
+     * @since 2016-01-22
      */
     public static function getVersion($propertyName,$userAgent) {
 
@@ -200,7 +200,7 @@ class ClientUtil
      * @brief 根据匹配结果转换window系统版本号
      * @param $match
      * @return string
-     * @author wuzhc 2016-01-22
+     * @since 2016-01-22
      */
     protected static function getWinVersion($match) {
         if($match == '6.0') {
@@ -222,7 +222,7 @@ class ClientUtil
      * @param array $regex
      * @param $userAgent
      * @return string
-     * @author wuzhc 2016-01-22
+     * @since 2016-01-22
      */
     protected static function match($regex,$userAgent) {
         return (bool)preg_match(sprintf('#%s#is',$regex),$userAgent,$matches);
@@ -233,7 +233,7 @@ class ClientUtil
      * @param array $regexs
      * @param $userAgent
      * @return string
-     * @author wuzhc 2016-01-22
+     * @since 2016-01-22
      */
     protected static function matchVersion($regexs,$userAgent) {
         foreach((array)$regexs as $regex) {

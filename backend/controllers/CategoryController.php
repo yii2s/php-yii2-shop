@@ -164,7 +164,7 @@ class CategoryController extends CController
 
     /**
      * @brief 添加类别
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function actionAdd()
     {
@@ -193,7 +193,7 @@ class CategoryController extends CController
 
     /**
      * @brief 删除分类
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function actionDel()
     {
@@ -206,7 +206,7 @@ class CategoryController extends CController
     /**
      * @brief 分类列表
      * @return string
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function actionList()
     {
@@ -218,7 +218,7 @@ class CategoryController extends CController
 
     /**
      * @brief 关联属性
-     * @author wuzhc 2016-08-09
+     * @since 2016-08-09
      */
     public function actionCategoryAttrMap()
     {
@@ -247,7 +247,7 @@ class CategoryController extends CController
 
     /**
      * @brief 分类关联属性值
-     * @author wuzhc 2016-08-04
+     * @since 2016-08-04
      */
     public function actionCategoryAttrValMap()
     {
@@ -281,7 +281,7 @@ class CategoryController extends CController
 
     /**
      * @brief ajax获取分类
-     * @author wuzhc 2016-08-09
+     * @since 2016-08-09
      */
     public function actionAjaxGetCategoryMap()
     {
@@ -293,7 +293,7 @@ class CategoryController extends CController
     /**
      * @brief ajax获取属性
      * @param int $cid 分类ID
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function actionAjaxGetAttrs($cid = 0)
     {
@@ -316,7 +316,7 @@ class CategoryController extends CController
      * @brief 关联分类与属性值
      * @param int $aid 属性ID
      * @param int $cid 类型ID
-     * @author wuzhc 2016-08-09
+     * @since 2016-08-09
      */
     public function actionAjaxAttrValMap($aid = 0, $cid = 0)
     {
@@ -361,7 +361,7 @@ class CategoryController extends CController
     /**
      * @brief 根据分类ID获取对应属性和属性值
      * @param int $cid 分类ID
-     * @author wuzhc 2016-08-10
+     * @since 2016-08-10
      */
     public function actionGetAttrValByCid($cid = 4)
     {
@@ -377,7 +377,7 @@ class CategoryController extends CController
 
     /**
      * @brief 缓存处理
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function actionCache()
     {

@@ -57,9 +57,22 @@ use Yii;
 class Goods extends \yii\db\ActiveRecord
 {
     /**
-     * @see GoodsBehavior::test
-     * @method array test 获取备课项详情
+     * @see GoodsBehavior::images
+     * @method array 图片集
      */
+
+    /**
+     * @see GoodsBehavior::attrVals
+     * @method array 属性值
+     */
+
+    /**
+     * @see GoodsBehavior::comments
+     * @method array 评论
+     */
+
+    public $images;
+    public $attrVals;
 
     /**
      * @inheritdoc
@@ -259,5 +272,14 @@ class Goods extends \yii\db\ActiveRecord
     public function getImage()
     {
         return $this->hasMany(GoodsImage::className(), ['gid' => 'id']);
+    }
+
+    /**
+     * @brief 商品扩展属性值
+     * @return \yii\db\ActiveQuery
+     */
+    public function getExtAttr()
+    {
+        return $this->hasMany(GoodsExtAttr::className(), ['gid' => 'id']);
     }
 }

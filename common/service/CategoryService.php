@@ -16,8 +16,6 @@ use yii\helpers\ArrayHelper;
 class CategoryService extends AbstractService
 {
 
-    //region 类别管理
-
     /**
      * Returns the static model.
      * @param string $className Service class name.
@@ -27,6 +25,8 @@ class CategoryService extends AbstractService
     {
         return parent::factory($className);
     }
+
+    //region 类别管理
 
     /**
      * 根据父ID获取子分类
@@ -46,7 +46,7 @@ class CategoryService extends AbstractService
     /**
      * @brief 获取排序后所有的分类
      * @return array
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function getCategoriesBySort()
     {
@@ -73,7 +73,7 @@ class CategoryService extends AbstractService
      * @param $arr
      * @param int $id
      * @return array
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     private function _recurToData($arr, $id = 0)
     {
@@ -101,7 +101,7 @@ class CategoryService extends AbstractService
     /**
      * @brief 获取排序后所有的分类
      * @return array
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function getCategoriesTree()
     {
@@ -128,7 +128,7 @@ class CategoryService extends AbstractService
      * @param $arr
      * @param int $id
      * @return array
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     private function _recurToDataTree($arr, $id = 0)
     {
@@ -155,7 +155,7 @@ class CategoryService extends AbstractService
     /**
      * @brief 获取分类,以分类父ID作业键名进行分组
      * @return array|mixed
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function getCategoriesMap()
     {
@@ -187,7 +187,7 @@ class CategoryService extends AbstractService
      * @brief 保存或更新数据
      * @param $data
      * @return int|string
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function save($data)
     {
@@ -199,7 +199,7 @@ class CategoryService extends AbstractService
      * @brief 删除分类，包括所有子类删除
      * @param $id
      * @return bool|false|int
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function del($id)
     {
@@ -219,7 +219,7 @@ class CategoryService extends AbstractService
      * @brief 获取所有子类ID
      * @param $parentID
      * @return array
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function getChildrenIDs($parentID)
     {
@@ -245,7 +245,7 @@ class CategoryService extends AbstractService
      * @param $categoryID
      * @param array $attrIDs
      * @return int
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function saveCategoryAttrMap($categoryID, array $attrIDs)
     {
@@ -266,7 +266,7 @@ class CategoryService extends AbstractService
      * @param $categoryID
      * @param $args
      * @return int
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function saveCategoryAttrValMap($categoryID, $aid, $args)
     {
@@ -281,7 +281,7 @@ class CategoryService extends AbstractService
      * @brief 获取分类ID获取关联的属性值
      * @param int $categoryID
      * @return array
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function getAttrValsByCatsID($categoryID)
     {
@@ -353,7 +353,7 @@ class CategoryService extends AbstractService
      * @brief 保存属性
      * @param $args
      * @return bool
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function addAttr($args)
     {
@@ -365,7 +365,7 @@ class CategoryService extends AbstractService
      * @brief 批量保存属性
      * @param $args
      * @return int
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function batchAddAttr($args)
     {
@@ -377,7 +377,7 @@ class CategoryService extends AbstractService
      * @brief 插入属性值
      * @param $args
      * @return bool
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function addAttrValue($args)
     {
@@ -390,7 +390,7 @@ class CategoryService extends AbstractService
      * @param int $aid 属性ID
      * @param array $args
      * @return int
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function batchAddAttrValue($aid, $args)
     {
@@ -409,7 +409,7 @@ class CategoryService extends AbstractService
      * @brief 保存品牌
      * @param $args
      * @return int
-     * @author wuzhc 2016-08-04
+     * @since 2016-08-04
      */
     public function addBrand($args)
     {
@@ -420,7 +420,7 @@ class CategoryService extends AbstractService
     /**
      * @brief 根据分类ID获取属性
      * @param int $categoryID
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      * @return array
      */
     public function getAttrsByCategoryID($categoryID)
@@ -432,7 +432,7 @@ class CategoryService extends AbstractService
      * @brief 获取分类对应的属性值
      * @param $cid
      * @return array
-     * @author wuzhc 2016-08-15
+     * @since 2016-08-15
      */
     public function getAttrValByCid($cid)
     {
@@ -463,7 +463,7 @@ class CategoryService extends AbstractService
      * @param $args
      * @param bool|true $asArray
      * @return array|\yii\db\ActiveRecord[]
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function listAttrVal($args, $asArray = true)
     {
@@ -486,7 +486,7 @@ class CategoryService extends AbstractService
      * @brief 统计属性值
      * @param $args
      * @return int|string
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function countAttrVal($args)
     {
@@ -500,5 +500,7 @@ class CategoryService extends AbstractService
 
     //endregion 属性管理
 
+    //region 规格管理
 
+    //endregion
 }

@@ -21,7 +21,7 @@ return [
             ],
         ],
         'authManager' => [
-            'class' => 'yii\rbac\DbManager', // Ê¹ÓÃÊı¾İ¿â¹ÜÀíÅäÖÃÎÄ¼ş
+            'class' => 'yii\rbac\DbManager', // Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
         ]
     ],
     'params' => $params,

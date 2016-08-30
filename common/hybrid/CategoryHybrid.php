@@ -22,7 +22,7 @@ class CategoryHybrid extends AbstractHybrid
      * @brief 保存或修改数据
      * @param $args
      * @return int|string
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function save($args)
     {
@@ -49,7 +49,7 @@ class CategoryHybrid extends AbstractHybrid
      * @brief 保存或修改属性
      * @param $args
      * @return bool
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function saveAttr($args)
     {
@@ -68,7 +68,7 @@ class CategoryHybrid extends AbstractHybrid
      * @brief 保存或修改属性值
      * @param $args
      * @return bool
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function saveAttrValue($args)
     {
@@ -88,7 +88,7 @@ class CategoryHybrid extends AbstractHybrid
      * @brief 保存品牌
      * @param $args
      * @return int|string
-     * @author wuzhc 2016-08-04
+     * @since 2016-08-04
      */
     public function saveBrand($args)
     {

@@ -2,16 +2,16 @@
 
 use yii\db\Migration;
 
-class m160227_073252_create_news_tablsdf extends Migration
+class m160829_073241_edit_goods_ext_attr_create_time extends Migration
 {
     public function up()
     {
-
+        $this->alterColumn('{{%goods_ext_attr}}', 'create_time', 'datetime');
     }
 
     public function down()
     {
-        echo "m160227_073252_create_news_tablsdf cannot be reverted.\n";
+        echo "m160829_073241_edit_goods_ext_attr_create_time cannot be reverted.\n";
 
         return false;
     }

@@ -51,7 +51,7 @@ class DefaultController extends Controller
     /**
      * @brief 后台
      * @return string
-     * @author wuzhc
+     * @since
      * @since 2016-07-25
      */
     public function actionIndex()
@@ -62,7 +62,7 @@ class DefaultController extends Controller
     /**
      * @brief 欢饮页
      * @return string
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function actionWelcome()
     {
@@ -72,7 +72,7 @@ class DefaultController extends Controller
     /**
      * @brief 后台首页
      * @return string
-     * @author wuzhc 2016-07-31
+     * @since 2016-07-31
      */
     public function actionMain()
     {

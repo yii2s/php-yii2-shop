@@ -18,7 +18,7 @@ class ExcelUtil {
      * @return bool
      * @throws \PHPExcel_Exception
      * @throws \PHPExcel_Writer_Exception
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public static function export($data, $header, $title = "simple", $filename = "data")
     {
@@ -77,7 +77,7 @@ class ExcelUtil {
      * @param string $filePath excel文件路径
      * @param bool $isReadAllSheet 是否读取所有工作簿的数据
      * @return array ['data'=>['excel数据集合'], 'status' => '1失败，0成功', 'msg' => '提示信息']
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public static function read($filePath = '', $isReadAllSheet = false)
     {
@@ -118,7 +118,7 @@ class ExcelUtil {
      * @param string $filePath excel文件路径
      * @param bool $isReadAllSheet 是否读取所有工作簿的数据
      * @return array ['data'=>['excel数据集合'], 'status' => '1失败，0成功', 'msg' => '提示信息']
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public static function read_2($filePath = '', $isReadAllSheet = false)
     {
