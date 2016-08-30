@@ -22,7 +22,7 @@ class ImportController extends Controller
 {
     /**
      * @brief 添加商品测试数据
-     * @author wuzhc 2016-08-15
+     * @since 2016-08-15
      */
     public function actionAddGoods()
     {
@@ -94,7 +94,7 @@ class ImportController extends Controller
 
     /**
      * @brief 读取sql文件
-     * @author wuzhc 2016-08-15
+     * @since 2016-08-15
      */
     public function actionReadSql()
     {

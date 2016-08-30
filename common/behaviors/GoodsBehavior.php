@@ -9,6 +9,8 @@ use common\models\AttrValue;
 use common\models\Comment;
 use common\models\Goods;
 use common\models\GoodsAttrValMap;
+use common\models\GoodsExtAttr;
+use common\models\Products;
 use common\models\User;
 use Yii;
 use common\utils\FileUtil;
@@ -30,7 +32,7 @@ class GoodsBehavior extends Behavior
      *      ]
      * ]
      * </pre>
-     * @author wuzhc 2016-08-17
+     * @since 2016-08-17
      */
     public function images()
     {
@@ -57,15 +59,13 @@ class GoodsBehavior extends Behavior
      * @return array|\yii\db\ActiveRecord[]
      * <pre>
      * [
-     *      [
-     *          'attr' => 品牌,
-     *          'val' => 金六福
-     *      ],
+     *      [ 'attr' => 品牌, 'val' => 金六福 ],
+     *      [ 'attr' => 品牌, 'val' => 金六福 ],
      * ]
      * </pre>
-     * @author wuzhc 2016-08-17
+     * @since 2016-08-17
      */
-    public function attrVals()
+    public function sysAttr()
     {
         return Goods::find()->from(Goods::tableName() . 'as t')
             ->leftJoin(GoodsAttrValMap::tableName() . 'as gavm', 'gavm.gid = t.id')
@@ -78,12 +78,33 @@ class GoodsBehavior extends Behavior
     }
 
     /**
+     * @brief 扩展属性
+     * @return array|\yii\db\ActiveRecord[]
+     * <pre>
+     *  [
+     *      ['name' => '属性名称', 'value' => '属性值'],
+     *      ['name' => '属性名称', 'value' => '属性值'],
+     * ]
+     * </pre>
+     * @since 2016-08-30
+     */
+    public function extAttr()
+    {
+        return Goods::find()->from(Goods::tableName() . 'as t')
+            ->leftJoin(GoodsExtAttr::tableName() . 'as extattr'. 'extarr.gid = t.id')
+            ->select(['extarr.name', 'extarr.value'])
+            ->where(['t.id' => $this->owner->id, 'extattr.status' => Conf::ENABLE])
+            ->asArray()
+            ->all();
+    }
+
+    /**
      * @brief 获取评论
      * @return array|\yii\db\ActiveRecord[]
      * <pre>
      *
      * </pre>
-     * @author wuzhc 2016-08-17
+     * @since 2016-08-17
      */
     public function comments()
     {

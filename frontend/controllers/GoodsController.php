@@ -29,7 +29,7 @@ class GoodsController extends CController
 
     /**
      * @brief ajax获取商品列表
-     * @author wuzhc 2016-08-14
+     * @since 2016-08-14
      */
     public function actionAjaxList()
     {
@@ -94,7 +94,7 @@ class GoodsController extends CController
      * @param string $order 排序标识
      * @param int $sort 正序或倒序
      * @return array
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     private function _getOrder($order, $sort = SORT_DESC)
     {
@@ -112,7 +112,7 @@ class GoodsController extends CController
     /**
      * @brief 根据分类ID获取对应属性和属性值
      * @param int $cid 分类ID
-     * @author wuzhc 2016-08-10
+     * @since 2016-08-10
      */
     public function actionGetAttrValByCid($cid = 4)
     {
@@ -130,7 +130,7 @@ class GoodsController extends CController
     /**
      * @brief 商品推荐
      * @param $cid
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public function actionRecommendGoods($cid = 4)
     {

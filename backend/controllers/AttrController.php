@@ -27,7 +27,7 @@ class AttrController extends Controller
 
     /**
      * @brief 渲染添加属性页面
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function actionAdd()
     {
@@ -36,7 +36,7 @@ class AttrController extends Controller
 
     /**
      * @brief 保存属性
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function actionSave()
     {
@@ -61,7 +61,7 @@ class AttrController extends Controller
     /**
      * @brief 属性列表
      * @return string
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function actionList()
     {
@@ -78,7 +78,7 @@ class AttrController extends Controller
 
     /**
      * @brief 属性值列表
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function actionListAttrVal()
     {
@@ -104,7 +104,7 @@ class AttrController extends Controller
 
     /**
      * @brief 增加或修改单个属性值
-     * @author wuzhc 2016-08-04
+     * @since 2016-08-04
      */
     public function actionAddOneAttrVal()
     {
@@ -120,7 +120,7 @@ class AttrController extends Controller
     /**
      * @brief 添加属性值
      * @return string
-     * @author wuzhc 2016-08-03
+     * @since 2016-08-03
      */
     public function actionAddAttrVal()
     {
@@ -153,7 +153,7 @@ class AttrController extends Controller
 
     /**
      * @brief 增加品牌
-     * @author wuzhc 2016-08-04
+     * @since 2016-08-04
      */
     public function actionAddBrand()
     {
@@ -188,7 +188,7 @@ class AttrController extends Controller
     /**
      * @brief 更新品牌
      * @TODO 需要优化
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function actionEditBrand()
     {
@@ -227,7 +227,7 @@ class AttrController extends Controller
     /**
      * @brief 品牌列表
      * @return string
-     * @author wuzhc 2016-08-05
+     * @since 2016-08-05
      */
     public function actionListBrand() 
     {
@@ -249,7 +249,7 @@ class AttrController extends Controller
 
     /**
      * @brief 上传文件
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public function actionUpload()
     {

@@ -13,7 +13,7 @@
  *      'allowType' => '["jpg", "png","gif"]',
  * ]);
  *
- * @author wuzhc 2016-08-26
+ * @since 2016-08-26
  */
 
 namespace common\widgets;

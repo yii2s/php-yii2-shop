@@ -57,9 +57,9 @@ return [
         ],
         'sphinx' => [
             'class' => 'yii\sphinx\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;port=9306;',
-            'username' => '',
-            'password' => '',
+            'dsn' => 'mysql:host=23.83.240.107;port=9306;',
+            'username' => 'root',
+            'password' => 'wuzhc2580',
         ],
         'request' => [
             'enableCookieValidation' => true,

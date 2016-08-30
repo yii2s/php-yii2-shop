@@ -19,7 +19,7 @@ class CController extends Controller
      * @brief 检测ajax请求
      * @param bool $stop 是否停止程序运行
      * @return bool
-     * @author wuzhc 2016-08-09
+     * @since 2016-08-09
      */
     public function checkAjaxRequest($stop = true)
     {

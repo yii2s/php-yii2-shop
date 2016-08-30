@@ -46,7 +46,7 @@ class ImageUtil
      * @param array $start [0,0] 裁剪起始位置
      * @param string $newName 保存新名称，为空时将自动生成
      * @return string
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public static function crop($file, $w, $h, array $start, $newName = '')
     {
@@ -69,7 +69,7 @@ class ImageUtil
      * @param array $start 添加位置 [-1,-1]表示底部
      * @param string $watermarkFilename 水印图片，为空时使用系统默认水印图片
      * @return string
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public static function watermark($file, array $start, $watermarkFilename = '')
     {

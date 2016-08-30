@@ -12,6 +12,7 @@ use common\models\GoodsExtAttr;
 use common\models\GoodsImage;
 use common\models\GoodsPhoto;
 use common\models\GoodsPhotoRelation;
+use common\models\Products;
 use common\utils\FileUtil;
 use common\utils\FilterUtil;
 use common\utils\ImageUtil;
@@ -40,7 +41,7 @@ class GoodsService extends AbstractService
      * @brief 保存商品
      * @param $args
      * @return bool
-     * @author wuzhc 2016-08-13
+     * @author 2016-08-13
      */
     public function save($args)
     {
@@ -59,6 +60,11 @@ class GoodsService extends AbstractService
         if ($args['img'] && FileUtil::isExists($args['img'])) {
             $args['ad_img'] = ImageUtil::thumbnail($args['img'], 220, 220);
         }
+
+        //规格属性
+       if ($args['spec_array']) {
+           $args['spec_array'] = json_encode($args['spec_array']);
+       }
 
         //保存商品基本数据
         $goodsID = $goodsHybrid->save($args);
@@ -190,16 +196,40 @@ class GoodsService extends AbstractService
         ], $values);
     }
 
+    /**
+     * @brief 商品规格
+     * @param $goodsID
+     * @param array $attr
+     * @param AbstractHybrid $hybrid
+     * @since 2016-08-30
+     */
     private function _saveSpec($goodsID, array $attr, AbstractHybrid $hybrid)
     {
+        Products::deleteAll(['goods_id' => $goodsID]);
 
+        $values = [];
+        foreach ((array)$attr as $a) {
+            $temp = [];
+            $temp['goods_id'] = $goodsID;
+            $temp['products_no'] = $a['no'];
+            $temp['spec_array'] = json_encode($a['spec']);
+            $temp['store_nums'] = $a['nums'];
+            $temp['market_price'] = $a['market_price'];
+            $temp['sell_price'] = $a['sell_price'];
+            $temp['cost_price'] = $a['cost_price'];
+            $values[] = $temp;
+        }
+
+        $values and $hybrid->batchSave(Products::tableName(), [
+            'goods_id', 'products_no', 'spec_array', 'store_nums', 'market_price', 'sell_price', 'cost_price'
+        ], $values);
     }
 
     /**
      * @brief 商品列表
      * @param $args
      * @return array|\yii\db\ActiveRecord[]
-     * @author wuzhc 2016-08-14
+     * @since 2016-08-14
      */
     public function getList($args)
     {
@@ -265,7 +295,7 @@ class GoodsService extends AbstractService
      * @brief 推荐类商品
      * @param array $args
      * @return array|\yii\db\ActiveRecord[]
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public function getCommendGoods(array $args)
     {
@@ -288,7 +318,7 @@ class GoodsService extends AbstractService
      * @brief 统计商品
      * @param $args
      * @return int|string
-     * @author wuzhc 2016-08-14
+     * @since 2016-08-14
      */
     public function countGoods($args)
     {
@@ -353,7 +383,7 @@ class GoodsService extends AbstractService
      *          ],
      *      ]
      * </pre>
-     * @author wuzhc 2016-08-17
+     * @since 2016-08-17
      */
     public function statByCategoryID()
     {
@@ -369,7 +399,7 @@ class GoodsService extends AbstractService
      * @brief 商品信息
      * @param $goodsID
      * @return array
-     * @author wuzhc 2016-08-17
+     * @since 2016-08-17
      */
     public function detail($goodsID)
     {
@@ -385,10 +415,12 @@ class GoodsService extends AbstractService
         $return['img'] = $object->img;
         $return['adImg'] = $object->ad_img;
         $return['createTime'] = $object->create_time;
+        $return['spec'] = json_decode($object->spec_array);
 
         $return['photos'] = $object->images();
         $return['comments'] = $object->comments();
-        $return['attrVals'] = $object->attrVals();
+        $return['sysAttr'] = $object->sysAttr();
+        $return['extAttr'] = $object->extAttr();
 
         return $return;
     }

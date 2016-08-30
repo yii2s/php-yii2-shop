@@ -17,7 +17,7 @@ class FileUtil
      * @param array $allowType 允许上传类型 e.g. ['jpg','png','gif']
      * @param bool $checkMimeType
      * @return string
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public static function upload($field, $target = '', $allowType = [], $checkMimeType = false)
     {
@@ -55,7 +55,7 @@ class FileUtil
      * @param bool $checkMimeType
      * @return bool
      * @throws \yii\base\InvalidConfigException
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public static function checkUploadFileExt(UploadedFile $file, array $allowType, $checkMimeType = false)
     {
@@ -90,7 +90,7 @@ class FileUtil
      * @param array $allowType 允许上传类型 e.g. ['jpg','png','gif']
      * @param bool $checkMimeType
      * @return bool
-     * @author wuzhc 2016-08-02
+     * @since 2016-08-02
      */
     public static function validateUpload(UploadedFile $file, array $allowType, $checkMimeType = false)
     {
@@ -129,7 +129,7 @@ class FileUtil
      * note:包括子目录下的文件
      * @param $dir
      * @return array
-     * @author wuzhc
+     * @since
      * @since 2016-06-20
      */
     public static function readDirFile($dir)
@@ -162,7 +162,7 @@ class FileUtil
      * @param string $file 文件或文件夹路径
      * @param string $flag
      * @return bool
-     * @author wuzhc 2016-08-15
+     * @since 2016-08-15
      */
     public static function addFlag($file, $flag = '_lock')
     {
@@ -179,7 +179,7 @@ class FileUtil
      * @brief 检测文件是否存在，支持别名路劲，支持中文名
      * @param string $file 文件路劲
      * @return bool
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public static function isExists($file)
     {
@@ -192,7 +192,7 @@ class FileUtil
      * @param $file
      * @param string $newName 自定义新文件名，如果为空，将自动生成一个随机文件名
      * @return mixed
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public static function newName($file, $newName = '')
     {
@@ -208,7 +208,7 @@ class FileUtil
      * @param string $file 文件路径或文件名
      * @param bool $flag 后缀是否带点，true返回'.jpg', false返回 'jpg'
      * @return string
-     * @author wuzhc 2016-08-16
+     * @since 2016-08-16
      */
     public static function suffix($file, $flag = false)
     {
