@@ -168,8 +168,6 @@ class DBService extends AbstractService
         } catch (Exception $e) {
            return $e->getMessage();
         }
-
-        return '';
     }
 
     /**
@@ -186,8 +184,6 @@ class DBService extends AbstractService
         } catch (Exception $e) {
             return $e->getMessage();
         }
-
-        return '';
     }
 
     /**

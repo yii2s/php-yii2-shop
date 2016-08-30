@@ -78,7 +78,7 @@ class GoodsController extends CController
     {
         $id = (int)Yii::$app->request->get('id');
         $data = GoodsService::factory()->detail($id);
-        print_r($data);
+        return $this->render('detail', ['data' => $data]);
     }
 
     public function actionTest()
