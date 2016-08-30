@@ -1115,7 +1115,7 @@ $this->title = 'zcShop商城系统';
 </div>
 
 <?php
-$this->registerJsFile('public/frontend/menu/js/index.js',
+$this->registerJsFile('@web/public/frontend/menu/js/index.js',
     ['depends' => [JqueryAsset::className()],'position'=>$this::POS_END]
 );
 ?>

@@ -7,17 +7,22 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\Category */
 /* @var $form yii\widgets\ActiveForm */
 
-$fieldTemplate = "<div class=\"col-sm-1\">{label}</div>\n<div class=\"col-sm-8\">{input}</div>\n<div class=\"col-sm-3\">{hint}\n{error}</div>";
+$fieldTemplate = "{label}<div class=\"col-sm-6\">{input}</div><div class=\"col-sm-4\">{hint}{error}</div>";
 ?>
 
-<div class="category-form">
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Horizontal Form</h3>
+    </div>
 
     <?php $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' => 'form'], 'fieldConfig' => ['template' => $fieldTemplate]]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style' => 'width:40%'])->label('分类名称:') ?>
+    <div class="box-body">
+
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style' => 'width:40%'])->label('分类名称:',['class' => 'col-sm-2 control-label']) ?>
 
     <div class="form-group field-category-parent_id required">
-        <div class="col-sm-1"><label class="control-label" for="category-parent_id">所属父类:</label></div>
+        <label class="control-label col-sm-2" for="category-parent_id">所属父类:</label>
         <div class="col-sm-4">
             <select id="category-parent_id" class="form-control" name="Category[parent_id]" style="width:100%">
                 <option value="0">请选择</option>
@@ -33,20 +38,19 @@ $fieldTemplate = "<div class=\"col-sm-1\">{label}</div>\n<div class=\"col-sm-8\"
         </div>
     </div>
 
-    <?= $form->field($model, 'sort')->textInput(['style' => 'width:10%', 'value' => 0])->label('排序:') ?>
+    <?= $form->field($model, 'sort')->textInput(['style' => 'width:10%', 'value' => 0])->label('排序:',['class' => 'col-sm-2 control-label']) ?>
 
-    <?= $form->field($model, 'visibility')->radioList(['显示', '不显示'])->label('首页显示:') ?>
+    <?= $form->field($model, 'visibility')->radioList(['显示', '不显示'])->label('首页显示:',['class' => 'col-sm-2 control-label']) ?>
 
-    <?= $form->field($model, 'keywords')->textInput(['maxlength' => true, 'style' => 'width:40%', 'placeholder' => '多个关键字之间用逗号隔开'])->label('关键字:') ?>
+    <?= $form->field($model, 'keywords')->textInput(['maxlength' => true, 'style' => 'width:40%', 'placeholder' => '多个关键字之间用逗号隔开'])->label('关键字:',['class' => 'col-sm-2 control-label']) ?>
 
-    <?= $form->field($model, 'descript')->textarea(['rows' => 6, 'cols' => 10])->label('描述:') ?>
+    <?= $form->field($model, 'descript')->textarea(['rows' => 6, 'cols' => 10])->label('描述:',['class' => 'col-sm-2 control-label']) ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'style' => 'width:40%'])->label('SEO标题:') ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'style' => 'width:40%'])->label('SEO标题:',['class' => 'col-sm-2 control-label']) ?>
 
-    <div class="form-group" style="margin-top: 10px">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-8">
-            <?= Html::submitButton($model->isNewRecord ? '确定添加' : '确定更新', ['id' => 'submit-goods','class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+    <div class="box-footer">
+            <?= Html::submitButton($model->isNewRecord ? '确定添加' : '确定更新', ['id' => 'submit-goods','class' => $model->isNewRecord ? 'btn btn-success pull-right' : 'btn btn-primary pull-right']) ?>
         </div>
     </div>
 
