@@ -129,5 +129,4 @@ $fieldTemplate = "<div class=\"col-sm-1\">{label}</div>\n<div class=\"col-sm-8\"
 </div>
 
 
-
-<?php Html::jsFile('public/backend/js/goods/goods.js')?>
+<?php $this->registerJsFile('public/backend/js/goods/goods.js',['depends' => \yii\web\JqueryAsset::className()])?>

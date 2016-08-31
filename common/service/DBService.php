@@ -166,7 +166,7 @@ class DBService extends AbstractService
         try {
             Yii::$app->db->createCommand()->createIndex($name, $table, $columns, $unique)->execute();
         } catch (Exception $e) {
-           return $e->getMessage();
+           YII_DEBUG && print_r($e->getMessage());
         }
     }
 
@@ -182,7 +182,7 @@ class DBService extends AbstractService
         try {
             Yii::$app->db->createCommand()->dropIndex($name, $table)->execute();
         } catch (Exception $e) {
-            return $e->getMessage();
+            YII_DEBUG && print_r($e->getMessage());
         }
     }
 
@@ -205,7 +205,7 @@ class DBService extends AbstractService
         try {
             Yii::$app->db->createCommand('OPTIMIZE TABLE ' . $table)->execute();
         } catch (Exception $e) {
-            return $e->getMessage();
+            YII_DEBUG && print_r($e->getMessage());
         }
     }
 
@@ -219,7 +219,23 @@ class DBService extends AbstractService
         try {
             Yii::$app->db->createCommand('REPAIR TABLE ' . $table)->execute();
         } catch (Exception $e) {
-            return $e->getMessage();
+            YII_DEBUG && print_r($e->getMessage());
+        }
+    }
+
+    /**
+     * @brief 重新命名表名
+     * @param string $old 旧表名
+     * @param string $new 新表名
+     * @return string
+     * @since 2016-08-31
+     */
+    public function renameTable($old, $new)
+    {
+        try {
+            Yii::$app->db->createCommand(sprintf('RENAME TABLE %s TO %s', $old, $new))->execute();
+        } catch (Exception $e) {
+            YII_DEBUG && print_r($e->getMessage());
         }
     }
 

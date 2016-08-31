@@ -3,7 +3,9 @@
 namespace backend\controllers;
 
 
+use common\hybrid\AbstractHybrid;
 use common\models\Goods;
+use common\service\DBService;
 use common\service\SystemService;
 use common\utils\DebugUtil;
 use Yii;
@@ -31,8 +33,8 @@ class SystemController extends Controller
     public function actionTest()
     {
         //首先主库添加具有赋值权限的用户
-        header("Content-Type:text/html;charset=utf-8");
-        $data = SystemService::factory()->statGoods(2016,8);
+        $h = new AbstractHybrid();
+        $data = $h->save('goods',['id'=>'888','sdf'=>44,'ooo' =>'ee'],['id' => 609]);
         DebugUtil::format($data);
     }
 

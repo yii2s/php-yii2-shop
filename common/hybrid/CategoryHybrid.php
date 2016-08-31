@@ -5,6 +5,7 @@ namespace common\hybrid;
 
 use common\models\AttrValue;
 use common\models\Brand;
+use common\models\Spec;
 use Yii;
 use common\models\Attr;
 use common\models\Category;
@@ -104,6 +105,29 @@ class CategoryHybrid extends AbstractHybrid
         $object->url = $args['url'];
         $object->sort = (int)$args['sort'];
         $object->description = $args['description'];
+        return $object->save() ? $object->id : 0;
+    }
+
+    /**
+     * @brief 保存规格
+     * @param $args
+     * @return int|string
+     * @since 2016-08-31
+     */
+    public function saveSpec($args)
+    {
+        if ($args['id']) {
+            $object = Spec::findOne(['id' => $args['id']]);
+        } else {
+            $object = new Spec();
+        }
+
+        $object->name = $args['name'];
+        $object->value = $args['value'];
+        $object->type = $args['type'];
+        $object->note = $args['note'];
+        $object->is_del = (int)$args['is_del'];
+        $object->seller_id = (int)$args['seller_id'];
         return $object->save() ? $object->id : 0;
     }
 

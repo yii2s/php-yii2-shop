@@ -9,6 +9,7 @@ use common\hybrid\AbstractHybrid;
 use common\hybrid\CategoryHybrid;
 use common\models\Attr;
 use common\models\CategoryAttrValMap;
+use common\models\Goods;
 use Yii;
 use common\models\Category;
 use yii\helpers\ArrayHelper;
@@ -501,6 +502,19 @@ class CategoryService extends AbstractService
     //endregion 属性管理
 
     //region 规格管理
+
+    /**
+     * @brief 保存或修改规格
+     * @param $args
+     * @param array $find
+     * @return int
+     * @since 2016-08-31
+     */
+    public function saveSpec($args, $find = array())
+    {
+        $hybrid = new AbstractHybrid();
+        return $hybrid->save('spec', $args, $find);
+    }
 
     //endregion
 }

@@ -3,6 +3,7 @@
 namespace common\hybrid;
 
 
+
 use Yii;
 
 class AbstractHybrid
@@ -22,5 +23,82 @@ class AbstractHybrid
         return Yii::$app->db->createCommand()
             ->batchInsert($tableName, $column, $values)
             ->execute();
+    }
+
+    /**
+     * @brief 单条数据保存或修改
+     * @param string $className \common\models\Goods
+     * Note: 类名如果没有带命名空间，默认是在\common\models下查询
+     * @see _getClassName()
+     *
+     * @param array $data 需要保存的数据结构
+     * <pre>
+     *  [
+     *      'id' => 1,
+     *      'name' => 'wuzhc'
+     * ]
+     * </pre>
+     * Note: 如果数据结构的键名称对应不上数据库的列名，将自动被
+     * 过滤掉，@see _filterAttributes()
+     *
+     * @param array $find 查询条件
+     * Note: 根据条件创建对象，如果没有对象，则新建一个对象
+     * @see _createModel()
+     *
+     * @return int
+     * @since 2016-08-31
+     */
+    public function save($className, $data = array(), $find = array())
+    {
+        $className = $this->_getClassName($className);
+        $model = $this->_createModel($className, $find);
+        $data = $this->_filterAttributes($data, $model);
+
+        return $model->save($data) ? $model->id : 0;
+    }
+
+    /**
+     * @brief 过滤非法字段
+     * @param $data
+     * @param $model
+     * @return mixed
+     */
+    private function _filterAttributes($data, $model)
+    {
+        $illegalAttributes = array_diff(array_keys($data), array_keys($model->attributes));
+        foreach ((array)$illegalAttributes as $k) {
+            unset($data[$k]);
+        }
+        return $data;
+    }
+
+    /**
+     * @brief 创建模型对象
+     * @param $className
+     * @param $find
+     * @return mixed
+     */
+    private function _createModel($className, $find)
+    {
+        if ($find) {
+            $model = $className::find()->where($find)->one();
+        } else {
+            $model = new $className();
+        }
+        return $model;
+    }
+
+    /**
+     * @brief 类名
+     * @param $className
+     * @return string
+     */
+    private function _getClassName($className)
+    {
+        if (strpos($className, '\\') === false) {
+            $className = '\\common\\models\\' . ucwords($className);
+            //Yii::autoload($className);
+        }
+        return $className;
     }
 }
