@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 
 use common\models\Goods;
+use common\service\SystemService;
+use common\utils\DebugUtil;
 use Yii;
 use common\service\GoodsService;
 use yii\web\Controller;
@@ -30,8 +32,8 @@ class SystemController extends Controller
     {
         //首先主库添加具有赋值权限的用户
         header("Content-Type:text/html;charset=utf-8");
-        $goods = GoodsService::factory()->detail(890);
-        print_r($goods);
+        $data = SystemService::factory()->statGoods(2016,8);
+        DebugUtil::format($data);
     }
 
 
