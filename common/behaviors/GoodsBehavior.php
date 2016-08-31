@@ -10,6 +10,7 @@ use common\models\Comment;
 use common\models\Goods;
 use common\models\GoodsAttrValMap;
 use common\models\GoodsExtAttr;
+use common\models\Member;
 use common\models\Products;
 use common\models\User;
 use Yii;
@@ -91,8 +92,8 @@ class GoodsBehavior extends Behavior
     public function extAttr()
     {
         return Goods::find()->from(Goods::tableName() . 'as t')
-            ->leftJoin(GoodsExtAttr::tableName() . 'as extattr'. 'extarr.gid = t.id')
-            ->select(['extarr.name', 'extarr.value'])
+            ->leftJoin(GoodsExtAttr::tableName() . 'as extattr', 'extattr.gid = t.id')
+            ->select(['extattr.name', 'extattr.value'])
             ->where(['t.id' => $this->owner->id, 'extattr.status' => Conf::ENABLE])
             ->asArray()
             ->all();
@@ -110,13 +111,13 @@ class GoodsBehavior extends Behavior
     {
         return Goods::find()->from(Goods::tableName() . 'as t')
             ->leftJoin(Comment::tableName() . 'as comment', 'comment.goods_id = t.id')
-            ->leftJoin(User::tableName() . 'as user', 'user.id = comment.user_id')
+            ->leftJoin(Member::tableName() . 'as member', 'member.id = comment.user_id')
             ->select([
                 'comment.id as comment_id',
                 'comment.contents as content',
                 'comment.comment_time as create_time',
-                'user.username as username',
-                'user.head_ico as head_ico'
+                'member.username as username',
+                'member.headerImg as header_img'
             ])
             ->where(['t.id' => $this->owner->id])
             ->where(['comment.status' => Conf::ENABLE])

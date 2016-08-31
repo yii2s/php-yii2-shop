@@ -168,8 +168,6 @@ use yii\helpers\Html;
     <p>感谢jQuery、layer、laypage、Validform、UEditor、My97DatePicker、iconfont、Datatables、WebUploaded、icheck、highcharts、bootstrap-Switch<br>Copyright &copy;2015 H-ui.admin v2.3 All Rights Reserved.<br>
         本后台系统由<a href="http://www.h-ui.net/" target="_blank" title="H-ui前端框架">H-ui前端框架</a>提供前端技术支持</p>
 </footer>
-<?= Html::jsFile('public/backend/lib/jquery/1.9.1/jquery.min.js')?>
-<?= Html::jsFile('public/backend/js/H-ui.js')?>
 <script>
     var _hmt = _hmt || [];
     (function() {

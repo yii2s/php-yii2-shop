@@ -18,10 +18,10 @@ return [
             //'layout' => 'left-menu',//yii2-admin的导航菜单
         ],
         'goods' => [
-            'class' => 'backend\module\goods\goodsModule',
+            'class' => 'backend\module\goods\GoodsModule',
         ],
         'admin' => [
-            'class' => 'backend\module\admin\adminModule'
+            'class' => 'backend\module\admin\AdminModule'
         ],
     ],
     'components' => [

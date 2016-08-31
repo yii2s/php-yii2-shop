@@ -18,48 +18,59 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('新建商品', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'cid',
-            'name',
-            'goods_no',
-            'model_id',
-            'sell_price',
-            // 'market_price',
-            // 'cost_price',
-            // 'up_time',
-            // 'down_time',
-            'create_time',
-            // 'store_nums',
-            // 'img',
-            // 'ad_img',
-            // 'is_del',
-               'content:ntext',
-            // 'keywords',
-            // 'description',
-            // 'search_words',
-            // 'weight',
-            // 'point',
-            // 'unit',
-               'brand_id',
-               'visit',
-               'favorite',
-               'sort',
-            // 'spec_array:ntext',
-            // 'exp',
-               'comments',
-            // 'sale',
-            // 'grade',
-            // 'seller_id',
-            // 'is_share',
+    <div class="box box-primary">
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+        <div class="box-header">
+            <h3 class="box-title">Data Table With Full Features</h3>
+        </div>
+
+        <div class="box-body">
+    <?php Pjax::begin(); ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'id',
+                'cid',
+                'name',
+                'goods_no',
+                'model_id',
+                'sell_price',
+                // 'market_price',
+                // 'cost_price',
+                // 'up_time',
+                // 'down_time',
+                'create_time',
+                // 'store_nums',
+                // 'img',
+                // 'ad_img',
+                // 'is_del',
+                   'content:ntext',
+                // 'keywords',
+                // 'description',
+                // 'search_words',
+                // 'weight',
+                // 'point',
+                // 'unit',
+                   'brand_id',
+                   'visit',
+                   'favorite',
+                   'sort',
+                // 'spec_array:ntext',
+                // 'exp',
+                   'comments',
+                // 'sale',
+                // 'grade',
+                // 'seller_id',
+                // 'is_share',
+
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+    <?php Pjax::end(); ?>
+
+        </div>
+</div>
