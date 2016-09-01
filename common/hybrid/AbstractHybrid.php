@@ -74,11 +74,11 @@ class AbstractHybrid
 
     /**
      * @brief 创建模型对象
-     * @param $className
-     * @param $find
-     * @return mixed
+     * @param string $className
+     * @param array $find
+     * @return object
      */
-    private function _createModel($className, $find)
+    private function _createModel($className, $find = array())
     {
         if ($find) {
             $model = $className::find()->where($find)->one();

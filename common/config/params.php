@@ -65,4 +65,9 @@ return [
         Conf::DISABLE => '审核不通过',
     ],
 
+    'favorite' => [
+        Conf::ADD_FAVORITE => '收藏',
+        Conf::DEL_FAVORITE => '取消收藏',
+    ],
+
 ];

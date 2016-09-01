@@ -37,6 +37,10 @@ class Conf
     const IMG_THUMB = 'thumb';
     /** 推荐商品 */
     const GOODS_RECOMMEND = 4;
+    /** 收藏 */
+    const ADD_FAVORITE = 1;
+    /** 取消收藏 */
+    const DEL_FAVORITE = 2;
 
 
 

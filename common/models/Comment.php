@@ -10,8 +10,8 @@ use Yii;
  * @property string $id
  * @property string $goods_id
  * @property string $order_no
- * @property string $user_id
- * @property string $time
+ * @property string $member_id
+ * @property string $buy_time
  * @property string $comment_time
  * @property string $contents
  * @property string $recontents
@@ -38,12 +38,12 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['goods_id', 'order_no', 'user_id', 'time', 'comment_time', 'recomment_time'], 'required'],
-            [['goods_id', 'user_id', 'point', 'status', 'seller_id'], 'integer'],
-            [['time', 'comment_time', 'recomment_time'], 'safe'],
+            [['goods_id', 'order_no', 'member_id', 'buy_time', 'comment_time', 'recomment_time'], 'required'],
+            [['goods_id', 'member_id', 'point', 'status', 'seller_id'], 'integer'],
+            [['buy_time', 'comment_time', 'recomment_time'], 'safe'],
             [['contents', 'recontents'], 'string'],
             [['order_no'], 'string', 'max' => 20],
-            [['goods_id'], 'exist', 'skipOnError' => true, 'targetClass' => zcGoods::className(), 'targetAttribute' => ['goods_id' => 'id']],
+            [['goods_id'], 'exist', 'skipOnError' => true, 'targetClass' => Goods::className(), 'targetAttribute' => ['goods_id' => 'id']],
         ];
     }
 
@@ -56,8 +56,8 @@ class Comment extends \yii\db\ActiveRecord
             'id' => 'ID',
             'goods_id' => 'Goods ID',
             'order_no' => 'Order No',
-            'user_id' => 'User ID',
-            'time' => 'Time',
+            'member_id' => 'User ID',
+            'buy_time' => 'buy_time',
             'comment_time' => 'Comment Time',
             'contents' => 'Contents',
             'recontents' => 'Recontents',
@@ -73,6 +73,6 @@ class Comment extends \yii\db\ActiveRecord
      */
     public function getGoods()
     {
-        return $this->hasOne(zcGoods::className(), ['id' => 'goods_id']);
+        return $this->hasOne(Goods::className(), ['id' => 'goods_id']);
     }
 }
