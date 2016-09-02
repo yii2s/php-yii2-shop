@@ -1,10 +1,10 @@
 <?php
-$color = array('red', 'green');
+/*$color = array('red', 'green');
 $size = array(39, 40, 41);
 $local = array('beijing', 'shanghai');
 
 echo "<pre>";
-print_r(combineDika($color, $size, $local));
+print_r(combineDika($color, $size, $local));*/
 
 /**
  * 所有数组的笛卡尔积
@@ -42,3 +42,8 @@ function combineArray($arr1,$arr2) {
     }
     return $result;
 }
+
+header("Content-Type:text/html;charset=utf-8");
+$arr = ["uploads/tempFile/001.jpg","uploads/tempFile/002.jpg","uploads/tempFile/003.jpg"];
+echo serialize($arr);
+//echo unserialize($arr);

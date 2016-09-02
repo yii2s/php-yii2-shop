@@ -14,7 +14,7 @@ class AdminLteAsset extends BaseAdminLteAsset
     public $sourcePath = '@public/backend/dist';
     public $css = [
         'css/AdminLTE.min.css',
-        'css/font-awesome.min.css',
+        //'css/font-awesome.min.css',
     ];
     public $js = [
         'js/app.min.js'

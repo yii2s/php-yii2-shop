@@ -10,6 +10,7 @@ use common\hybrid\CategoryHybrid;
 use common\models\Attr;
 use common\models\CategoryAttrValMap;
 use common\models\Goods;
+use common\models\Spec;
 use Yii;
 use common\models\Category;
 use yii\helpers\ArrayHelper;
@@ -514,6 +515,11 @@ class CategoryService extends AbstractService
     {
         $hybrid = new AbstractHybrid();
         return $hybrid->save('spec', $args, $find);
+    }
+
+    public function getSpec($uid)
+    {
+        return Spec::find()->where(['seller_id' => $uid])->all();
     }
 
     //endregion
