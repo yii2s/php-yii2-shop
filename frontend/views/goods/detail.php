@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = '商品详情页';
         font-family: arial,"microsoft yahei";
         font-size: 16px;
     }
+    p {margin: 3px 0px;}
     .btn-default:active, .btn-default.active, .btn-default.active.focus, .btn-default.active:hover{
         color: #ffffff;
         background-color: #e3393c;
@@ -108,11 +109,30 @@ $this->params['breadcrumbs'][] = '商品详情页';
                 商家信息
             </div>
         </div>
-        <div class="row" style="clear: both">
+        <div class="row"></div>
+        <div class="row" style="clear: both; margin-top: 20px">
             <div class="col-lg-3">推荐商品</div>
             <div class="col-lg-9">
-                <div class="row">商品属性</div>
-                <div class="row">商品描述<?= $data['content']?></div>
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">面板标题</div>
+                        <div class="panel-body">
+                            <p>这是一个基本的面板内容。这是一个基本的面板内容。
+                                这是一个基本的面板内容。这是一个基本的面板内容。
+                                这是一个基本的面板内容。这是一个基本的面板内容。
+                                这是一个基本的面板内容。这是一个基本的面板内容。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">商品描述</div>
+                        <div class="panel-body">
+                            <?= $data['content']?>
+                        </div>
+                    </div>
+
             </div>
         </div>
     </div>
