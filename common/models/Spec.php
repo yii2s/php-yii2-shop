@@ -31,7 +31,7 @@ class Spec extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            //[['name'], 'required'],
             [['value'], 'string'],
             [['type', 'is_del', 'seller_id'], 'integer'],
             [['name'], 'string', 'max' => 50],

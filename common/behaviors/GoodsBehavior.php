@@ -47,7 +47,7 @@ class GoodsBehavior extends Behavior
         foreach ($images as $i) {
             $temp['s0'] = $i->img;
             foreach ($thumbStandards as $k => $standard) {
-                $standardName = basename($i->img, FileUtil::suffix($i->img, true)) . '_' . $standard;
+                $standardName = basename($i->img, FileUtil::suffix($i->img, true)) . '_thumb_' . $standard;
                 $temp[$k] = FileUtil::newName($i->img, $standardName);
             }
             $data[] = $temp;

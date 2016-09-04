@@ -11,6 +11,9 @@ use common\models\Attr;
 use common\models\CategoryAttrValMap;
 use common\models\Goods;
 use common\models\Spec;
+use common\models\SpecPhoto;
+use common\utils\FileUtil;
+use common\utils\ImageUtil;
 use Yii;
 use common\models\Category;
 use yii\helpers\ArrayHelper;
@@ -514,12 +517,32 @@ class CategoryService extends AbstractService
     public function saveSpec($args, $find = array())
     {
         $hybrid = new AbstractHybrid();
+
+        if ($args['type'] == 2) {
+            $images = $args['value'];
+            unset($args['value']);
+            foreach ((array)$images as $img) {
+                $temp['name'] = $img;
+                $temp['address'] = $img;
+                $temp['create_time'] = date('Y-m-d H:i:s', time());
+                $photo[] = $temp;
+
+                ImageUtil::thumbnail($img, 40, 40);
+                $standardName = basename($img, FileUtil::suffix($img, true)) . '_thumb_40_40';
+                $args['value'][] = FileUtil::newName($img, $standardName);
+
+            }
+            $args['value'] = serialize($args['value']);
+            $hybrid->batchSave(SpecPhoto::tableName(), ['name','address','create_time'], $photo);
+
+        }
+
         return $hybrid->save('spec', $args, $find);
     }
 
     public function getSpec($uid)
     {
-        return Spec::find()->where(['seller_id' => $uid])->all();
+        return Spec::find()->where(['seller_id' => $uid])->orderBy(['id' => SORT_DESC])->all();
     }
 
     //endregion

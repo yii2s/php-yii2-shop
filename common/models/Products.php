@@ -40,7 +40,7 @@ class Products extends \yii\db\ActiveRecord
             [['spec_array'], 'string'],
             [['market_price', 'sell_price', 'cost_price', 'weight'], 'number'],
             [['products_no'], 'string', 'max' => 20],
-            [['goods_id'], 'exist', 'skipOnError' => true, 'targetClass' => zcGoods::className(), 'targetAttribute' => ['goods_id' => 'id']],
+            [['goods_id'], 'exist', 'skipOnError' => true, 'targetClass' => Goods::className(), 'targetAttribute' => ['goods_id' => 'id']],
         ];
     }
 

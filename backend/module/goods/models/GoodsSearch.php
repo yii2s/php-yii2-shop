@@ -18,7 +18,7 @@ class GoodsSearch extends Goods
     public function rules()
     {
         return [
-            [['id', 'cid', 'model_id', 'store_nums', 'is_del', 'point', 'brand_id', 'visit', 'favorite', 'sort', 'exp', 'comments', 'sale', 'grade', 'seller_id', 'is_share'], 'integer'],
+            [['id', 'cid', 'model_id', 'store_nums', 'is_del', 'point', 'category_id', 'visit', 'favorite', 'sort', 'exp', 'comments', 'sale', 'grade', 'seller_id', 'is_share'], 'integer'],
             [['name', 'goods_no', 'up_time', 'down_time', 'create_time', 'img', 'ad_img', 'content', 'keywords', 'description', 'search_words', 'unit', 'spec_array'], 'safe'],
             [['sell_price', 'market_price', 'cost_price', 'weight'], 'number'],
         ];
@@ -73,7 +73,7 @@ class GoodsSearch extends Goods
             'is_del' => $this->is_del,
             'weight' => $this->weight,
             'point' => $this->point,
-            'brand_id' => $this->brand_id,
+            'category_id' => $this->category_id,
             'visit' => $this->visit,
             'favorite' => $this->favorite,
             'sort' => $this->sort,
@@ -95,6 +95,8 @@ class GoodsSearch extends Goods
             ->andFilterWhere(['like', 'search_words', $this->search_words])
             ->andFilterWhere(['like', 'unit', $this->unit])
             ->andFilterWhere(['like', 'spec_array', $this->spec_array]);
+
+        $query->orderBy(['id' => SORT_DESC]);
 
         return $dataProvider;
     }

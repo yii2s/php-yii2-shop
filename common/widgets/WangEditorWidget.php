@@ -30,7 +30,7 @@ class WangEditorWidget extends Widget
                 var editor = new wangEditor("editor-trigger");
 
                 // 上传图片
-                editor.config.uploadImgUrl = "<?= Yii::$app->urlManager->createUrl([\"attr/upload-to-wang-editor\"])?>";
+                editor.config.uploadImgUrl = "./admin.php?r=attr/upload-to-wang-editor";
                 editor.config.uploadParams = {
                                 // token1: "abcde",
                                 // token2: "12345"
@@ -48,7 +48,11 @@ class WangEditorWidget extends Widget
                 editor.config.emotions = {
                                 "default": {
                                     title: "默认",
-                        data: "./emotions.data"
+                                data: [
+                                {
+                                icon: "http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif",
+                                value: "[草泥马]"
+                            },]
                     },
                     "weibo": {
                                     title: "微博表情",

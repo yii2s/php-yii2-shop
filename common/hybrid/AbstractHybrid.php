@@ -4,6 +4,7 @@ namespace common\hybrid;
 
 
 
+use common\models\Spec;
 use Yii;
 
 class AbstractHybrid
@@ -54,7 +55,16 @@ class AbstractHybrid
         $model = $this->_createModel($className, $find);
         $data = $this->_filterAttributes($data, $model);
 
-        return $model->save($data) ? $model->id : 0;
+        foreach ($data as $key => $value) {
+            $model->$key = $value;
+        }
+
+        if (YII_DEBUG && $model->getErrors()) {
+            print_r($model->getErrors());
+            exit;
+        }
+
+        return $model->save() ? $model->id : 0;
     }
 
     /**

@@ -22,7 +22,7 @@ class GoodsHybrid extends AbstractHybrid
      * @return int
      * @since 2016-08-07
      */
-    public function save($args)
+    public function saveGoods($args)
     {
         if ($args['id']) {
             $goods = Goods::findOne($args['id']);
@@ -30,7 +30,7 @@ class GoodsHybrid extends AbstractHybrid
             $goods = new Goods();
         }
         $goods->name = $args['name'];
-        $goods->cid = (int)$args['cid'];
+        $goods->cid = (int)$args['category_id'];
         $goods->goods_no = $args['goods_no'];
         $goods->model_id = (int)$args['model_id'];
         $goods->sell_price = $args['sell_price'];
@@ -49,7 +49,7 @@ class GoodsHybrid extends AbstractHybrid
         $goods->weight = $args['weight'] ?: 0.00;
         $goods->point = (int)$args['point'] ?: 0;
         $goods->unit = $args['unit'];
-        $goods->brand_id = (int)$args['brand_id'] ?: 0;
+        $goods->category_id = (int)$args['category_id'] ?: 0;
         $goods->visit = (int)$args['visit'] ?: 0;
         $goods->favorite = (int)$args['favorite'] ?: 0;
         $goods->sort = (int)$args['sort'];
@@ -58,7 +58,7 @@ class GoodsHybrid extends AbstractHybrid
         $goods->comments = (int)$args['comments'] ?: 0;
         $goods->sale = (int)$args['sale'] ?: 0;
         $goods->grade = (int)$args['grade'] ?: 0;
-        $goods->seller_id = $args['seller_id'];
+        $goods->seller_id = $args['seller_id'] ?: \Yii::$app->user->id;
         $goods->is_share = (int)$args['is_share'] ?: 0;
 
         return $goods->save() ? $goods->id : 0;

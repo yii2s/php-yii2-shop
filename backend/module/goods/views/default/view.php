@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'weight',
             'point',
             'unit',
-            'brand_id',
+            'category_id',
             'visit',
             'favorite',
             'sort',

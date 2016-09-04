@@ -29,7 +29,7 @@ use Yii;
  * @property string $weight
  * @property integer $point
  * @property string $unit
- * @property integer $brand_id
+ * @property integer $category_id
  * @property integer $visit
  * @property integer $favorite
  * @property integer $sort
@@ -89,7 +89,7 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'goods_no', 'model_id', 'sell_price', 'create_time'], 'required'],
-            [['model_id', 'store_nums', 'is_del', 'point', 'brand_id', 'visit', 'favorite', 'sort', 'exp', 'comments', 'sale', 'grade', 'seller_id', 'is_share'], 'integer'],
+            [['model_id', 'store_nums', 'is_del', 'point', 'category_id', 'visit', 'favorite', 'sort', 'exp', 'comments', 'sale', 'grade', 'seller_id', 'is_share'], 'integer'],
             [['sell_price', 'market_price', 'cost_price', 'weight'], 'number'],
             [['up_time', 'down_time', 'create_time'], 'safe'],
             [['content', 'spec_array'], 'string'],
@@ -134,7 +134,7 @@ class Goods extends \yii\db\ActiveRecord
             'weight' => 'Weight',
             'point' => 'Point',
             'unit' => 'Unit',
-            'brand_id' => 'Brand ID',
+            'category_id' => 'Category',
             'visit' => 'Visit',
             'favorite' => 'Favorite',
             'sort' => 'Sort',

@@ -29,10 +29,10 @@ $this->params['breadcrumbs'][] = '商品详情页';
     <div class="body-content">
         <div class="" style="width:1220px;margin-top: 10px;margin-left: auto;margin-right: auto;">
             <div class="" style="width: 350px;float: left;margin-right: 20px;">
-                <?= MagnifierWidget::Widget(['imgUrls' => $images]);?>
+                <?= MagnifierWidget::Widget(['imgUrls' => $data['photos']]);?>
             </div>
             <div class="" style="width: 600px;float: left;margin-right: 10px">
-                <div id="name">好视力 美式 落地灯 客厅卧室书房现卧室书房现代简约工作阅读LED铁艺落地台灯TG835-WH</div>
+                <div id="name"><?= $data['name']?></div>
                 市场价：100，现价：99
             </div>
             <div class="" style="width: 230px;float: left">
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = '商品详情页';
             <div class="col-lg-3">推荐商品</div>
             <div class="col-lg-9">
                 <div class="row">商品属性</div>
-                <div class="row">商品描述</div>
+                <div class="row">商品描述<?= $data['content']?></div>
             </div>
         </div>
     </div>

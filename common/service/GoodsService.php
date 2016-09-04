@@ -67,7 +67,7 @@ class GoodsService extends AbstractService
        }
 
         //保存商品基本数据
-        $goodsID = $goodsHybrid->save($args);
+        $goodsID = $goodsHybrid->saveGoods($args);
         if (!$goodsID) {
             return false;
         }
@@ -83,13 +83,13 @@ class GoodsService extends AbstractService
         }
 
         //保存系统属性值
-        if ($args['sysAttr']) {
-            $this->_saveSysAttr($goodsID, $args['sysAttr'], $hybrid);
+        if ($args['sys_attr']) {
+            $this->_saveSysAttr($goodsID, $args['sys_attr'], $hybrid);
         }
 
         //保存扩展属性
-        if ($args['extAttr']) {
-            $this->_saveExtAttr($goodsID, $args['extAttr'], $hybrid);
+        if ($args['ext_Attr']) {
+            $this->_saveExtAttr($goodsID, $args['ext_Attr'], $hybrid);
         }
 
         //保存商品规格
@@ -188,7 +188,7 @@ class GoodsService extends AbstractService
             $temp['gid'] = $goodsID;
             $temp['create_time'] = date('Y-m-d H:i:s', time());
             $temp['status'] = intval($a['status']) ?: Conf::ENABLE;
-            $values[] = $a;
+            $values[] = $temp;
         }
 
         $values and $hybrid->batchSave(GoodsExtAttr::tableName(), [
@@ -211,9 +211,9 @@ class GoodsService extends AbstractService
         foreach ((array)$attr as $a) {
             $temp = [];
             $temp['goods_id'] = $goodsID;
-            $temp['products_no'] = $a['no'];
-            $temp['spec_array'] = json_encode($a['spec']);
-            $temp['store_nums'] = $a['nums'];
+            $temp['products_no'] = $a['products_no'];
+            $temp['spec_array'] = md5($a['spec_array']);
+            $temp['store_nums'] = $a['store_nums'];
             $temp['market_price'] = $a['market_price'];
             $temp['sell_price'] = $a['sell_price'];
             $temp['cost_price'] = $a['cost_price'];
@@ -414,8 +414,9 @@ class GoodsService extends AbstractService
         $return['name'] = $object->name;
         $return['img'] = $object->img;
         $return['adImg'] = $object->ad_img;
+        $return['content'] = $object->content;
         $return['createTime'] = $object->create_time;
-        $return['spec'] = json_decode($object->spec_array);
+        $return['spec'] = json_decode(json_decode($object->spec_array));
 
         $return['photos'] = $object->images();
         $return['comments'] = $object->comments();

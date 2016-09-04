@@ -3,7 +3,11 @@
 namespace backend\module\goods\controllers;
 
 use common\components\CController;
+use common\models\Spec;
+use common\service\CategoryService;
 use common\service\GoodsService;
+use common\utils\DebugUtil;
+use common\utils\ResponseUtil;
 use Yii;
 use common\models\Goods;
 use backend\module\goods\models\GoodsSearch;
@@ -122,6 +126,53 @@ class DefaultController extends CController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionAddSpec()
+    {
+        $data = Yii::$app->request->post();
+
+        if ($data['type'] == 1) {
+            $data['value'] = serialize(explode(',', str_replace('，', ',', $data['value'])));
+        } else {
+            //$data['value'] = serialize($data['value']);
+        }
+
+        $data['seller_id'] = Yii::$app->user->id;
+        $id = CategoryService::factory()->saveSpec($data);
+        if ($spec = Spec::findOne($id)) {
+            ResponseUtil::json(['data' => $this->_specContentText($spec)]);
+        } else {
+            ResponseUtil::json(null, 1, 'fail');
+        }
+    }
+
+    private function _specContentText($spec)
+    {
+        $html = '<div class="panel panel-default">';
+        $html .= '<div class="panel-heading">';
+        $html .= '<h3 class="panel-title spec_name">'. $spec->name .'</h3>';
+        $html .= '</div><div class="panel-body">';
+
+        $values = unserialize($spec->value);
+        if ($spec->type == 1) {
+            foreach ((array)$values as $value) {
+                $html .= '<label class="checkbox-inline">';
+                $html .= '<input type="checkbox" name="spec-select" value="'. $value .'">' . $value;
+                $html .= '</label>';
+            }
+        } else {
+            foreach ((array)$values as $value) {
+                $html .= '<label class="checkbox-inline">';
+                $html .= '<input type="checkbox" name="spec-select" value="'. $value .'">';
+                $html .= '<img src="'. $value .'" width="40" height="40"/>';
+                $html .= '</label>';
+            }
+        }
+
+        $html .= '</div></div>';
+
+        return $html;
     }
 
 }

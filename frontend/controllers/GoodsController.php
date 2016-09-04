@@ -8,6 +8,7 @@ use common\models\Goods;
 use common\models\GoodsAttrValMap;
 use common\service\CategoryService;
 use common\service\GoodsService;
+use common\utils\DebugUtil;
 use common\utils\FileUtil;
 use common\utils\ImageUtil;
 use common\utils\ResponseUtil;

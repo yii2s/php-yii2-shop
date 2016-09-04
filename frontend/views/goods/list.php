@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $curCategory['name'];
     $(function() {
 
         var cid = <?= intval($_GET['cid']); ?>;
-        var sort = <?= SORT_DESC; ?>;
+        var sort = <?= SORT_ASC; ?>;
 
         var reajax = null;
         var page = null;
