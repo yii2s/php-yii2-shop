@@ -416,6 +416,8 @@ class GoodsService extends AbstractService
         $return['adImg'] = $object->ad_img;
         $return['content'] = $object->content;
         $return['createTime'] = $object->create_time;
+        $return['marketPrice'] = $object->market_price;
+        $return['sellPrice'] = $object->sell_price;
         $return['spec'] = json_decode(json_decode($object->spec_array));
 
         $return['photos'] = $object->images();
