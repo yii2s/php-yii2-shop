@@ -77,7 +77,8 @@ class GoodsController extends CController
 
     public function actionDetail()
     {
-        $id = (int)Yii::$app->request->get('id');
+        header("Content-type: text/html; charset=utf-8");
+        $id = (int)Yii::$app->request->get('id', 8834);
         $data = GoodsService::factory()->detail($id);
         //DebugUtil::format($data);
 

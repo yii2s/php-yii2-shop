@@ -89,3 +89,16 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+/* detail */
+.intro-item{
+    margin-top: 5px;
+    height: 30px;
+}
+.intro-item-name{
+    width: 70px;
+    float: left;
+    text-align: right;
+    line-height: 30px;
+    color: #666666
+}

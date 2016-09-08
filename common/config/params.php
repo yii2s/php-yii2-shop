@@ -60,7 +60,7 @@ return [
 
     'goodsStatus' => [
         Conf::DOWN_GOODS => '下架',
-        Conf::UP_GOODS => '下架',
+        Conf::UP_GOODS => '上架',
         Conf::ENABLE => '审核通过',
         Conf::DISABLE => '审核不通过',
     ],
@@ -69,5 +69,12 @@ return [
         Conf::ADD_FAVORITE => '收藏',
         Conf::DEL_FAVORITE => '取消收藏',
     ],
+
+    'goodsRecommend' => [
+        Conf::RECOMMEND => '推荐商品',
+        Conf::HOT_SALE => '热卖商品',
+        Conf::BARGAIN_PRICE => '特价商品',
+        Conf::NEWEST_GOODS => '最新商品',
+    ]
 
 ];

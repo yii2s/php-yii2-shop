@@ -53,6 +53,11 @@ class GoodsService extends AbstractService
             $args['up_time'] = DateTime::date('Y-m-d H:i:s');
         }
 
+        //商品规格
+        if ($args['spec_array']) {
+            $args['spec_array'] = urldecode($args['spec_array']);
+        }
+
         $hybrid = new AbstractHybrid();
         $goodsHybrid = new GoodsHybrid();
 
@@ -60,11 +65,6 @@ class GoodsService extends AbstractService
         if ($args['img'] && FileUtil::isExists($args['img'])) {
             $args['ad_img'] = ImageUtil::thumbnail($args['img'], 220, 220);
         }
-
-        //规格属性
-       if ($args['spec_array']) {
-           $args['spec_array'] = json_encode($args['spec_array']);
-       }
 
         //保存商品基本数据
         $goodsID = $goodsHybrid->saveGoods($args);
@@ -418,7 +418,8 @@ class GoodsService extends AbstractService
         $return['createTime'] = $object->create_time;
         $return['marketPrice'] = $object->market_price;
         $return['sellPrice'] = $object->sell_price;
-        $return['spec'] = json_decode(json_decode($object->spec_array));
+        $return['commentNum'] = $object->comments;
+        $return['spec'] = json_decode($object->spec_array);
 
         $return['photos'] = $object->images();
         $return['comments'] = $object->comments();

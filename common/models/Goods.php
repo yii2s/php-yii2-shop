@@ -73,6 +73,7 @@ class Goods extends \yii\db\ActiveRecord
 
     public $images;
     public $attrVals;
+    public $recommend;
 
     /**
      * @inheritdoc

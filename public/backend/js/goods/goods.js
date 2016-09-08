@@ -108,7 +108,8 @@ $(function(){
             if (temp.length > 0) {
                 var data = {};
                 data['children'] = temp;
-                data['name'] = $(this).prev().children("h3").text();
+                data['name'] = $.trim($(this).prev().children("h3").text());
+                data['type'] = $(this).attr("spec-type");
                 spec.push(data);
                 spec_val.push(temp);
             }
@@ -131,7 +132,7 @@ $(function(){
             html += '</tr>';
         }
         html += '</table>';
-        html += '<input type="hidden" name="Goods[spec_array]" value='+ JSON.stringify(spec) +'>';
+        html += '<input type="hidden" name="Goods[spec_array]" value='+ encodeURIComponent(JSON.stringify(spec)) +'>';
         $(".spec-zhuhe").empty().html(html);
         $(".spec-zhuhe").parent().removeClass("hide");
 

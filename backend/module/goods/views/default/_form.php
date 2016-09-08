@@ -42,7 +42,8 @@ $fieldTemplate = "{label}\n<div class=\"col-sm-7\">{input}</div>\n<div class=\"c
                     <?= $form->field($model, 'favorite')->textInput(['style' => 'width:20%', 'value' => 1])->label('收藏数:',['class' => 'col-sm-2 control-label']) ?>
                     <?= $form->field($model, 'sort')->textInput(['style' => 'width:20%', 'value' => 0])->label('排序:',['class' => 'col-sm-2 control-label']) ?>
                     <?= $form->field($model, 'comments')->textInput(['style' => 'width:20%', 'value' => 0])->label('评论数:',['class' => 'col-sm-2 control-label']) ?>
-                    <?= $form->field($model, 'is_del')->radioList(Yii::$app->params['goodsStatus'])->label('状态',['class' => 'col-sm-2 control-label']) ?>
+                    <?= $form->field($model, 'is_del')->radioList(Yii::$app->params['goodsStatus'])->label('状态:',['class' => 'col-sm-2 control-label']) ?>
+                    <?= $form->field($model, 'recommend')->checkboxList(Yii::$app->params['goodsRecommend'])->label('推荐:',['class' => 'col-sm-2 control-label'])?>
                 </div>
 
                 <!-- 商品内容 -->
@@ -235,9 +236,11 @@ $fieldTemplate = "{label}\n<div class=\"col-sm-7\">{input}</div>\n<div class=\"c
                             <?php foreach ($specs as $spec) { ?>
                                 <div class="panel panel-default" style="width: 98%">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title spec_name"><?= $spec->name ?></h3>
+                                        <h3 class="panel-title spec_name">
+                                            <?= $spec->name ?>
+                                        </h3>
                                     </div>
-                                    <div class="panel-body spec_one">
+                                    <div class="panel-body spec_one" spec-type=<?=$spec->type?>>
                                         <?php $values = unserialize($spec->value); ?>
                                         <?php if ($spec->type == 1) { ?>
                                             <?php foreach ((array)$values as $v) { ?>
