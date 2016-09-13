@@ -53,10 +53,10 @@ return [
             'username' => 'root',
             'password' => 'wuzhc2580',
         ],
-        'request' => [
-            'enableCookieValidation' => true,
-            'enableCsrfValidation' => true,
-            'cookieValidationKey' => 'sfsfdsfsdf',
-        ],
+        //'request' => [
+        //    'enableCookieValidation' => true,
+        //    'enableCsrfValidation' => true,
+        //    'cookieValidationKey' => 'sfsfdsfsdf',
+        //],
     ],
 ];
