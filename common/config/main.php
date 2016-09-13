@@ -66,6 +66,9 @@ return [
         ],
         'mongo' => [
             'class' => 'common\components\CMongo',
+            'mongoDB' => MONGO_DB,
+            'mongoPort' => MONGO_PORT,
+            'mongoHost' => MONGO_HOST,
         ],
     ],
 ];

@@ -21,6 +21,10 @@ class CMongo extends Component
     public $mongo;
     public $db;
 
+    public $mongoDB = MONGO_DB;
+    public $mongoPort = MONGO_PORT;
+    public $mongoHost = MONGO_HOST;
+
     /**
      * Initializes CMongo.
      */
@@ -29,12 +33,12 @@ class CMongo extends Component
         parent::init();
 
         try {
-            $this->mongo = new \MongoClient(sprintf('mongodb://%s:%s', MONGO_HOST, MONGO_PORT));
+            $this->mongo = new \MongoClient(sprintf('mongodb://%s:%s', $this->mongoHost, $this->mongoPort));
         } catch (\MongoConnectionException $e) {
             echo $e->getMessage(); exit;
         }
 
-        $this->selectMongoDB(MONGO_DB);
+        $this->selectMongoDB($this->mongoDB);
     }
 
     /**
