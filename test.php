@@ -1,49 +1,51 @@
 <?php
-/*$color = array('red', 'green');
-$size = array(39, 40, 41);
-$local = array('beijing', 'shanghai');
+header("Content-Type:text/html;charset=gbk");
+include ('common\config\main.php');
+include ('common\components\CMongo.php');
+use common\components\CMongo;
 
-echo "<pre>";
-print_r(combineDika($color, $size, $local));*/
+//mongodb是安装在本机，使用的端口是27017。
+//$client = new MongoClient("mongodb://127.0.0.1:27017");
 
-/**
- * 所有数组的笛卡尔积
- *
- * @param unknown_type $data
- */
-function combineDika() {
-    $data = func_get_args();
-    $cnt = count($data);
-    $result = array();
-    foreach($data[0] as $item) {
-        $result[] = array($item);
-    }
+//选择数据库并指定数据表.
+//$collection = $client->test->persons;
 
-    for($i = 1; $i < $cnt; $i++) {
-        $result = combineArray($result,$data[$i]);
-    }
-    return $result;
-}
+//$collection = $client->shop->goods;
 
-/**
- * 两个数组的笛卡尔积
- *
- * @param unknown_type $arr1
- * @param unknown_type $arr2
- */
-function combineArray($arr1,$arr2) {
-    $result = array();
-    foreach ($arr1 as $item1) {
-        foreach ($arr2 as $item2) {
-            $temp = $item1;
-            $temp[] = $item2;
-            $result[] = $temp;
-        }
-    }
-    return $result;
-}
+//插入数据
+/*$array = array(
+    'name'=>'liuruiqun',
+    'age'=>25,
+    'address'=>array(
+        'province'=>'sichuang',
+        'city'=>'chengdu'
+    )
+);
+$ret = $collection->insert($array);*/
 
+//插入数据
+//$collection->insert(array('name' => 'hehe'));
+
+//更新数据
+//$collection->update(array('name'=>'liuruiqun'), array('name' => 'wuzhc'));
+
+//查询数据
+//$res = $collection->findOne();
+
+
+//打印数据
+//var_dump($res);
+
+//CMongodb::instance()->insert('goods', array('name' => '嘎嘎'));
+//$data = CMongodb::instance()->findOne('goods', array('id' => '8837'));
+//$data = CMongodb::instance()->listDBs();
 header("Content-Type:text/html;charset=utf-8");
-$arr = ["uploads/tempFile/001.jpg","uploads/tempFile/002.jpg","uploads/tempFile/003.jpg"];
-echo serialize($arr);
-//echo unserialize($arr);
+//CMongodb::instance()->selectMongoDB('MONGO_DB');
+$data = CMongo::db()->update('goods', ['$inc' => ['commentNum' => 2]], ['id' => 8837]);
+//$data = CMongo::db()->findOne('goods', array('id' => array('$lt' => 8838)));
+//var_dump($data);
+
+//CMongo::db()->dropDB();
+
+$dbs = CMongo::db()->listDBs();
+var_dump($dbs);
