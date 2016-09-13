@@ -62,7 +62,7 @@ class FileUtil
         $extension = mb_strtolower($file->extension, 'utf-8');
 
         // check file by mimeType
-        if ($checkMimeType) {
+        if ($checkMimeType && extension_loaded('fileinfo')) {
             $mimeType = FileHelper::getMimeType($file->tempName, null, false);
             if ($mimeType === null) {
                 YII_DEBUG and VarDumper::dump('file mimeType is null: ' . $file->name);

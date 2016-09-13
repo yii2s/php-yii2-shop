@@ -1,29 +1,52 @@
 <?php
+header("Content-Type:text/html;charset=gbk");
+include ('common\config\main.php');
+include ('common\components\CMongo.php');
+use common\components\CMongo;
 
-$m = new MongoClient('mongodb://23.83.240.107:27017');    // 连接到mongodb
+//mongodb是安装在本机，使用的端口是27017。
+//$client = new MongoClient("mongodb://127.0.0.1:27017");
 
+//选择数据库并指定数据表.
+//$collection = $client->test->persons;
 
-/*
-$db = $m->test;            // 选择一个数据库
-$collection = $db->runoob; // 选择集合
-$document = array(
-    "title" => "MongoDB",
-    "description" => "database",
-    "likes" => 100,
-    "url" => "http://www.runoob.com/mongodb/",
-    "by", "菜鸟教程"
+//$collection = $client->shop->goods;
+
+//插入数据
+/*$array = array(
+    'name'=>'liuruiqun',
+    'age'=>25,
+    'address'=>array(
+        'province'=>'sichuang',
+        'city'=>'chengdu'
+    )
 );
-$collection->insert($document);
-echo "数据插入成功";*/
+$ret = $collection->insert($array);*/
+
+//插入数据
+//$collection->insert(array('name' => 'hehe'));
+
+//更新数据
+//$collection->update(array('name'=>'liuruiqun'), array('name' => 'wuzhc'));
+
+//查询数据
+//$res = $collection->findOne();
 
 
-$db = $m->test;            // 选择一个数据库
-$collection = $db->runoob; // 选择集合
+//打印数据
+//var_dump($res);
 
-$cursor = $collection->find();
-// 迭代显示文档标题
-echo '<pre>';
-foreach ($cursor as $document) {
-    var_dump($document);
-    echo "\n";
-}
+//CMongodb::instance()->insert('goods', array('name' => '嘎嘎'));
+//$data = CMongodb::instance()->findOne('goods', array('id' => '8837'));
+//$data = CMongodb::instance()->listDBs();
+header("Content-Type:text/html;charset=utf-8");
+//CMongodb::instance()->selectMongoDB('MONGO_DB');
+$data = CMongo::db()->update('goods', ['$inc' => ['commentNum' => 2]], ['id' => 8837]);
+//$data = CMongo::db()->findOne('goods', array('id' => array('$lt' => 8838)));
+//var_dump($data);
+
+//CMongo::db()->dropDB();
+
+$dbs = CMongo::db()->listDBs();
+var_dump($dbs);
+

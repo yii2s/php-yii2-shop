@@ -2,6 +2,12 @@
 
 /** 是否开启缓存 */
 define('CACHE_ON', false);
+/** 是否开启mongo */
+define('MONGO_ON', true);
+
+define('MONGO_HOST', '23.83.240.107');
+define('MONGO_PORT', '27017');
+define('MONGO_DB', 'zcshop');
 
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -16,7 +22,7 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=shop',
+            'dsn' => 'mysql:host=localhost;dbname=shop2',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
@@ -53,10 +59,16 @@ return [
             'username' => 'root',
             'password' => 'wuzhc2580',
         ],
-        //'request' => [
-        //    'enableCookieValidation' => true,
-        //    'enableCsrfValidation' => true,
-        //    'cookieValidationKey' => 'sfsfdsfsdf',
-        //],
+        'request' => [
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
+            'cookieValidationKey' => 'sfsfdsfsdf',
+        ],
+        'mongo' => [
+            'class' => 'common\components\CMongo',
+            'mongoDB' => MONGO_DB,
+            'mongoPort' => MONGO_PORT,
+            'mongoHost' => MONGO_HOST,
+        ],
     ],
 ];

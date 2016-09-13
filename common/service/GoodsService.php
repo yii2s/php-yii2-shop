@@ -403,6 +403,10 @@ class GoodsService extends AbstractService
      */
     public function detail($goodsID)
     {
+        if (MONGO_ON && $data = Yii::$app->mongo->findOne('goods', ['id' => $goodsID])) {
+            return $data;
+        }
+
         $return = [];
 
         $object = Goods::findOne($goodsID);
@@ -410,7 +414,7 @@ class GoodsService extends AbstractService
             return $return;
         }
 
-        $return['id'] = $object->id;
+        $return['id'] = (int)$object->id;
         $return['name'] = $object->name;
         $return['img'] = $object->img;
         $return['adImg'] = $object->ad_img;
@@ -426,6 +430,7 @@ class GoodsService extends AbstractService
         $return['sysAttr'] = $object->sysAttr();
         $return['extAttr'] = $object->extAttr();
 
+        MONGO_ON and Yii::$app->mongo->insert('goods', $return);
         return $return;
     }
 

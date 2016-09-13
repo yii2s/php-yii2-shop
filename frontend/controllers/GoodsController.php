@@ -151,7 +151,7 @@ class GoodsController extends CController
 
     public function actionT()
     {
-        $parentCats= CategoryService::factory()->getParentCats(609);
-        print_r($parentCats);
+        $data = Yii::$app->mongo->findOne('goods', ['id' => 8837]);
+        print_r($data);
     }
 }

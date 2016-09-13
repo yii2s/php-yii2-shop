@@ -68,6 +68,8 @@ class GoodsBehavior extends Behavior
      */
     public function sysAttr()
     {
+        $data = array();
+
         $attrs = Goods::find()->from(Goods::tableName() . 'as t')
             ->leftJoin(GoodsAttrValMap::tableName() . 'as gavm', 'gavm.gid = t.id')
             ->leftJoin(AttrValue::tableName() . 'as av', 'av.id = gavm.vid')
@@ -77,8 +79,13 @@ class GoodsBehavior extends Behavior
             ->asArray()
             ->all();
 
-        foreach ($attrs as $attr) {
-            $data[$attr['name']][] = $attr['val'];
+        if ($attrs) {
+            foreach ($attrs as $attr) {
+                if (!$attr['name']) {
+                    continue;
+                }
+                $data[$attr['name']][] = $attr['val'];
+            }
         }
 
         return $data;
