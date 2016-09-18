@@ -7,7 +7,7 @@ define('MONGO_ON', true);
 
 define('MONGO_HOST', '23.83.240.107');
 define('MONGO_PORT', '27017');
-define('MONGO_DB', 'zcshop');
+define('MONGO_DB', 'zcshop_1');
 
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -22,7 +22,7 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=shop2',
+            'dsn' => 'mysql:host=localhost;dbname=shop',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

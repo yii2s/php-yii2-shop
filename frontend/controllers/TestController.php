@@ -23,4 +23,11 @@ class TestController extends CController
         $data = DBService::factory()->showTable(Goods::tableName());
         DebugUtil::format($data);
     }
+
+    public function actionMongo()
+    {
+        $data = Yii::$app->mongo->specialFind('goods', [], ['limit' => 2, 'sort' => ['id'=>-1], 'select' => ['name' => 1, '_id' => 0]],['$maxscan'=>3]);
+        //$data = Yii::$app->mongo->command();
+        print_r($data);
+    }
 }

@@ -423,7 +423,7 @@ class GoodsService extends AbstractService
         $return['marketPrice'] = $object->market_price;
         $return['sellPrice'] = $object->sell_price;
         $return['commentNum'] = $object->comments;
-        $return['spec'] = json_decode($object->spec_array);
+        $return['spec'] = json_decode($object->spec_array, true);
 
         $return['photos'] = $object->images();
         $return['comments'] = $object->comments();

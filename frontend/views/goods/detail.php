@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = '商品详情页';
 
     <div class="body-content">
         <div class="row" style="width:1220px;margin-top: 10px;margin-left: auto;margin-right: auto;padding-bottom:5px;border-bottom: 2px solid #DDDDDD">
-            <div class="" style="width: 350px;float: left;margin-right: 20px;">
+            <div class="" style="width: 350px;float: left;margin-right: 20px;height: 425px">
                 <?= MagnifierWidget::Widget(['imgUrls' => $data['photos']]);?>
             </div>
             <div class="" style="width: 600px;float: left;margin-right: 10px">
@@ -66,28 +66,28 @@ $this->params['breadcrumbs'][] = '商品详情页';
                     </div>
                 </div>
                 <?php if ($data['spec']) { ?>
-                        <?php foreach ($data['spec'] as $spec) { ?>
-                            <?php if ($spec->type == 2) { ?>
+                        <?php foreach ((array)$data['spec'] as $spec) { ?>
+                            <?php if ($spec['type'] == 2) { ?>
                                 <div class="intro-item" style="height: 50px">
                                     <div class="intro-item-name">
                                         <?= $spec->name; ?>：
                                     </div>
                                     <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px">
-                                        <?php foreach ((array)$spec->children as $specOption) { ?>
+                                        <?php foreach ((array)$spec['children'] as $specOption) { ?>
                                             <label class="" style="margin-bottom: 5px;margin-right: 8px">
                                                 <img src="<?=$specOption?>" width="50" height="50" style="border: 3px double #CCCCCC">
                                             </label>
                                         <?php } ?>
-                                        <img src="uploads/tempFile/sdf_thumb_40_40.jpg" width="50" height="50" style="border: 3px double #E3393C">
+                                        <img src="uploads/tempFile/sdf_thumb_40_40.jpg" width="50" height="50" style="border: 3px solid #E3393C">
                                     </div>
                                 </div>
                             <?php } else { ?>
                                 <div class="intro-item">
                                     <div class="intro-item-name">
-                                        <?= $spec->name; ?>：
+                                        <?= $spec['name']; ?>：
                                     </div>
                                     <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px">
-                                        <?php foreach ((array)$spec->children as $specOption) { ?>
+                                        <?php foreach ((array)$spec['children'] as $specOption) { ?>
                                                 <label class="btn btn-default btn-sm" style="margin-bottom: 5px;">
                                                     <input type="radio" name="options" id="option1" value="<?= $specOption?>"> <?= $specOption?>
                                                 </label>
@@ -141,9 +141,9 @@ $this->params['breadcrumbs'][] = '商品详情页';
                 <div class="panel panel-default">
                     <div class="panel-heading">系统推荐</div>
                     <div class="panel-body">
-                        <div class="">
+                        <div>
                             <div class="thumbnail">
-                                <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/101254672750db39e96146ec28e7bb51_259_194.jpg" alt="...">
+                                <img src="http://img20.360buyimg.com/vc/jfs/t2647/273/4133170162/92430/592b3bd4/57a93818N829cab72.jpg" alt="...">
                                 <div class="caption">
                                     <h3 style="color: red">￥99.00</h3>
                                     <p><a>波司登男装2016青年时尚休闲短袖圆领T恤 圆领竹纤维半截袖体恤 1262Z13086 黄色 M</a></p>
@@ -152,7 +152,7 @@ $this->params['breadcrumbs'][] = '商品详情页';
                         </div>
                         <div class="">
                             <div class="thumbnail">
-                                <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/101254672750db39e96146ec28e7bb51_259_194.jpg" alt="...">
+                                <img src="http://img20.360buyimg.com/vc/jfs/t2647/273/4133170162/92430/592b3bd4/57a93818N829cab72.jpg" alt="...">
                                 <div class="caption">
                                     <h3 style="color: red">￥99.00</h3>
                                     <p><a>波司登男装2016青年时尚休闲短袖圆领T恤 圆领竹纤维半截袖体恤 1262Z13086 黄色 M</a></p>
@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = '商品详情页';
                         </div>
                         <div class="">
                             <div class="thumbnail">
-                                <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/101254672750db39e96146ec28e7bb51_259_194.jpg" alt="...">
+                                <img src="http://img20.360buyimg.com/vc/jfs/t2647/273/4133170162/92430/592b3bd4/57a93818N829cab72.jpg" alt="...">
                                 <div class="caption">
                                     <h3 style="color: red">￥99.00</h3>
                                     <p><a>波司登男装2016青年时尚休闲短袖圆领T恤 圆领竹纤维半截袖体恤 1262Z13086 黄色 M</a></p>
@@ -170,7 +170,7 @@ $this->params['breadcrumbs'][] = '商品详情页';
                         </div>
                         <div class="">
                             <div class="thumbnail">
-                                <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/101254672750db39e96146ec28e7bb51_259_194.jpg" alt="...">
+                                <img src="http://img20.360buyimg.com/vc/jfs/t2647/273/4133170162/92430/592b3bd4/57a93818N829cab72.jpg" alt="...">
                                 <div class="caption">
                                     <h3 style="color: red">￥99.00</h3>
                                     <p><a>波司登男装2016青年时尚休闲短袖圆领T恤 圆领竹纤维半截袖体恤 1262Z13086 黄色 M</a></p>

@@ -142,7 +142,7 @@ class CMongo extends Component
      * writeConcern :（可选）抛出异常的级别。
      * @return bool
      */
-    public function remove($name, $condition = array(), $option = array())
+    public function remove($name, $condition = [], $option = [])
     {
         try {
             $this->db->$name->remove($condition, $option);
@@ -159,7 +159,7 @@ class CMongo extends Component
      * @param array $field 需要返回的字段
      * @return array|bool|null
      */
-    public function findOne($name, $condition = array(), $field = array())
+    public function findOne($name, $condition = [], $field = [])
     {
         try {
             return $this->db->$name->findOne($condition, $field);
@@ -169,27 +169,106 @@ class CMongo extends Component
     }
 
     /**
-     * @brief 查询集合文档
+     * @brief 查询集合文档条件
      * @param string $name 集合名称
      * @param array $condition e.g.
-     *
-     *      ['id' => ['$gt' => 1, '$lt' => 2]], //范围查询
-     *      ['id' => ['$where' => 'function(){return this.id == 1}']],
+     * <pre>
+     *      ['id' => ['$gt' => 1, '$lt' => 2]], //范围查询，如果id是个数组，这种方式并不适用
+     *      ['id' => ['$eleMatch' => ['$gt' => 1, '$lt' => 2]]], //只支持数组范围查询,min(),max()
+     *      ['id' => ['$where' => 'function(){return this.id == 1}']], //尽量避免这种使用方式
      *      ['id' => ['$in' => [1,2,3]]],
-     *      ['id' => ['$ne' => 1]], //不等于
-     *      ['id' => ['$gte' => 1]], //不等于
      *      ['$or' => [['id' => 1], ['id' => 2]],
      *      ['$and' => [['id' => 1], ['id' => 2]],
-     *
-     * @return array
+     *      ['name' => ['$in' => [null], '$exists' => true]], //查询null字段
+     *      ['name' => ['$regex' => new MongoRegex("/^$search/")]], //正则查找
+     *      ['name' => ['$all' => ['wuzhc', 'heheda']]], //数组查询，同时匹配多个元素，顺序无关
+     *      ['comments' => ['$eleMatch' => ['author'=>'joe','score'=>['$gte'=>5]]]], //内嵌文档查询，$eleMatch将限定条件分组
+     * </pre>
+     * @param array $options 其他选项
+     * <pre>
+     *      ['select' => ['username' => 1, 'age' => 1]], //需要返回字段, PS: '_id' => 0不返回_id
+     *      ['limit' => 10], //查询条数
+     *      ['sort' => ['time' => -1]], //排序
+     *      ['skip' => '10'], //跳过数量过多的话会有性能问题，不建议用于数量较多的分页
+     * </pre>
+     * @return \MongoCursor
      */
-    public function find($name, $condition = array())
+    public function findCriteria($name, $condition = [], $options = [])
     {
         try {
-            return iterator_to_array($this->db->$name->find($condition));
+            $cursor =  $this->db->$name->find($condition, (array)$options['select']);
+            if (is_numeric($options['limit']) && $options['limit'] > 0) {
+                $cursor->limit($options['limit']);
+            }
+            if (is_numeric($options['skip']) && $options['skip'] > 0) {
+                $cursor->skip($options['skip']);
+            }
+            if (isset($options['sort']) && is_array($options['sort'])) {
+                $cursor->sort($options['sort']);
+            }
+            return $cursor;
         } catch (\MongoException $e) {
             echo $e->getMessage(); exit;
         }
+    }
+
+    /**
+     * @brief 查询集合
+     * @see findCriteria()
+     * @param $name
+     * @param array $condition
+     * @param array $options
+     * @return array
+     * @since 2016-09-17
+     */
+    public function find($name, $condition = [], $options = [])
+    {
+        $cursor = $this->findCriteria($name, $condition, $options);
+        return iterator_to_array($cursor);
+    }
+
+    /**
+     * @deprecated
+     * @brief 高级查询
+     * @see findCriteria()
+     * @param $name
+     * @param array $condition
+     * @param array $options
+     * @param array $specialOpt
+     * <pre>
+     *      ['$maxscan' => 10], //指定扫描文档上限
+     *      ['$showDiskLoc' => true], //显示结果在磁盘的位置
+     * </pre>
+     * @return array
+     */
+    public function specialFind($name, $condition = [], $options = [], $specialOpt = [])
+    {
+        $cursor = $this->findCriteria($name, $condition, $options);
+        if ($specialOpt) {
+            while (list($opt, $value) = each($specialOpt)) {
+                $cursor->_addSpecial($opt, $value);
+            }
+        }
+        return iterator_to_array($cursor);
+    }
+
+    /**
+     * @brief 为查询添加快照，以保证数据一致性
+     * 数据处理过程（查询修改再保存），如果修改后的文档体积增大
+     * 原有的预留空间不够，mongoDB会将体积增大后的文档往末尾挪动，这样游标可能会返回
+     * 体积增大后的文档，导致数据不一致
+     *
+     * Note:使用快照会使查询变慢
+     * @see findCriteria()
+     * @param $name
+     * @param array $condition
+     * @param array $options
+     * @return \MongoCursor
+     */
+    public function snapshot($name, $condition = [], $options = [])
+    {
+        $cursor = $this->findCriteria($name, $condition, $options);
+        return $cursor->snapshot();
     }
 
     /**
@@ -206,12 +285,35 @@ class CMongo extends Component
      * multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。
      * writeConcern :可选，抛出异常的级别。
      */
-    public function update($name, $newData = array(), $condition = array(), $options = array())
+    public function update($name, $newData = [], $condition = [], $options = [])
     {
         try {
             return $this->db->$name->update($condition, $newData, $options);
         } catch (\MongoException $e) {
             echo $e->getMessage(); exit;
         }
+    }
+
+    public function command($args = [])
+    {
+        return $this->db->command(
+            array(
+                'text' => 'goods', //this is the name of the collection where we are searching
+                'search' => '呵呵', //the string to search
+                'limit' => 5, //the number of results, by default is 1000
+                /*'project' => Array( //the fields to retrieve from db
+                    'title' => 1
+                )*/
+            )
+        );
+    }
+
+    /**
+     * hasNext 查看游标是否还有其他结果
+     * next 迭代结果
+     */
+    public function cursor()
+    {
+
     }
 }
