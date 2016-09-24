@@ -109,3 +109,13 @@ $this->registerJsFile('@web/public/frontend/menu/js/index.js',
     ['depends' => [JqueryAsset::className()],'position'=>$this::POS_END]
 );
 ?>
+<?php $this->beginBlock('jquery') ?>
+
+    $(function() {
+        $("img").error(function () {
+            $(this).attr("src", "public/common/images/1.jpg");
+        });
+    });
+
+<?php $this->endBlock() ?>
+<?php $this->registerJs($this->blocks['jquery'], \yii\web\View::POS_END); ?>
