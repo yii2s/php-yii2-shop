@@ -1,7 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use common\config\Conf;
 use common\service\CategoryService;
+use common\service\GoodsService;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -74,7 +76,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-            'categories' => CategoryService::factory()->getCategoriesMap()
+            'categories' => CategoryService::factory()->getCategoriesMap(),
+            'commendGoods' => GoodsService::factory()->getCommendGoods(['limit'=>8,'commend_id'=>Conf::RECOMMEND]),
+            'hotGoods' => GoodsService::factory()->getCommendGoods(['limit'=>8,'commend_id'=>Conf::HOT_SALE]),
+            'bargainGoods' => GoodsService::factory()->getCommendGoods(['limit'=>8,'commend_id'=>Conf::BARGAIN_PRICE]),
+            'newestGoods' => GoodsService::factory()->getCommendGoods(['limit'=>8,'commend_id'=>Conf::NEWEST_GOODS]),
         ]);
     }
 

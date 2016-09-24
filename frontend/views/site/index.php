@@ -834,51 +834,17 @@ $this->title = 'zcShop商城系统';
                     <h3 class="panel-title">相关推荐</h3>
                 </div>
                 <div class="panel-body">
+                    <?php foreach((array)$commendGoods as $commend) { ?>
                     <div class="" style="width: 100%;">
                         <div class="thumbnail" style="border: #ffffff">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg" alt="通用的占位符缩略图">
+                            <img src="<?= $commend['ad_img']; ?>" alt="<?= $commend['name']; ?>">
                             <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
+                                <h3 style="color: #E4393C">¥<?= $commend['sell_price'];?></h3>
+                                <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$commend['id']])?>" style="color: #333333"><?= $commend['name']; ?></a></p>
                             </div>
                         </div>
                     </div>
-                    <div class="" style="width: 100%;">
-                        <div class="thumbnail" style="border: #ffffff">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg" alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="" style="width: 100%;">
-                        <div class="thumbnail" style="border: #ffffff">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg" alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="" style="width: 100%;">
-                        <div class="thumbnail" style="border: #ffffff">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg" alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="" style="width: 100%;">
-                        <div class="thumbnail" style="border: #ffffff">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg" alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -890,224 +856,60 @@ $this->title = 'zcShop商城系统';
                     <h3 class="panel-title">热门商品</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
+                    <?php foreach((array)$hotGoods as $hot) { ?>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <img src="<?= $hot['ad_img']; ?>"
+                                     alt="<?= $hot['name']; ?>">
+                                <div class="caption">
+                                    <h3 style="color: #E4393C">¥<?= $hot['sell_price']; ?></h3>
+                                    <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$hot['id']])?>" style="color: #333333"><?= $hot['name']; ?></a></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">热门商品</h3>
+                    <h3 class="panel-title">特价商品</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
+                    <?php foreach((array)$bargainGoods as $bargain) { ?>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <img src="<?= $bargain['ad_img']; ?>"
+                                     alt="<?= $bargain['name']; ?>">
+                                <div class="caption">
+                                    <h3 style="color: #E4393C">¥<?= $bargain['sell_price']; ?></h3>
+                                    <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$bargain['id']])?>" style="color: #333333"><?= $bargain['name']; ?></a></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">热门商品</h3>
+                    <h3 class="panel-title">最新商品</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
+                    <?php foreach((array)$newestGoods as $newest) { ?>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <img src="<?= $newest['ad_img']; ?>"
+                                     alt="<?= $newest['name']; ?>">
+                                <div class="caption">
+                                    <h3 style="color: #E4393C">¥<?= $newest['sell_price']; ?></h3>
+                                    <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$newest['id']])?>" style="color: #333333"><?= $newest['name']; ?></a></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="thumbnail">
-                            <img src="https://img.alicdn.com/bao/uploaded/i4/2123049748/TB2dcVhcpXXXXa5XpXXXXXXXXXX_!!2123049748.jpg_b.jpg"
-                                 alt="通用的占位符缩略图">
-                            <div class="caption">
-                                <h3 style="color: #E4393C">¥133.00</h3>
-                                <p><a href="#" style="color: #333333"><strong style="color: orange">森马水洗牛仔裤</strong> 2016夏装新款 女士低腰字母背带裤牛仔长裤潮 牛仔中蓝0820 L</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
