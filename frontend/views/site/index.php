@@ -22,7 +22,7 @@ $this->title = 'zcShop商城系统';
                     <?php foreach((array)$commendGoods as $commend) { ?>
                     <div class="" style="width: 100%;">
                         <div class="thumbnail" style="border: #ffffff">
-                            <img src="<?= $commend['ad_img']; ?>" alt="<?= $commend['name']; ?>">
+                            <img src="<?= $commend['ad_img']; ?>" onerror='this.src="public/common/images/1.jpg"' alt="<?= $commend['name']; ?>">
                             <div class="caption">
                                 <h3 style="color: #E4393C">¥<?= $commend['sell_price'];?></h3>
                                 <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$commend['id']])?>" style="color: #333333"><?= $commend['name']; ?></a></p>
@@ -44,7 +44,7 @@ $this->title = 'zcShop商城系统';
                     <?php foreach((array)$hotGoods as $hot) { ?>
                         <div class="col-sm-6 col-md-3">
                             <div class="thumbnail">
-                                <img src="<?= $hot['ad_img']; ?>"
+                                <img src="<?= $hot['ad_img']; ?>" onerror='this.src="public/common/images/1.jpg"'
                                      alt="<?= $hot['name']; ?>">
                                 <div class="caption">
                                     <h3 style="color: #E4393C">¥<?= $hot['sell_price']; ?></h3>
@@ -65,7 +65,7 @@ $this->title = 'zcShop商城系统';
                     <?php foreach((array)$bargainGoods as $bargain) { ?>
                         <div class="col-sm-6 col-md-3">
                             <div class="thumbnail">
-                                <img src="<?= $bargain['ad_img']; ?>"
+                                <img src="<?= $bargain['ad_img']; ?>" onerror='this.src="public/common/images/1.jpg"'
                                      alt="<?= $bargain['name']; ?>">
                                 <div class="caption">
                                     <h3 style="color: #E4393C">¥<?= $bargain['sell_price']; ?></h3>
@@ -86,7 +86,7 @@ $this->title = 'zcShop商城系统';
                     <?php foreach((array)$newestGoods as $newest) { ?>
                         <div class="col-sm-6 col-md-3">
                             <div class="thumbnail">
-                                <img src="<?= $newest['ad_img']; ?>"
+                                <img src="<?= $newest['ad_img']; ?>" onerror='this.src="public/common/images/1.jpg"'
                                      alt="<?= $newest['name']; ?>">
                                 <div class="caption">
                                     <h3 style="color: #E4393C">¥<?= $newest['sell_price']; ?></h3>
@@ -112,9 +112,7 @@ $this->registerJsFile('@web/public/frontend/menu/js/index.js',
 <?php $this->beginBlock('jquery') ?>
 
     $(function() {
-        $("img").error(function () {
-            $(this).attr("src", "public/common/images/1.jpg");
-        });
+
     });
 
 <?php $this->endBlock() ?>
