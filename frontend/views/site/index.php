@@ -48,7 +48,7 @@ $this->title = 'zcShop商城系统';
                                      alt="<?= $hot['name']; ?>">
                                 <div class="caption">
                                     <h3 style="color: #E4393C">¥<?= $hot['sell_price']; ?></h3>
-                                    <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$hot['id']])?>" style="color: #333333"><?= $hot['name']; ?></a></p>
+                                    <p style="height: 60px;overflow-y: hidden"><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$hot['id']])?>" style="color: #333333"><?= $hot['name']; ?></a></p>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@ $this->title = 'zcShop商城系统';
                                      alt="<?= $bargain['name']; ?>">
                                 <div class="caption">
                                     <h3 style="color: #E4393C">¥<?= $bargain['sell_price']; ?></h3>
-                                    <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$bargain['id']])?>" style="color: #333333"><?= $bargain['name']; ?></a></p>
+                                    <p style="height: 60px;overflow-y: hidden"><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail','id'=>$bargain['id']])?>" style="color: #333333"><?= $bargain['name']; ?></a></p>
                                 </div>
                             </div>
                         </div>
