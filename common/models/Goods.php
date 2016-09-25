@@ -150,6 +150,15 @@ class Goods extends \yii\db\ActiveRecord
     }
 
     /**
+     * 所属分类
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'cid']);
+    }
+
+    /**
      * @brief 推荐类商品
      * @return \yii\db\ActiveQuery
      */

@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box box-primary">
 
         <div class="box-header">
-            <h3 class="box-title">Data Table With Full Features</h3>
+            <h3 class="box-title">商品列表</h3>
         </div>
 
         <div class="box-body">
@@ -32,35 +32,74 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-
                 'id',
-                'name',
-                'goods_no',
+                [
+                    'attribute' => 'name',
+                    'label' => '标题',
+                    'headerOptions' => ['width' => '300'],
+                ],
+                [
+                    'attribute' => 'goods_no',
+                    'label' => '商品号',
+                    'headerOptions' => ['width' => '100'],
+                ],
                 //'model_id',
-                'sell_price',
+                [
+                    'attribute' => 'sell_price',
+                    'label' => '销售价格',
+                    'headerOptions' => ['width' => '80'],
+                ],
                 // 'market_price',
                 // 'cost_price',
                 // 'up_time',
                 // 'down_time',
-                'create_time',
-                // 'store_nums',
+                [
+                    'attribute' => 'create_time',
+                    'label' => '创建时间',
+                    'headerOptions' => ['width' => '150'],
+                ],
+                [
+                    'attribute' => 'store_nums',
+                    'label' => '库存',
+                    'headerOptions' => ['width' => '80'],
+                ],
                 // 'img',
                 // 'ad_img',
                 // 'is_del',
-                   'content:ntext',
+                // 'content:ntext',
                 // 'keywords',
                 // 'description',
                 // 'search_words',
                 // 'weight',
                 // 'point',
                 // 'unit',
-                   'category_id',
-                   'visit',
-                   'favorite',
-                   'sort',
+                [
+                    'attribute' => 'category_id',
+                    'label' => '分类',
+                    'value' => function($searchModel) {
+                        return $searchModel->category->name;
+                    },
+                    'headerOptions' => ['width' => '100'],
+                ],
+                //'category_id',
+                [
+                    'attribute' => 'visit',
+                    'label' => '游览量',
+                    'headerOptions' => ['width' => '80'],
+                ],
+                [
+                    'attribute' => 'favorite',
+                    'label' => '收藏数',
+                    'headerOptions' => ['width' => '80'],
+                ],
+                //'sort',
                 // 'spec_array:ntext',
                 // 'exp',
-                   'comments',
+                [
+                    'attribute' => 'comments',
+                    'label' => '评论数',
+                    'headerOptions' => ['width' => '80'],
+                ],
                 // 'sale',
                 // 'grade',
                 // 'seller_id',

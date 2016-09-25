@@ -30,7 +30,7 @@ $fieldTemplate = "{label}\n<div class=\"col-sm-7\">{input}</div>\n<div class=\"c
 
                 <!--基本信息-->
                 <div role="tabpanel" class="tab-pane active" id="base-info">
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => '名称', 'value'=>'呵呵哒', 'style' => 'width:80%'])->label('商品名称:',['class' => 'col-sm-2 control-label']) ?>
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => '名称', 'value'=>'【双瓶装】内蒙特产正宗不锈钢壶葫芦装闷倒驴1500ml*2高度白酒', 'style' => 'width:80%'])->label('商品名称:',['class' => 'col-sm-2 control-label']) ?>
                     <?= $form->field($model, 'goods_no')->textInput(['maxlength' => true, 'placeholder' => '000000', 'value'=>12, 'style' => 'width:20%'])->label('商品编号:',['class' => 'col-sm-2 control-label']) ?>
                     <?= $form->field($model, 'sell_price')->textInput(['maxlength' => true, 'placeholder' => '0.0', 'value'=>12, 'style' => 'width:20%'])->label('销售价格:',['class' => 'col-sm-2 control-label']) ?>
                     <?= $form->field($model, 'market_price')->textInput(['maxlength' => true, 'placeholder' => '0.0', 'style' => 'width:20%'])->label('市场价格:',['class' => 'col-sm-2 control-label']) ?>
@@ -272,4 +272,4 @@ $fieldTemplate = "{label}\n<div class=\"col-sm-7\">{input}</div>\n<div class=\"c
 </div>
 
 
-<?php $this->registerJsFile('public/backend/js/goods/goods.js',['depends' => \yii\web\JqueryAsset::className()])?>
+<?php $this->registerJsFile('@web/public/backend/js/goods/goods.js',['depends' => \yii\web\JqueryAsset::className()])?>
