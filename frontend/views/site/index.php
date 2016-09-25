@@ -1,17 +1,24 @@
 <?php
 
+use yii\bootstrap\Carousel;
 use yii\helpers\Html;
 use yii\web\JqueryAsset;
 
 $this->title = 'zcShop商城系统';
 ?>
 <?= Html::cssFile('public/frontend/menu/css/index.css')?>
-<div class="jumbotron" style="background-color: #ffffff">
-    <h1>Welcome to zcShop!</h1>
-    <p></p>
-    <p>欢迎来到zcShop商城系统(^o^)</p>
-</div>
-<div class="row" style="margin-top: 20px">
+<?= Carousel::widget([
+    'options' => [
+        'data-ride' => 'carousel',
+    ],
+    'items' => [
+        '<img src="public/frontend/banner/003.jpg"/>',
+        '<img src="public/frontend/banner/002.jpg"/>',
+        '<img src="public/frontend/banner/001.jpg"/>',
+    ]
+]);
+?>
+    <div class="row" style="margin-top: 20px">
     <div class="col-lg-2">
         <div id="recommend-goods">
             <div class="panel panel-default">

@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
         'frontend/web/css/site.css',
     ];
     public $js = [
+        //'vendor/bower/bootstrap/js/carousel.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
