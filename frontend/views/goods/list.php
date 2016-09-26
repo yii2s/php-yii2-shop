@@ -69,10 +69,10 @@ $this->params['breadcrumbs'][] = $curCategory['name'];
 <script type="text/html" id="productTemplate">
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
-            <img class="img-rounded" src="<%=ad_img%>" alt="<%=name%>" style="height: 220px">
-            <div class="caption" style="height: 130px">
+            <img  src="<%=ad_img%>" alt="<%=name%>" style="height: 240px;width: 240px">
+            <div class="caption" ">
                 <h3 style="color: #E4393C">¥<%=sell_price%> <small><del>¥<%=market_price%></del></small></h3>
-                <p><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail'])?>&id=<%=id%>" style="color: #333333"><%=name%></a></p>
+                <p style="height: 60px;overflow-y: hidden"><a href="<?= Yii::$app->urlManager->createUrl(['goods/detail'])?>&id=<%=id%>" style="color: #333333"><%=name%></a></p>
             </div>
         </div>
     </div>
