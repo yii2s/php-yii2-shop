@@ -29,13 +29,34 @@ $this->params['breadcrumbs'][] = '商品详情页';
         color: #ffffff;
         background-color: #e3393c;
     }
+    #photoPane{
+        margin-bottom: 2px;
+    }
+    #thumbnailsPane{
+        float: left;
+    }
+    #thumbnailsPane img{
+        width: 55px;
+        border: coral solid 2px;
+        margin: 0;
+    }
 </style>
 <div class="site-index">
 
     <div class="body-content">
         <div class="row" style="width:1220px;margin-top: 10px;margin-left: auto;margin-right: auto;padding-bottom:5px;border-bottom: 2px solid #DDDDDD">
-            <div class="" style="width: 350px;float: left;margin-right: 20px;height: 425px">
-                <?= MagnifierWidget::Widget(['imgUrls' => $data['photos']]);?>
+            <div class="" style="width: 352px;float: left;margin-right: 20px;height: 425px;border: solid #DDDDDD 1px">
+                <?/*= MagnifierWidget::Widget(['imgUrls' => $data['photos']]);*/?>
+                <div id="photoPane">
+                    <img src="public/common/images/buy1.jpg" id="photoDisplay" width="350" height="373">
+                </div>
+                <div id="thumbnailsPane">
+                    <?php if ($data['photos']) { ?>
+                        <?php foreach ($data['photos'] as $url) { ?>
+                            <img src="<?= $url['s2']?>" alt="" width="55" height="50">
+                        <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
             <div class="" style="width: 600px;float: left;margin-right: 10px">
 
@@ -217,13 +238,13 @@ $this->params['breadcrumbs'][] = '商品详情页';
     </div>
 </div>
 
-
-
+<?php $this->registerJsFile('@web/public/frontend/js/photomatic.js',['depends' => \yii\web\JqueryAsset::className()])?>
 <?php $this->beginBlock('jquery') ?>
 
 $(function() {
-
-
+    $("#thumbnailsPane img").photomatic({
+        photoElement : '#photoDisplay'
+    });
 });
 
 <?php $this->endBlock() ?>
