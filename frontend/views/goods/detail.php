@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = '商品详情页';
     }
     #thumbnailsPane img{
         width: 55px;
-        border: coral solid 2px;
         margin: 0;
     }
 </style>
@@ -53,8 +52,15 @@ $this->params['breadcrumbs'][] = '商品详情页';
                 <div id="thumbnailsPane">
                     <?php if ($data['photos']) { ?>
                         <?php foreach ($data['photos'] as $url) { ?>
-                            <img src="<?= $url['s2']?>" alt="" width="55" height="50">
+                            <img src="<?= $url['s2']?>" alt="" width="55" height="50" onerror="this.src='public/common/images/1.jpg'">
                         <?php } ?>
+                    <?php } else { ?>
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
                     <?php } ?>
                 </div>
             </div>

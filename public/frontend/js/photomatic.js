@@ -21,6 +21,8 @@
                 $(this).data('photomatic-index', n);
             })
             .click(function(){
+                $(this).css({"border" : "2px solid coral"})
+                    .siblings().css({"border":""});
                 showPhoto($(this).data('photomatic-index'))
             });
 
