@@ -13,36 +13,35 @@ class FileUtil
     /**
      * @brief 上传文件
      * @param string $field 表单input域名称
-     * @param string $target 目标目录
+     * @param string $tmpDir 目标目录
      * @param array $allowType 允许上传类型 e.g. ['jpg','png','gif']
      * @param bool $checkMimeType
      * @return string
      * @since 2016-08-02
      */
-    public static function upload($field, $target = '', $allowType = [], $checkMimeType = false)
+    public static function upload($field, $tmpDir = '', $allowType = [], $checkMimeType = false)
     {
-        $target or $target = 'uploads/tempFile/';
-        if (!FileHelper::createDirectory($target, 0777)) {
+        $tmpDir or $tmpDir = 'uploads/tempFile/';
+        if (!FileHelper::createDirectory($tmpDir, 0777)) {
             YII_DEBUG and VarDumper::dump('上传目录生成失败');
             return '';
         }
-
-        $allowType or $allowType = array_keys(Yii::$app->params['fileExt']);
-        $allowType = array_map('strtolower', $allowType);
 
         $upload = UploadedFile::getInstanceByName($field);
         if (!$upload) {
             return '';
         }
 
+        $allowType or $allowType = array_keys(Yii::$app->params['fileExt']);
+        $allowType = array_map('strtolower', $allowType);
         if (!self::validateUpload($upload, $allowType, $checkMimeType)) {
             return '';
         }
 
-        $name = $upload->name;
-        $savePath = StringUtil::transCoding($target.$name, 'UTF-8','GBK'); //防止中文名乱码
+        $savePath = $tmpDir . StringUtil::uniqueStr() . '.' . $upload->extension;
+        $savePath = strtr($savePath, ['/' => DIRECTORY_SEPARATOR, '\\' => DIRECTORY_SEPARATOR]);
         if ($upload->saveAs($savePath)) {
-            return StringUtil::transCoding($savePath, 'GBK', 'UTF-8'); //返回的是utf8编码，避免写入数据库时乱码
+            return $savePath;
         }
 
         return '';
@@ -204,18 +203,60 @@ class FileUtil
     }
 
     /**
-     * @brief 文件后缀名
-     * @param string $file 文件路径或文件名
+     * 文件后缀名
+     * @param string $filename 文件名
      * @param bool $flag 后缀是否带点，true返回'.jpg', false返回 'jpg'
      * @return string
      * @since 2016-08-16
      */
-    public static function suffix($file, $flag = false)
+    public static function suffix($filename, $flag = false)
     {
-        $filename = basename($file);
         $start = strrpos($filename, '.', 0);
         $flag == false and $start = $start + 1;
         return substr($filename, $start);
+    }
+
+    /**
+     * 生成多层子目录
+     * @return string
+     * @param string $dir e.g. uploads
+     * @param null $mark
+     * @return string
+     * @since 2016-09-27
+     */
+    public static function createMultilayerDir($dir, $mark = null)
+    {
+        $dir = strtr($dir, ['/'=>DIRECTORY_SEPARATOR,'\\'=>DIRECTORY_SEPARATOR]);
+        $dir = rtrim($dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+
+        if (!$mark) {
+            $mark = time();
+        }
+
+        $dir .= (($mark >> 24) & 0xff) . DIRECTORY_SEPARATOR;
+        $dir .= (($mark >> 16) & 0xff) . DIRECTORY_SEPARATOR;
+        $dir .= (($mark >> 8) & 0xff) . DIRECTORY_SEPARATOR;
+
+        return FileHelper::createDirectory($dir) ? $dir : '';
+    }
+
+    /**
+     * 拷贝临时文件到指定目录
+     * @param string $file e.g. uploads/tempFile/filename.jpg
+     * @param string $targetDir
+     * @return bool|string
+     * @since 2016-09-27
+     */
+    public static function copyFileToTargetDir($file, $targetDir = 'uploads')
+    {
+        $targetDir = static::createMultilayerDir($targetDir);
+        $targetPath = $targetDir . StringUtil::uniqueStr() . '.' . static::suffix($file);
+
+        if (!@copy($file, $targetPath)) {
+            return false;
+        } else {
+            return $targetPath;
+        }
     }
 
 }

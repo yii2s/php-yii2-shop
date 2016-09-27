@@ -254,8 +254,8 @@ class AttrController extends Controller
     public function actionUpload()
     {
         $field = Yii::$app->request->get('field', 'Filedata');
-        $url = FileUtil::upload($field,'',['xls','xlsx','png','jpg']);
-        ResponseUtil::json(['url' => $url]);
+        $path = FileUtil::upload($field,'',['xls','xlsx','png','jpg']);
+        ResponseUtil::json(['url' => $path]);
     }
 
     public function actionUploadToWangEditor()

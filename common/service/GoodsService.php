@@ -132,17 +132,23 @@ class GoodsService extends AbstractService
 
         $values = [];
         foreach ((array)$images as $img) {
-            if (!FileUtil::isExists($img)) {
+            if (!is_file($img)) {
+                continue;
+            }
+
+            $imgPath = FileUtil::copyFileToTargetDir($img, 'uploads');
+            if (!$imgPath) {
                 continue;
             }
 
             //生成缩略图
             $thumbStandards = Yii::$app->params['thumbStandards'];
             foreach ($thumbStandards as $size) {
-                ImageUtil::thumbnail($img, $size[0], $size[1]);
+                ImageUtil::thumbnail($imgPath, $size[0], $size[1]);
             }
 
-            $values[] = [$goodsID, $img];
+            $imgPath = str_replace(DIRECTORY_SEPARATOR, '/', $imgPath); //转成url路径
+            $values[] = [$goodsID, $imgPath];
         }
 
         $values and $hybrid->batchSave(GoodsImage::tableName(), ['gid', 'img'], $values);

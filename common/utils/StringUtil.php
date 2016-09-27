@@ -32,4 +32,14 @@ class StringUtil
         return $data;
     }
 
+    /**
+     * 唯一字符串
+     * @return string
+     * @since 2016-09-27
+     */
+    public static function uniqueStr()
+    {
+        return md5(uniqid(md5(microtime(true)),true)).rand(1000,9999);
+    }
+
 }

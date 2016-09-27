@@ -249,7 +249,10 @@ $this->params['breadcrumbs'][] = '商品详情页';
 
 $(function() {
     $("#thumbnailsPane img").photomatic({
-        photoElement : '#photoDisplay'
+        photoElement : '#photoDisplay',
+        transformer : function(name){
+            return name.replace(/50/g, 300);
+        },
     });
 });
 

@@ -7,6 +7,7 @@ use common\models\Spec;
 use common\service\CategoryService;
 use common\service\GoodsService;
 use common\utils\DebugUtil;
+use common\utils\FileUtil;
 use common\utils\ResponseUtil;
 use Yii;
 use common\models\Goods;
@@ -68,14 +69,21 @@ class DefaultController extends CController
      */
     public function actionCreate()
     {
+        return $this->render('create', [
+            'model' => new Goods(),
+        ]);
+    }
+
+    /**
+     * 保存或修改
+     * @return \yii\web\Response
+     */
+    public function actionSave()
+    {
         $model = new Goods();
         if ($data = Yii::$app->request->post()) {
             return $this->redirect(['view',
                 'id' => GoodsService::factory()->save($data[$this->getShortName($model)])
-            ]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
             ]);
         }
     }
@@ -88,15 +96,9 @@ class DefaultController extends CController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('update', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
@@ -173,6 +175,17 @@ class DefaultController extends CController
         $html .= '</div></div>';
 
         return $html;
+    }
+
+    /**
+     * 上传文件
+     * @since 2016-09-27
+     */
+    public function actionUploadImg()
+    {
+        $field = Yii::$app->request->get('field', 'Filedata');
+        $url = FileUtil::upload($field,'',['png','jpg']);
+        ResponseUtil::json(['url' => $url]);
     }
 
 }

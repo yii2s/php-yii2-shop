@@ -21,7 +21,7 @@
                 $(this).data('photomatic-index', n);
             })
             .click(function(){
-                $(this).css({"border" : "2px solid coral"})
+                $(this).css({"border" : "2px solid #ddd"})
                     .siblings().css({"border":""});
                 showPhoto($(this).data('photomatic-index'))
             });
@@ -31,5 +31,8 @@
             $(settings.photoElement)
                 .attr('src', settings.transformer(settings.thumbnails$[index].src));
         }
+
+        //初始化第一张图
+        showPhoto(0);
     }
 })(jQuery);
