@@ -36,7 +36,7 @@ phpunit.phar
 
 
 /backend/runtime
-/frontend/runtime
+/frontend/runtime。
 
 vendor.rar
 /uploads

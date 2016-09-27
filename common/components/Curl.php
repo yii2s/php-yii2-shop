@@ -50,10 +50,10 @@ class Curl
      */
     private $_defaultOptions = array(
         //CURLOPT_USERAGENT      => 'Yii2-Curl-Agent',
-        CURLOPT_TIMEOUT        => 30,
-        CURLOPT_CONNECTTIMEOUT => 30,
-        CURLOPT_RETURNTRANSFER => false,
-        CURLOPT_HEADER         => false,
+        //CURLOPT_TIMEOUT        => 30,
+        //CURLOPT_CONNECTTIMEOUT => 30,
+       // CURLOPT_RETURNTRANSFER => false,
+        //CURLOPT_HEADER         => false,
     );
     // ############################################### class methods // ##############################################
     /**
@@ -252,8 +252,8 @@ class Curl
             $this->unsetOption(CURLOPT_WRITEFUNCTION);
         }
         //setup error reporting and profiling
-        Yii::trace('Start sending cURL-Request: '.$url.'\n', __METHOD__);
-        Yii::beginProfile($method.' '.$url.'#'.md5(serialize($this->getOption(CURLOPT_POSTFIELDS))), __METHOD__);
+        //Yii::trace('Start sending cURL-Request: '.$url.'\n', __METHOD__);
+        //Yii::beginProfile($method.' '.$url.'#'.md5(serialize($this->getOption(CURLOPT_POSTFIELDS))), __METHOD__);
         /**
          * proceed curl
          */
@@ -261,7 +261,7 @@ class Curl
         curl_setopt_array($this->_curl, $this->getOptions());
         $body = curl_exec($this->_curl);
         //check if curl was successful
-        if ($body === false) {
+        /*if ($body === false) {
             switch (curl_errno($this->_curl)) {
                 case 7:
                     $this->responseCode = 'timeout';
@@ -271,18 +271,19 @@ class Curl
                     throw new Exception('curl request failed: ' . curl_error($this->_curl), curl_errno($this->_curl));
                     break;
             }
-        }
+        }*/
         //retrieve response code
-        $this->responseCode = curl_getinfo($this->_curl, CURLINFO_HTTP_CODE);
-        $this->response = $body;
+       // $this->responseCode = curl_getinfo($this->_curl, CURLINFO_HTTP_CODE);
+        //$this->response = $body;
         //end yii debug profile
-        Yii::endProfile($method.' '.$url .'#'.md5(serialize($this->getOption(CURLOPT_POSTFIELDS))), __METHOD__);
+        //Yii::endProfile($method.' '.$url .'#'.md5(serialize($this->getOption(CURLOPT_POSTFIELDS))), __METHOD__);
         //check responseCode and return data/status
-        if ($this->getOption(CURLOPT_CUSTOMREQUEST) === 'HEAD') {
-            return true;
-        } else {
-            $this->response = $raw ? $this->response : Json::decode($this->response);
-            return $this->response;
-        }
+       // if ($this->getOption(CURLOPT_CUSTOMREQUEST) === 'HEAD') {
+         //   return true;
+        //} else {
+        //    $this->response = $raw ? $this->response : Json::decode($this->response);
+       //     return $this->response;
+       // }
+        curl_close($this->_curl);
     }
 }

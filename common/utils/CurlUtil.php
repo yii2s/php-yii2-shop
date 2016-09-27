@@ -63,5 +63,18 @@ class CurlUtil {
 
     public static function postData($url,$data ,$asynch = 0,$format=2){
         return self::request($url,true,$data,$asynch,$format);
+
+       /* $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, true); // 发送一个常规的Post请求
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_TIMEOUT,1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;*/
+
     }
+
+
 }

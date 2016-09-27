@@ -198,7 +198,7 @@ class DefaultController extends CController
      * 上传图集
      * @since 2016-09-27
      */
-    public function actionUpload()
+    /*public function actionUpload()
     {
         $data = Yii::$app->request->post();
         GoodsService::factory()->saveImages($data['gid'],$data['images'], new AbstractHybrid());
@@ -220,12 +220,37 @@ class DefaultController extends CController
     {
         $data = Yii::$app->request->post();
         GoodsService::factory()->saveSpec($data['gid'],$data['spec'], new AbstractHybrid());
-    }
+    }*/
 
     public function actionTest()
     {
         $data = WebUtil::postData('http://web.cm/admin.php?r=goods/default/upload-images', array('id'=>2), 0);
         print_r($data);
+    }
+
+    /**
+     * 保存商品数据 异步请求
+     * @since 2016-09-27
+     */
+    public function actionSaveGoodsData()
+    {
+        $hybrid = new AbstractHybrid();
+        $data = Yii::$app->request->post();
+        if ($data['spec']) {
+            GoodsService::factory()->saveSpec($data['goodID'],$data['spec'], $hybrid);
+        }
+        if ($data['extAttr']) {
+            GoodsService::factory()->saveExtAttr($data['goodID'],$data['extAttr'], $hybrid);
+        }
+        if ($data['images']) {
+            GoodsService::factory()->saveImages($data['goodID'],$data['images'], $hybrid);
+        }
+        if ($data['sysAttr']) {
+            GoodsService::factory()->saveSysAttr($data['goodID'],$data['sysAttr'], $hybrid);
+        }
+        if ($data['recommend']) {
+            GoodsService::factory()->saveRecommend($data['goodID'],$data['recommend'], $hybrid);
+        }
     }
 
 }
