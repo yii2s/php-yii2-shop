@@ -3,6 +3,7 @@
 namespace common\service;
 
 
+use common\components\Curl;
 use common\models\AttrValue;
 use common\models\Category;
 use common\models\Goods;
@@ -13,10 +14,12 @@ use common\models\GoodsImage;
 use common\models\GoodsPhoto;
 use common\models\GoodsPhotoRelation;
 use common\models\Products;
+use common\utils\CurlUtil;
 use common\utils\FileUtil;
 use common\utils\FilterUtil;
 use common\utils\ImageUtil;
 use common\utils\StringUtil;
+use common\utils\WebUtil;
 use Yii;
 use common\config\Conf;
 use common\hybrid\AbstractHybrid;
@@ -77,24 +80,57 @@ class GoodsService extends AbstractService
             $this->_saveRecommend($goodsID, $args['recommend'], $hybrid);
         }
 
-        //图集
+        $curl = new Curl();
+        $curl->setOptions([
+            CURLOPT_NOSIGNAL => true,
+            CURLOPT_TIMEOUT_MS => 200,
+        ]);
+        $hostInfo = Yii::$app->urlManager->hostInfo . '/';
+
+        //图集，curl异步保存
+        /*if ($args['images']) {
+            $curl->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'images'=>$args['images']]))
+                 ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/upload']));
+        }*/
         if ($args['images']) {
-            $this->_saveImages($goodsID, $args['images'], $hybrid);
+            CurlUtil::postData(
+                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/upload']),
+                ['gid'=>$goodsID,'images'=>$args['images']]
+            );
         }
+
 
         //保存系统属性值
         if ($args['sys_attr']) {
-            $this->_saveSysAttr($goodsID, $args['sys_attr'], $hybrid);
+            CurlUtil::postData(
+                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-sys-attr']),
+                ['gid'=>$goodsID,'sysAttr'=>$args['sys_attr']]
+            );
+/*            $curl->reset()
+                ->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'sysAttr'=>$args['sys_attr']]))
+                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-sys-attr']));*/
         }
 
         //保存扩展属性
         if ($args['ext_Attr']) {
-            $this->_saveExtAttr($goodsID, $args['ext_Attr'], $hybrid);
+            CurlUtil::postData(
+                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-ext-attr']),
+                ['gid'=>$goodsID,'extAttr'=>$args['ext_Attr']]
+            );
+            /*$curl->reset()
+                ->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'extAttr'=>$args['ext_Attr']]))
+                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-ext-attr']));*/
         }
 
         //保存商品规格
         if ($args['spec']) {
-            $this->_saveSpec($goodsID, $args['spec'], $hybrid);
+            CurlUtil::postData(
+                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-spec']),
+                ['gid'=>$goodsID,'spec'=>$args['spec']]
+            );
+            /*$curl->reset()
+                ->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'spec'=>$args['spec']]))
+                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-spec']));*/
         }
 
         return $goodsID;
@@ -126,7 +162,7 @@ class GoodsService extends AbstractService
      * @param AbstractHybrid $hybrid
      * @since 2016-08-29
      */
-    private function _saveImages($goodsID, array $images, AbstractHybrid $hybrid)
+    public function saveImages($goodsID, array $images, AbstractHybrid $hybrid)
     {
         GoodsImage::deleteAll(['gid' => $goodsID]);
 
@@ -161,7 +197,7 @@ class GoodsService extends AbstractService
      * @param AbstractHybrid $hybrid
      * @since 2016-08-29
      */
-    private function _saveSysAttr($goodsID, array $attr, AbstractHybrid $hybrid)
+    public function saveSysAttr($goodsID, array $attr, AbstractHybrid $hybrid)
     {
         GoodsAttrValMap::deleteAll(['gid' => $goodsID]);
 
@@ -181,7 +217,7 @@ class GoodsService extends AbstractService
      * @param AbstractHybrid $hybrid
      * @param int $uid 用户ID
      */
-    private function _saveExtAttr($goodsID, array $attr, AbstractHybrid $hybrid, $uid = 0)
+    public function saveExtAttr($goodsID, array $attr, AbstractHybrid $hybrid, $uid = 0)
     {
         GoodsExtAttr::deleteAll(['gid' => $goodsID]);
 
@@ -209,7 +245,7 @@ class GoodsService extends AbstractService
      * @param AbstractHybrid $hybrid
      * @since 2016-08-30
      */
-    private function _saveSpec($goodsID, array $attr, AbstractHybrid $hybrid)
+    public function saveSpec($goodsID, array $attr, AbstractHybrid $hybrid)
     {
         Products::deleteAll(['goods_id' => $goodsID]);
 

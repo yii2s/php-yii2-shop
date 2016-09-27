@@ -197,7 +197,7 @@ class FileUtil
     {
         $fileInfo = pathinfo($file);
         if (!$newName) {
-            $newName = md5(uniqid(microtime(true),true));
+            $newName = StringUtil::uniqueStr();
         }
         return str_replace($fileInfo['filename'], $newName, $file);
     }

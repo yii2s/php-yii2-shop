@@ -3,12 +3,14 @@
 namespace backend\module\goods\controllers;
 
 use common\components\CController;
+use common\hybrid\AbstractHybrid;
 use common\models\Spec;
 use common\service\CategoryService;
 use common\service\GoodsService;
 use common\utils\DebugUtil;
 use common\utils\FileUtil;
 use common\utils\ResponseUtil;
+use common\utils\WebUtil;
 use Yii;
 use common\models\Goods;
 use backend\module\goods\models\GoodsSearch;
@@ -20,6 +22,8 @@ use yii\filters\VerbFilter;
  */
 class DefaultController extends CController
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritdoc
      */
@@ -82,6 +86,8 @@ class DefaultController extends CController
     {
         $model = new Goods();
         if ($data = Yii::$app->request->post()) {
+            $id = GoodsService::factory()->save($data[$this->getShortName($model)]);
+            echo $id;exit;
             return $this->redirect(['view',
                 'id' => GoodsService::factory()->save($data[$this->getShortName($model)])
             ]);
@@ -186,6 +192,40 @@ class DefaultController extends CController
         $field = Yii::$app->request->get('field', 'Filedata');
         $url = FileUtil::upload($field,'',['png','jpg']);
         ResponseUtil::json(['url' => $url]);
+    }
+
+    /**
+     * 上传图集
+     * @since 2016-09-27
+     */
+    public function actionUpload()
+    {
+        $data = Yii::$app->request->post();
+        GoodsService::factory()->saveImages($data['gid'],$data['images'], new AbstractHybrid());
+    }
+
+    public function actionSaveSysAttr()
+    {
+        $data = Yii::$app->request->post();
+        GoodsService::factory()->saveSysAttr($data['gid'],$data['sysAttr'], new AbstractHybrid());
+    }
+
+    public function actionSaveExtAttr()
+    {
+        $data = Yii::$app->request->post();
+        GoodsService::factory()->saveExtAttr($data['gid'],$data['extAttr'], new AbstractHybrid());
+    }
+
+    public function actionSaveSpec()
+    {
+        $data = Yii::$app->request->post();
+        GoodsService::factory()->saveSpec($data['gid'],$data['spec'], new AbstractHybrid());
+    }
+
+    public function actionTest()
+    {
+        $data = WebUtil::postData('http://web.cm/admin.php?r=goods/default/upload-images', array('id'=>2), 0);
+        print_r($data);
     }
 
 }

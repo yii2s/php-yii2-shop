@@ -47,20 +47,20 @@ $this->params['breadcrumbs'][] = '商品详情页';
             <div class="" style="width: 352px;float: left;margin-right: 20px;height: 425px;border: solid #DDDDDD 1px">
                 <?/*= MagnifierWidget::Widget(['imgUrls' => $data['photos']]);*/?>
                 <div id="photoPane">
-                    <img src="public/common/images/buy1.jpg" id="photoDisplay" width="350" height="373">
+                    <img src="public/common/images/buy1.jpg" id="photoDisplay" width="350" height="368">
                 </div>
                 <div id="thumbnailsPane">
                     <?php if ($data['photos']) { ?>
                         <?php foreach ($data['photos'] as $url) { ?>
-                            <img src="<?= $url['s2']?>" alt="" width="55" height="50" onerror="this.src='public/common/images/1.jpg'">
+                            <img src="<?= $url['s55']?>" alt="" width="55" height="55" onerror="this.src='public/common/images/1.jpg'">
                         <?php } ?>
                     <?php } else { ?>
-                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
-                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
-                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
-                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
-                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
-                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="50">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="55">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="55">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="55">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="55">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="55">
+                        <img src="public/common/images/buy1.jpg" alt="" width="55" height="55">
                     <?php } ?>
                 </div>
             </div>
@@ -251,7 +251,7 @@ $(function() {
     $("#thumbnailsPane img").photomatic({
         photoElement : '#photoDisplay',
         transformer : function(name){
-            return name.replace(/50/g, 300);
+            return name.replace(/55/g, 300);
         },
     });
 });

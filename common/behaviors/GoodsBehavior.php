@@ -22,7 +22,8 @@ class GoodsBehavior extends Behavior
 {
 
     /**
-     * @brief 获取商品图集
+     * 获取商品图集
+     * @param int $limit 返回记录条数，默认只返回6条记录
      * @return array
      * <pre>
      * [
@@ -35,24 +36,28 @@ class GoodsBehavior extends Behavior
      * </pre>
      * @since 2016-08-17
      */
-    public function images()
+    public function images($limit = 6)
     {
-        //缩略图规格
+        $result = [];
+
         $thumbStandards = Yii::$app->params['thumbStandards'];
         $thumbStandards = array_map(function($t) {return implode('_', $t);}, $thumbStandards);
 
         $images = $this->owner->image;
-
-        $data = $temp = [];
-        foreach ($images as $i) {
-            $temp['s0'] = $i->img;
-            foreach ($thumbStandards as $k => $standard) {
-                $standardName = basename($i->img, FileUtil::suffix($i->img, true)) . '_thumb_' . $standard;
-                $temp[$k] = FileUtil::newName($i->img, $standardName);
+        foreach ($images as $key => $img) {
+            $temp = [];
+            if ($key >= $limit) {
+                break;
             }
-            $data[] = $temp;
+
+            $temp['s0'] = $img->img;
+            foreach ($thumbStandards as $flag => $standard) {
+                $standardName = basename($img->img, FileUtil::suffix($img->img, true)) . '_thumb_' . $standard;
+                $temp[$flag] = FileUtil::newName($img->img, $standardName);
+            }
+            $result[] = $temp;
         }
-        return $data;
+        return $result;
     }
 
     /**
