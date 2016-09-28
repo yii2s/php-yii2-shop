@@ -94,11 +94,12 @@ a.desc:after {
 .intro-item{
     margin-top: 5px;
     height: 30px;
+    width: 550px;
 }
 .intro-item-name{
-    width: 70px;
+    width: 80px;
     float: left;
     text-align: right;
     line-height: 30px;
-    color: #666666
+    color: #666666;
 }

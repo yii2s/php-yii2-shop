@@ -39,13 +39,13 @@ $this->params['breadcrumbs'][] = '商品详情页';
         width: 55px;
         margin: 0;
     }
+    .spec-on{background-color: darkseagreen;color: #ffffff;border: 1px solid #e3393c}
 </style>
 <div class="site-index">
 
     <div class="body-content">
         <div class="row" style="width:1220px;margin-top: 10px;margin-left: auto;margin-right: auto;padding-bottom:5px;border-bottom: 2px solid #DDDDDD">
             <div class="" style="width: 352px;float: left;margin-right: 20px;height: 425px;border: solid #DDDDDD 1px">
-                <?/*= MagnifierWidget::Widget(['imgUrls' => $data['photos']]);*/?>
                 <div id="photoPane">
                     <img src="public/common/images/buy1.jpg" id="photoDisplay" width="350" height="368">
                 </div>
@@ -65,22 +65,20 @@ $this->params['breadcrumbs'][] = '商品详情页';
                 </div>
             </div>
             <div class="" style="width: 600px;float: left;margin-right: 10px">
-
                 <h4><strong><?= $data['name']?></strong></h4>
                 <p style="color: #e3393c;line-height: 20px;word-break: break-all;font-family: arial,microsoft yahei">请选择适合自己的套餐购买，标准版为普通导航（无3G无蓝牙）旗舰版（有3G和蓝牙功能） 推荐</p>
-
-                <div style="background-color: #f7f7f7;line-height: 50px;height: 50px; padding-right: 10px">
-                     <div style="float: left">优惠价：<span style="color: #E4393C;font-size: 24px;margin-right: 10px;font-weight: bold">¥<?= $data['sellPrice']?></span>
-                         <small><del>市场价：¥<?= $data['marketPrice']?></del></small>
-                     </div>
-                    <div style="float: right">累计评论：<span style="color: #005ea7;font-weight: bold"><?= $data['commentNum']?></span></div>
+                <div style="background-color: #f7f7f7; height: 50px; width: 100%; padding-right: 10px">
+                    <div style="float: left;height:50px;line-height:50px;width: 70%">优惠价：<span style="color: #E4393C;font-size: 24px;margin-right: 10px;font-weight: bold">¥<?= $data['sellPrice']?></span>
+                        <small><del>市场价：¥<?= $data['marketPrice']?></del></small>
+                    </div>
+                    <div style="float: right;height:50px;line-height:50px;width: 30%"">累计评论：<span style="color: #005ea7;font-weight: bold"><?= $data['commentNum']?></span></div>
                 </div>
 
                 <div class="intro-item">
                     <div class="intro-item-name">
                         配送至：
                     </div>
-                    <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px;line-height: 30px;color: #666666">
+                    <div style="float: left;width: 450px;line-height: 30px;color: #666666">
                         北京朝阳区管庄<span style="font-size: 16px;font-weight: bold">有货</span>，支持 货到付款免运费
                     </div>
                 </div>
@@ -88,63 +86,49 @@ $this->params['breadcrumbs'][] = '商品详情页';
                     <div class="intro-item-name">
                         服务：
                     </div>
-                    <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px;line-height: 30px;color: #666666">
+                    <div style="float: left;width: 450px;line-height: 30px;color: #666666">
                         由四春汽车用品专营店从 广东深圳市 发货，并提供售后服务。
                     </div>
                 </div>
                 <?php if ($data['spec']) { ?>
-                        <?php foreach ((array)$data['spec'] as $spec) { ?>
-                            <?php if ($spec['type'] == 2) { ?>
-                                <div class="intro-item" style="height: 50px">
-                                    <div class="intro-item-name">
-                                        <?= $spec->name; ?>：
-                                    </div>
-                                    <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px">
-                                        <?php foreach ((array)$spec['children'] as $specOption) { ?>
-                                            <label class="" style="margin-bottom: 5px;margin-right: 8px">
-                                                <img src="<?=$specOption?>" width="50" height="50" style="border: 3px double #CCCCCC">
-                                            </label>
-                                        <?php } ?>
-                                        <img src="uploads/tempFile/sdf_thumb_40_40.jpg" width="50" height="50" style="border: 3px solid #E3393C">
-                                    </div>
+                    <?php foreach ((array)$data['spec'] as $spec) { ?>
+                        <?php if ($spec['type'] == 2) { ?>
+                            <div class="intro-item spec-item" style="height: 50px">
+                                <div class="intro-item-name">
+                                    <?= $spec->name; ?>：
                                 </div>
-                            <?php } else { ?>
-                                <div class="intro-item">
-                                    <div class="intro-item-name">
-                                        <?= $spec['name']; ?>：
-                                    </div>
-                                    <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px">
-                                        <?php foreach ((array)$spec['children'] as $specOption) { ?>
-                                                <label class="btn btn-default btn-sm" style="margin-bottom: 5px;">
-                                                    <input type="radio" name="options" id="option1" value="<?= $specOption?>"> <?= $specOption?>
-                                                </label>
-                                        <?php } ?>
-                                    </div>
+                                <div style="float: left;width: 450px">
+                                    <?php foreach ((array)$spec['children'] as $specOption) { ?>
+                                    <a class="select-spec" data-type="2" style="display:inline-block;cursor:pointer;margin-bottom: 5px;height: 50px;width: 50px">
+                                        <img src="<?=$specOption?>" width="50" height="50">
+                                    </a>
+                                    <?php } ?>
+                                    <a class="select-spec" data-type="2" style="display:inline-block;cursor:pointer;margin-bottom: 5px;height: 50px;width: 50px">
+                                        <img src="uploads/tempFile/sdf_thumb_40_40.jpg" width="50" height="50">
+                                    </a>
                                 </div>
-                            <?php } ?>
+                            </div>
+                        <?php } else { ?>
+                            <div class="intro-item spec-item">
+                                <div class="intro-item-name">
+                                    <?= $spec['name']; ?>：
+                                </div>
+                                <div style="float: left;width: 450px">
+                                    <?php foreach ((array)$spec['children'] as $specOption) { ?>
+                                        <span class="select-spec" data-type="1" style="cursor:pointer;margin-bottom: 5px;height: 30px;border: 1px solid #d0d0d0;line-height: 30px;margin-right: 5px;padding: 2px 5px">
+                                            <?= $specOption?>
+                                        </span>
+                                    <?php } ?>
+                                </div>
+                            </div>
                         <?php } ?>
-                        <!--<div style="margin-top: 5px; height: 40px">
-                            <div style="width: 70px;float: left; text-align: right; line-height: 40px">
-                                颜色：
-                            </div>
-                            <div class="btn-group" data-toggle="buttons" style="float: left">
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" id="option1"> 选项 1
-                                </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" id="option2"> 选项 2
-                                </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" id="option3"> 选项 3
-                                </label>
-                            </div>
-                        </div>-->
+                    <?php } ?>
                 <?php } ?>
                 <div class="intro-item">
                     <div class="intro-item-name">
                         数量：
                     </div>
-                    <div class="btn-group" data-toggle="buttons" style="float: left;width: 450px;line-height: 30px;color: #666666">
+                    <div style="float: left;width: 450px;line-height: 30px;color: #666666">
                         <input name="" type="text" value="0" size="2">
                     </div>
                 </div>
@@ -239,21 +223,50 @@ $this->params['breadcrumbs'][] = '商品详情页';
                         </div>
                     </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <?php $this->registerJsFile('@web/public/frontend/js/photomatic.js',['depends' => \yii\web\JqueryAsset::className()])?>
 <?php $this->beginBlock('jquery') ?>
-
+<!--<script>-->
 $(function() {
     $("#thumbnailsPane img").photomatic({
         photoElement : '#photoDisplay',
         transformer : function(name){
             return name.replace(/55/g, 300);
-        },
+        }
     });
+
+    var labelVal = [];
+    $(".select-spec").click(function(){
+        $(this).addClass("spec-on").siblings().removeClass("spec-on");
+        var index = $(".spec-item").index($(this).parent().parent());
+
+        if ($(this).data("type") == 1) {
+            labelVal[index] = $.trim($(this).html());
+        } else {
+            labelVal[index] = $.trim($(this).children("img").attr("src"));
+        }
+
+        if (arrayLength(labelVal) == $(".spec-item").length) {
+            alert("I want to request page");
+        } else {
+            console.log(arrayLength(labelVal));
+        }
+    });
+
+    //数组长度（不包括空元素）
+    function arrayLength(array) {
+        var count = 0;
+        for(var i = 0 ;i<array.length;i++) {
+            if(array[i] != "" && typeof(array[i]) != "undefined") {
+               count = count + 1;
+            }
+        }
+        return count;
+    }
 });
 
 <?php $this->endBlock() ?>

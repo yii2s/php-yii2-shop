@@ -93,7 +93,7 @@ class GoodsService extends AbstractService
             'spec'      => $args['spec'],
             'recommend' => $args['recommend']
         ];
-        CurlUtil::postData($requestUrl, $data, 0);
+        CurlUtil::postData($requestUrl, $data);
 
         //保存推荐
         /*if ($args['recommend']) {
