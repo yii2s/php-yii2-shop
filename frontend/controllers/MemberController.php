@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Member;
+use common\service\MemberService;
 use frontend\form\LoginForm;
 use frontend\form\ModifyPwdForm;
 use frontend\form\SignupForm;
@@ -15,20 +16,21 @@ use yii\filters\VerbFilter;
 class MemberController extends Controller
 {
 
+    public $layout = 'main_member';
+
     /**
      * 会员中心
-     *
      * @return string|Response
      * @since 2016-02-27
      */
     public function actionIndex()
     {
-        if (\Yii::$app->user->isGuest) {
+        if (\Yii::$app->member->isGuest) {
             return $this->goHome();
         }
 
         return $this->render('index',[
-            'member' => Member::getMember(),
+            'member' => MemberService::factory()->detail(Yii::$app->member->id),
         ]);
     }
 
@@ -40,7 +42,8 @@ class MemberController extends Controller
      */
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        $this->layout = 'main_login';
+        if (!\Yii::$app->member->isGuest) {
             return $this->goHome();
         }
 
@@ -65,13 +68,14 @@ class MemberController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+            if ($member = $model->signup()) {
+                if (Yii::$app->member->login($member)) {
+                    return $this->redirect(['member/index']);
                 }
             }
         }
 
+        $this->layout = 'main_login';
         return $this->render('signup', [
             'model' => $model,
         ]);
@@ -150,9 +154,10 @@ class MemberController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        Yii::$app->member->logout();
 
-        return $this->goHome();
+        //return $this->goHome();
+        return $this->redirect(['member/login']);
     }
 
     public function actionTest()

@@ -4,8 +4,9 @@ namespace frontend\controllers;
 use common\config\Conf;
 use common\service\CategoryService;
 use common\service\GoodsService;
+use common\utils\DebugUtil;
 use Yii;
-use common\models\LoginForm;
+use frontend\form\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -91,7 +92,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        $this->layout = 'main_login';
+        if (!\Yii::$app->member->isGuest) {
             return $this->goHome();
         }
 
@@ -112,7 +114,7 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        Yii::$app->member->logout();
 
         return $this->goHome();
     }

@@ -254,7 +254,11 @@ AppAsset::register($this);
                     <li class="active"><a href="<?= Yii::$app->urlManager->createUrl(['site/index']); ?>">主页</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl(['site/about']); ?>">详情</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl(['site/contact']); ?>">联系</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl(['member/index']); ?>">会员中心()</a></li>
+                    <?php if (Yii::$app->member->getIsGuest()) { ?>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl(['member/login']); ?>">登录</a></li>
+                    <?php } else { ?>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl(['member/index']); ?>">会员中心(<?= Yii::$app->member->identity->username?>)</a></li>
+                    <?php } ?>
                     <li><a href="admin.php" target="_blank">后台管理</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl(['member/logout']); ?>" data-method="post">退出</a></li>
                 </ul>

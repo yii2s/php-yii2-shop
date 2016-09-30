@@ -16,7 +16,7 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
 
-    private $_user;
+    private $_member;
 
 
     /**
@@ -28,7 +28,7 @@ class LoginForm extends Model
             // username and password are both required
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            //['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
@@ -44,8 +44,8 @@ class LoginForm extends Model
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $user = $this->getMember();
-            if (!$user || !$user->validatePassword($this->password)) {
+            $member = $this->getMember();
+            if (!$member || !$member->validatePassword($this->password)) {
                 $this->addError($attribute, '密码不正确');
             }
         }
@@ -60,12 +60,12 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            $member = $this->getMember();
-            if (Yii::$app->user->login($member, $this->rememberMe ? 3600 * 24 * 30 : 0)) {
-                $member->updateMemberAttributes([
-                    'lastTime' => date('Y-m-d H:i:s',time()),
-                    'lastIP'   => ClientUtil::getClientIp(),
-                ]);
+            Yii::$app->member->on('beforeLogin', function($event){
+                $event->identity->last_ip = ClientUtil::getClientIp();
+                $event->identity->last_time = date('Y-m-d H:i:s', time());
+                $event->identity->save();
+            });
+            if (Yii::$app->member->login($this->getMember(), $this->rememberMe ? 3600 * 24 * 30 : 0)) {
                 return true;
             }
         }
@@ -75,13 +75,20 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return Member|null
      */
     protected function getMember()
     {
-        if ($this->_user === null) {
-            $this->_user = Member::findByUsername($this->username);
+        if ($this->_member === null) {
+            $this->_member = Member::findByUsername($this->username);
         }
-        return $this->_user;
+        return $this->_member;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'rememberMe' => '记住密码'
+        ];
     }
 }

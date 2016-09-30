@@ -30,4 +30,17 @@ class TestController extends CController
         //$data = Yii::$app->mongo->command();
         print_r($data);
     }
+
+    public function actionEvent()
+    {
+        //$this->on('111', 'hello', 'this is a event');
+        $this->trigger('111');
+    }
+
+    public function actionSession()
+    {
+        Yii::$app->session['hehe'] = 'jaja';
+        $session = Yii::$app->getSession();
+        print_r($session->getIsActive());
+    }
 }

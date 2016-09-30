@@ -10,6 +10,7 @@ define('MONGO_PORT', '27017');
 define('MONGO_DB', 'zcshop_1');
 
 return [
+    'timeZone' => 'Asia/Shanghai',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         /*'request' => [
@@ -22,9 +23,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=23.83.240.107;dbname=shop',
-            'username' => 'wuzhc',
-            'password' => 'wuzhc2580',
+            'dsn' => 'mysql:host=localhost;dbname=shop2',
+            'username' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             'tablePrefix' => 'zc_',
         ],
@@ -70,5 +71,12 @@ return [
             'mongoPort' => MONGO_PORT,
             'mongoHost' => MONGO_HOST,
         ],
+        'member' => [
+            'class' => 'common\components\CMember',
+            'identityClass' => 'common\models\Member', // User must implement the IdentityInterface
+            'enableAutoLogin' => true,
+              // 'loginUrl' => ['user/login'],
+              // ...
+        ]
     ],
 ];

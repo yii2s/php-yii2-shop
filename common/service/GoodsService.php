@@ -61,7 +61,6 @@ class GoodsService extends AbstractService
             $args['spec_array'] = urldecode($args['spec_array']);
         }
 
-        $hybrid = new AbstractHybrid();
         $goodsHybrid = new GoodsHybrid();
 
         //用于列表页封面
@@ -75,14 +74,6 @@ class GoodsService extends AbstractService
             return false;
         }
 
-       /* $curl = new Curl();
-        $curl->setOptions([
-            CURLOPT_NOSIGNAL => true,
-            CURLOPT_TIMEOUT_MS => 5,
-            CURLOPT_RETURNTRANSFER=>0,
-        ]);
-        $hostInfo = Yii::$app->urlManager->hostInfo . '/'; */
-
         $requestUrl = Yii::$app->urlManager->hostInfo . '/';
         $requestUrl .= Yii::$app->urlManager->createUrl(['/goods/default/save-goods-data']);
         $data = [
@@ -94,55 +85,6 @@ class GoodsService extends AbstractService
             'recommend' => $args['recommend']
         ];
         CurlUtil::postData($requestUrl, $data);
-
-        //保存推荐
-        /*if ($args['recommend']) {
-            $this->_saveRecommend($goodsID, $args['recommend'], $hybrid);
-        }*/
-
-        //图集，curl异步保存
-        /*if ($args['images']) {
-            CurlUtil::postData(
-                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/upload']),
-                ['gid'=>$goodsID,'images'=>$args['images']]
-            );
-            $curl->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'images'=>$args['images']]))
-                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/upload']));
-        }*/
-
-
-        //保存系统属性值
-        /*if ($args['sys_attr']) {
-            CurlUtil::postData(
-                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-sys-attr']),
-                ['gid'=>$goodsID,'sysAttr'=>$args['sys_attr']]
-            );
-            $curl->reset()
-                ->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'sysAttr'=>$args['sys_attr']]))
-                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-sys-attr']));
-        }*/
-
-        //保存扩展属性
-        /*if ($args['ext_Attr']) {
-            CurlUtil::postData(
-                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-ext-attr']),
-                ['gid'=>$goodsID,'extAttr'=>$args['ext_Attr']]
-            );
-            $curl->reset()
-                ->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'extAttr'=>$args['ext_Attr']]))
-                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-ext-attr']));
-        }*/
-
-        //保存商品规格
-        /*if ($args['spec']) {
-            CurlUtil::postData(
-                $hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-spec']),
-                ['gid'=>$goodsID,'spec'=>$args['spec']]
-            );
-            $curl->reset()
-                ->setOption(CURLOPT_POSTFIELDS, http_build_query(['gid'=>$goodsID,'spec'=>$args['spec']]))
-                ->post($hostInfo . Yii::$app->urlManager->createUrl(['/goods/default/save-spec']));
-        }*/
 
         /*if ($args['spec']) {
             $this->saveSpec($goodsID,$args['spec'], $hybrid);

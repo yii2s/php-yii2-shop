@@ -20,6 +20,7 @@ class Yii extends \yii\BaseYii
  * Include only Web application related components here
  *
  * @property \common\components\CMongo $mongo The mongo component
+ * @property \common\components\CMember $member The member component
  */
 class WebApplication extends \yii\web\Application
 {
