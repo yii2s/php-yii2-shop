@@ -46,9 +46,11 @@ class TestController extends CController
 
     public function actionSphinx()
     {
+        $keyword = $_GET['keyword'];
         $data = Yii::$app->sphinx
-            ->keyword('双瓶装')
+            ->keyword($keyword)
             ->query();
+
         echo '<pre>';
         print_r($data);
     }

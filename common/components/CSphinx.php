@@ -13,7 +13,7 @@ use SphinxClient;
 use Yii;
 use yii\base\Component;
 
-include "./common/components/sphinxapi4.php";
+include "./common/components/sphinxapi.php";
 
 /**
  * Class CSphinx
