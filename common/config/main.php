@@ -9,6 +9,9 @@ define('MONGO_HOST', '23.83.240.107');
 define('MONGO_PORT', '27017');
 define('MONGO_DB', 'zcshop_1');
 
+define('SPHINX_HOST', '127.0.0.1');
+define('SPHINX_PORT', '9312');
+
 return [
     'timeZone' => 'Asia/Shanghai',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -54,12 +57,6 @@ return [
                 'http://<user:\w+>.digpage.com/<lang:\w+>/profile' => 'user/profile',
             ]*/
         ],
-        'sphinx' => [
-            'class' => 'yii\sphinx\Connection',
-            'dsn' => 'mysql:host=23.83.240.107;port=9306;',
-            'username' => 'root',
-            'password' => 'wuzhc2580',
-        ],
         'request' => [
             'enableCookieValidation' => true,
             'enableCsrfValidation' => true,
@@ -77,6 +74,11 @@ return [
             'enableAutoLogin' => true,
               // 'loginUrl' => ['user/login'],
               // ...
-        ]
+        ],
+        'sphinx' => [
+            'class' => 'common\components\CSphinx',
+            'port' => SPHINX_PORT,
+            'host' => SPHINX_HOST,
+        ],
     ],
 ];

@@ -43,4 +43,13 @@ class TestController extends CController
         $session = Yii::$app->getSession();
         print_r($session->getIsActive());
     }
+
+    public function actionSphinx()
+    {
+        $data = Yii::$app->sphinx
+            ->keyword('双瓶装')
+            ->query();
+        echo '<pre>';
+        print_r($data);
+    }
 }

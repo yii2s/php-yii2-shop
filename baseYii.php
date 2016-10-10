@@ -21,9 +21,11 @@ class Yii extends \yii\BaseYii
  *
  * @property \common\components\CMongo $mongo The mongo component
  * @property \common\components\CMember $member The member component
+ * @property \common\components\CSphinx $sphinx The sphinx component
  */
 class WebApplication extends \yii\web\Application
 {
+
 }
 
 spl_autoload_register(['Yii', 'autoload'], true, true);
