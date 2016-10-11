@@ -53,4 +53,33 @@ class CController extends Controller
         return $object->getShortName();
     }
 
+    /**
+     * 获取url传参
+     * @param string $name 字段名
+     * @param null $default 默认值
+     * @param null $filter 过滤器，只支持系统内置函数，多个时使用逗号隔开
+     * @return array|mixed
+     * @since 2016-10-11
+     */
+    public function getParam($name, $default = null, $filter = null)
+    {
+        $value = Yii::$app->request->get($name) ?: Yii::$app->request->post($name);
+        if (empty($name) && $name !== 0) {
+            return $default ?: $value;
+        }
+
+        if (!$filter || !is_string($filter)) {
+            return $value;
+        }
+
+        $filterArr = explode(',', str_replace('，', ',', $filter));
+        foreach ($filterArr as $f) {
+            if (!function_exists($f)) {
+                continue;
+            }
+            $value = $f($value);
+        }
+        return $value;
+    }
+
 }

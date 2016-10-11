@@ -34,11 +34,11 @@ include "./common/components/sphinxapi4.php";
  *      )->query();
  *
  *
- * @method $this index(string $index = '')
- * @method $this keyword(string $keyword = '')
- * @method $this offset(int $offset = 0)
- * @method $this limit(int $limit = 10)
- * @method $this matchMaxNum(int $matchMaxNum = 1000)
+ * @method CSphinx index(string $index = '')
+ * @method CSphinx keyword(string $keyword = '')
+ * @method CSphinx offset(int $offset = 0)
+ * @method CSphinx limit(int $limit = 10)
+ * @method CSphinx matchMaxNum(int $matchMaxNum = 1000)
  * @package common\components
  */
 class CSphinx extends Component

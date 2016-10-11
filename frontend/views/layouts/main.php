@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\widgets\ActiveForm;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
@@ -25,6 +26,9 @@ AppAsset::register($this);
     <?= Html::cssFile('public/frontend/css/site.css')?>
     <?= Html::cssFile('public/frontend/menu1/css/zzsc.css')?>
     <?php $this->registerJsFile('@web/public/frontend/menu1/js/zzsc.js',['depends' => \yii\web\JqueryAsset::className()])?>
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -250,6 +254,18 @@ AppAsset::register($this);
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
+
+                    <!--搜索框start-->
+                    <form class="navbar-form navbar-left" role="search" style="margin: 0" action="<?= Yii::$app->urlManager->createUrl(['goods/search'])?>" method="post">
+                        <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken()?>">
+                        <div class="form-group">
+                            <label class="sr-only"></label>
+                            <input type="text" class="form-control" name="keyword" placeholder="搜索" style="width: 200px"/>
+                        </div>
+                        <button type="submit" class="btn btn-default navbar-btn">搜索</button>
+                    </form>
+                    <!--搜索框end-->
+
                     <li><a href="<?= Yii::$app->urlManager->createUrl(['goods/list','cid'=>4]); ?>">列表</a></li>
                     <li class="active"><a href="<?= Yii::$app->urlManager->createUrl(['site/index']); ?>">主页</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl(['site/about']); ?>">详情</a></li>

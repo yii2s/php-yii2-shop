@@ -154,4 +154,26 @@ class GoodsController extends CController
         $data = Yii::$app->mongo->findOne('goods', ['id' => 8837]);
         print_r($data);
     }
+
+    /**
+     * 搜索引擎
+     * @since 2016-10-11
+     */
+    public function actionSearch()
+    {
+        $this->layout = '';
+
+        $keyword = $this->getParam('keyword',null,'trim');
+        if (!$keyword) {
+            ResponseUtil::json(null);
+        }
+
+        $data = Yii::$app->sphinx
+            ->index('mysql')
+            ->limit(10)
+            ->offset(0)
+            ->query($keyword);
+
+        ResponseUtil::json($data);
+    }
 }
