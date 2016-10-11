@@ -48,6 +48,7 @@ class TestController extends CController
     {
         $keyword = $_GET['keyword'];
         $data = Yii::$app->sphinx
+            ->index('goods')
             ->keyword($keyword)
             ->query();
 

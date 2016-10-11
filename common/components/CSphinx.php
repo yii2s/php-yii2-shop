@@ -27,7 +27,7 @@ include "./common/components/sphinxapi.php";
  *
  * 2， Yii::$app->sphinx->criteria(
  *        [
- *            'index' => 'goods',
+ *             'index' => 'goods',
  *             'offset' => 0,
  *             'limit' => 10
  *        ]
@@ -57,6 +57,8 @@ class CSphinx extends Component
         'timeout'     => 3,
         'arrResult'   => true,
         'matchMode'   => SPH_MATCH_ANY,
+        'maxQueryTime'=> 0,
+        'highlight'   => true
     ];
 
     public function __construct()
@@ -77,9 +79,10 @@ class CSphinx extends Component
         parent::init();
 
         $this->cl->SetServer($this->host, (int)$this->port);
-        $this->cl->SetConnectTimeout ($this->_criteria['timeout']);
-        $this->cl->SetArrayResult ($this->_criteria['arrResult']);
-        $this->cl->SetMatchMode ($this->_criteria['matchMode']);
+        $this->cl->SetConnectTimeout($this->_criteria['timeout']);
+        $this->cl->SetArrayResult($this->_criteria['arrResult']);
+        $this->cl->SetMatchMode($this->_criteria['matchMode']);
+        $this->cl->SetMaxQueryTime($this->_criteria['maxQueryTime']);
     }
 
     /**
@@ -128,12 +131,44 @@ class CSphinx extends Component
      */
     public function query($keyword = null)
     {
-        $this->cl->setLimits($this->_criteria['offset'], $this->_criteria['limit'], $this->_criteria['matchMaxNum']);
+
+        $this->_setLimits();
+        $this->_setFilter();
+        
         $result = $this->cl->Query($keyword ?: $this->_criteria['keyword'], $this->_criteria['index']);
         if (false === $result) {
             return [];
         } else {
             return $this->_packagingData($result);
+        }
+    }
+
+    /**
+     * 设置分页
+     * @since 2016-10-10
+     */
+    private function _setLimits()
+    {
+        $this->cl->setLimits($this->_criteria['offset'], $this->_criteria['limit'], $this->_criteria['matchMaxNum']);
+    }
+
+    /**
+     * 过滤属性值
+     * <pre>
+     * [
+     *      'filter' => [
+     *          'typeID' => 1,
+     *          'categoryID' => [2],
+     *      ],
+     * ]
+     * @since 2016-10-11
+     */
+    private function _setFilter()
+    {
+        if ($this->_criteria['filter'] && is_array($this->_criteria['filter'])) {
+            foreach ($this->_criteria['filter'] as $attribute => $values) {
+                $this->cl->SetFilter($attribute, (array)$values);
+            }
         }
     }
 
@@ -146,7 +181,7 @@ class CSphinx extends Component
     private function _packagingData($result)
     {
         $data = [];
-        $data['total'] = $result['total']; //total_found是匹配数，total是返回的结果数，这个结果数受到max_matches限制
+        $data['total'] = $result['total_found']; //total_found是匹配数，total是返回的结果数，这个total结果数受到max_matches限制
         $data['time'] = $result['time'];
         $data['keyword'] = $result['words'];
 
@@ -158,11 +193,27 @@ class CSphinx extends Component
                 foreach ($match['attrs'] as $key => $attr) {
                     $temp[$key] = $attr;
                 }
-                $data['data'][] = $temp;
+
+                $data['data'][] = $this->_highlight($temp);
             }
         }
 
         return $data;
+    }
+
+    /**
+     * 高亮显示
+     * @param $data
+     * @return array|bool
+     */
+    private function _highlight($data)
+    {
+        if (true === $this->_criteria['highlight']) {
+            $opt =  ['before_match' => '<font style=\'font-weight:bold;color:#f00\'>', 'after_match' => '</font>'];
+            return $this->cl->buildExcerpts($data, $this->_criteria['index'], $this->_criteria['keyword'], $opt);
+        } else {
+            return $data;
+        }
     }
 
     /**
