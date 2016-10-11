@@ -169,7 +169,7 @@ class GoodsController extends CController
         }
 
         $data = Yii::$app->sphinx
-            ->index('mysql')
+            ->index('goods')
             ->limit(10)
             ->offset(0)
             ->query($keyword);
