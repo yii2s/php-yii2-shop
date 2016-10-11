@@ -17,6 +17,28 @@ include "./common/components/sphinxapi4.php";
 
 /**
  * Class CSphinx
+ * you can use as follow:
+ *
+ * 1, Yii::$app->sphinx->index('goods')
+ *              ->offset(0)
+ *              ->limit(10)
+ *              ->query('搜索关键字');
+ *
+ *
+ * 2， Yii::$app->sphinx->criteria(
+ *        [
+ *            'index' => 'goods',
+ *             'offset' => 0,
+ *             'limit' => 10
+ *        ]
+ *      )->query();
+ *
+ *
+ * @method $this index(string $index = '')
+ * @method $this keyword(string $keyword = '')
+ * @method $this offset(int $offset = 0)
+ * @method $this limit(int $limit = 10)
+ * @method $this matchMaxNum(int $matchMaxNum = 1000)
  * @package common\components
  */
 class CSphinx extends Component
@@ -25,12 +47,16 @@ class CSphinx extends Component
     public $port = SPHINX_PORT;
     public $host = SPHINX_HOST;
 
-    public $criteria = [
-        'index' => '*',
-        'keyword' => '',
-        'limit' => 10,
-        'offset' => 0,
+    private $_criteria = [
+        'index'       => '*',
+        'keyword'     => '',
+        'limit'       => 10,
+        'offset'      => 0,
         'matchMaxNum' => 1000,
+        'filter'      => [],
+        'timeout'     => 3,
+        'arrResult'   => true,
+        'matchMode'   => SPH_MATCH_ANY,
     ];
 
     public function __construct()
@@ -51,9 +77,9 @@ class CSphinx extends Component
         parent::init();
 
         $this->cl->SetServer($this->host, (int)$this->port);
-        $this->cl->SetConnectTimeout ( 3 );
-        $this->cl->SetArrayResult ( true );
-        $this->cl->SetMatchMode (SPH_MATCH_ANY);
+        $this->cl->SetConnectTimeout ($this->_criteria['timeout']);
+        $this->cl->SetArrayResult ($this->_criteria['arrResult']);
+        $this->cl->SetMatchMode ($this->_criteria['matchMode']);
     }
 
     /**
@@ -76,14 +102,34 @@ class CSphinx extends Component
     }
 
     /**
+     * 查询条件
+     * @param array $params
+     * @return $this
+     */
+    public function criteria(array $params = [])
+    {
+        if (empty($params) || !is_array($params)) {
+            return $this;
+        }
+
+        foreach ($params as $key => $val) {
+            if (isset($this->_criteria[$key])) {
+                $this->_criteria[$key] = $val;
+            }
+        }
+        return $this;
+    }
+
+    /**
      * 查询语句
+     * @param $keyword
      * @return array
      * @since 2016-10-10
      */
-    public function query()
+    public function query($keyword = null)
     {
-        $this->cl->setLimits($this->criteria['offset'], $this->criteria['limit'], $this->criteria['matchMaxNum']);
-        $result = $this->cl->Query($this->criteria['keyword'], $this->criteria['index']);
+        $this->cl->setLimits($this->_criteria['offset'], $this->_criteria['limit'], $this->_criteria['matchMaxNum']);
+        $result = $this->cl->Query($keyword ?: $this->_criteria['keyword'], $this->_criteria['index']);
         if (false === $result) {
             return [];
         } else {
@@ -129,8 +175,8 @@ class CSphinx extends Component
      */
     public function __call($name, $params)
     {
-        if (array_key_exists($name, $this->criteria)) {
-            $this->criteria[$name] = $params[0];
+        if (array_key_exists($name, $this->_criteria)) {
+            $this->_criteria[$name] = $params[0];
             return $this;
         }
 
