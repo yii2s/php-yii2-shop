@@ -135,7 +135,7 @@ class GoodsBehavior extends Behavior
                 'comment.contents as content',
                 'comment.comment_time as create_time',
                 'member.username as username',
-                'member.headerImg as header_img'
+                'member.header_img as header_img'
             ])
             ->where(['t.id' => $this->owner->id])
             ->where(['comment.status' => Conf::ENABLE])
