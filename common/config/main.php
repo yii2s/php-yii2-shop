@@ -26,9 +26,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=shop2',
+            'dsn' => 'mysql:host=localhost;dbname=shop',
             'username' => 'root',
-            'password' => '',
+            'password' => 'wuzhc2580',
             'charset' => 'utf8',
             'tablePrefix' => 'zc_',
         ],
