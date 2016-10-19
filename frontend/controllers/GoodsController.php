@@ -36,28 +36,30 @@ class GoodsController extends CController
     {
         $return = [];
 
-        $cid    = Yii::$app->request->post('cid',4);
-        $vid    = (array)Yii::$app->request->post('vid');
-        $vid    = array_map('intval', $vid);
-        $word   = Yii::$app->request->post('word');
-        $order  = Yii::$app->request->post('order');
-        $sort   = (int)Yii::$app->request->post('sort');
-        $limit  = Yii::$app->request->post('pageSize', 48);
-        $limit  = $limit > 48 ? 48 : intval($limit);
-        $offset = Yii::$app->request->post('page', 0);
+        $cid = $this->getParam('cid', 4);
+        $word = $this->getParam('word', null, 'trim');
+        $order = $this->getParam('order');
+        $sort = $this->getParam('sort');
+        $offset = $this->getParam('page', 0, 'intval');
+        $vid = (array)$this->getParam('vid', null, function($vid){
+            return intval($vid);
+        });
+        $limit = $this->getParam('pageSize', null, function($limit) {
+            return $limit > 48 ? 48 : intval($limit);
+        });
 
         $args = [
-            'cid' => intval($cid),
+            'cid' => $cid,
             'vid' => array_filter($vid),
-            'keyword' => trim($word),
+            'keyword' => $word,
             'asArray' => true,
             'select' => ['t.name', 't.id', 't.sell_price', 't.market_price', 't.ad_img'],
         ];
 
         $return['total'] = GoodsService::factory()->countGoods($args);//总数
 
-        $args['limit'] = intval($limit);
-        $args['offset'] = intval($offset);
+        $args['limit'] = $limit;
+        $args['offset'] = $offset;
         $args['order'] = $this->_getOrder($order, $sort);
 
         $return['list'] = GoodsService::factory()->getList($args);
@@ -75,12 +77,18 @@ class GoodsController extends CController
         return $this->render('cats', ['cid' => $cid]);
     }
 
+    /**
+     * 商品详情
+     * @return string
+     * @throws \yii\base\ExitException
+     * @since 2016-10-19
+     */
     public function actionDetail()
     {
-        header("Content-type: text/html; charset=utf-8");
-        $id = (int)Yii::$app->request->get('id', 8834);
-        $data = GoodsService::factory()->detail($id);
-        //DebugUtil::format($data);
+        $id = $this->getParam('id', 8834, 'intval');
+        if (empty($id)) {
+            Yii::$app->end('参数错误！');
+        }
 
         return $this->render('detail', [
             'data' => GoodsService::factory()->detail($id)
@@ -135,17 +143,21 @@ class GoodsController extends CController
 
     /**
      * @brief 商品推荐
-     * @param $cid
      * @since 2016-08-16
      */
-    public function actionRecommendGoods($cid = 4)
+    public function actionRecommendGoods()
     {
-        $args = [
+        $data = [];
+        $cid = $this->getParam('cid', null, 'intval');
+        if (!$cid) {
+            ResponseUtil::json(['data' => $data]);
+        }
+
+        $data = GoodsService::factory()->getCommendGoods([
             'cid' => $cid,
             'limit' => 11,
             'commend_id' => Conf::GOODS_RECOMMEND
-        ];
-        $data = GoodsService::factory()->getCommendGoods($args);
+        ]);
         ResponseUtil::json(['data' => $data]);
     }
 

@@ -20,4 +20,5 @@ class FilterUtil
     {
         return $value === '' || $value === null || $value === false;
     }
+
 }

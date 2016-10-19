@@ -444,7 +444,7 @@ class CategoryService extends AbstractService
         //分类对应属性值
         $catVals = Category::findOne($cid)->attrVals;
         $val = $temp = array();
-        foreach ($catVals as $v) {
+        foreach ((array)$catVals as $v) {
             $temp['id'] = $v->id;
             $temp['name'] = $v->name;
             $val[$v->aid][] = $temp;
@@ -453,7 +453,7 @@ class CategoryService extends AbstractService
         //分类对应属性
         $catAttrs = Category::findOne($cid)->attrs;
         $attr = $temp = array();
-        foreach ($catAttrs as $a) {
+        foreach ((array)$catAttrs as $a) {
             $temp['id'] = $a->id;
             $temp['name'] = $a->name;
             $temp['value'] = $val[$a->id] ?: array();

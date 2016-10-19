@@ -9,6 +9,7 @@
 namespace common\components;
 
 
+use common\utils\DataUtil;
 use Yii;
 use yii\web\Controller;
 
@@ -57,28 +58,33 @@ class CController extends Controller
      * 获取url传参
      * @param string $name 字段名
      * @param null $default 默认值
-     * @param null $filter 过滤器，只支持系统内置函数，多个时使用逗号隔开
+     * @param null $filters 过滤器，只支持系统内置函数，多个时使用逗号隔开
      * @return array|mixed
      * @since 2016-10-11
      */
-    public function getParam($name, $default = null, $filter = null)
+    public function getParam($name, $default = null, $filters = null)
     {
         $value = Yii::$app->request->get($name) ?: Yii::$app->request->post($name);
         if (empty($name) && $name !== 0) {
-            return $default ?: $value;
-        }
-
-        if (!$filter || !is_string($filter)) {
             return $value;
         }
 
-        $filterArr = explode(',', str_replace('，', ',', $filter));
-        foreach ($filterArr as $f) {
-            if (!function_exists($f)) {
+        if (!$filters) {
+            return $value ?: $default;
+        }
+        if (is_string($filters)) {
+            $filters = explode(',', str_replace('，', ',', $filters));
+        }
+
+        foreach ($filters as $filter) {
+            if (!function_exists($filter) || !is_callable($filter)) {
                 continue;
             }
-            $value = $f($value);
+            $value = is_array($value) ? DataUtil::recursiveHandle($filter, $value) : call_user_func($filter, $value);
         }
+
+        //Yii AR本身有安全性防范，这里不再做过多的安全性处理
+
         return $value;
     }
 
