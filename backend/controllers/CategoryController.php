@@ -12,6 +12,7 @@ use common\models\Categories;
 use common\models\Category;
 use common\models\CategoryAttrMap;
 use common\models\CategoryAttrValMap;
+use common\models\Exend;
 use common\models\GoodsPhoto;
 use common\service\CategoryService;
 use common\utils\ExcelUtil;
@@ -55,6 +56,13 @@ class CategoryController extends CController
         //print_r($data['data']);
     }
 
+
+    public function actionWriteExcel()
+    {
+        $data = Exend::find()->asArray()->all();
+        $head = array_shift($data);
+        ExcelUtil::export($data, $head);
+    }
 
     public function actionTest()
     {

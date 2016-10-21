@@ -195,13 +195,14 @@ class ImportController extends Controller
             $exend->gongyi = (string)$d[7];
             $exend->gongyingshang = (string)$d[8];
             $exend->pricetotal = (string)$d[9];
-            $exend->chuchangjia = (string)$d[10];
-            $exend->kucun = (string)$d[11];
-            $exend->kucun79 = (string)$d[12];
-            $exend->kucun49 = (string)$d[13];
-            $exend->kucun19 = (string)$d[14];
-            $exend->fenlei = (string)$d[15];
-            $exend->miaoshu = (string)$d[16];
+            $exend->price = (string)$d[10];
+            $exend->chuchangjia = (string)$d[11];
+            $exend->kucun = (string)$d[12];
+            $exend->kucun79 = (string)$d[13];
+            $exend->kucun49 = (string)$d[14];
+            $exend->kucun19 = (string)$d[15];
+            $exend->fenlei = (string)$d[16];
+            $exend->miaoshu = (string)$d[17];
             $exend->save();
 
             if ($exend->id) {
@@ -214,5 +215,12 @@ class ImportController extends Controller
         }
         echo 'total:' . count($data['data']);
         echo PHP_EOL;
+    }
+
+    public function actionWriteExcel() 
+    {
+        $data = Exend::find()->asArray()->all();
+        $head = array_shift($data);
+        ExcelUtil::export($data, $head);
     }
 }

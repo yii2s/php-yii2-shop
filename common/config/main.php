@@ -26,9 +26,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=shop',
+            'dsn' => 'mysql:host=localhost;dbname=shop2',
             'username' => 'root',
-            'password' => 'wuzhc2580',
+            'password' => '',
             'charset' => 'utf8',
             'tablePrefix' => 'zc_',
         ],
@@ -57,11 +57,11 @@ return [
                 'http://<user:\w+>.digpage.com/<lang:\w+>/profile' => 'user/profile',
             ]*/
         ],
-        'request' => [
+        /*'request' => [
             'enableCookieValidation' => true,
             'enableCsrfValidation' => true,
             'cookieValidationKey' => 'sfsfdsfsdf',
-        ],
+        ],*/
         'mongo' => [
             'class' => 'common\components\CMongo',
             'mongoDB' => MONGO_DB,

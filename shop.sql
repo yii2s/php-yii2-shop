@@ -1779,3 +1779,43 @@ CREATE TABLE IF NOT EXISTS `zc_withdraw` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE IF NOT EXISTS `zc_exend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `band` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pinhao` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `other` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pinming` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `danwei` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `guige` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gongyi` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gongyingshang` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pricetotal` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `chuchangjia` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kucun` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kucun79` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kucun49` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kucun19` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fenlei` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `miaoshu` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `zc_exprice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gongyingshang` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `xinpinghao` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `jiupinghao` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gongyingshangxinghao` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `guige` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `danwei` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `num` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `priceTotal` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `daohuoriqi` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `beizhu` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
