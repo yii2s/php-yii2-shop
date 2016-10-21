@@ -37,20 +37,24 @@ class CategoryController extends CController
         echo Yii::getAlias('@webroot');
     }
 
-    public function actionReadExcelCategory()
+    public function actionRead()
     {
-
-        $data = Yii::$app->cache->get('category-cache');
-        if ($data) {
-            print_r($data);exit;
+        set_time_limit(0);
+        $filePath = Yii::getAlias('@uploads') . '/tempFile/danjia.xlsx';
+        $data = ExcelUtil::read($filePath);
+        $i = 0;
+        foreach((array)$data['data'] as $d) {
+            print_r($d);exit;
+            $i++;
+            if ($i>10) {
+                break;
+            }
         }
-        $filePath = Yii::getAlias('@uploads') . '/tempFile/test2.xlsx';
-        $data = ExcelUtil::read_2($filePath);
-        Yii::$app->cache->set('category-cache', $data);
         echo '总计：' . count($data['data']);
         echo PHP_EOL;
         //print_r($data['data']);
     }
+
 
     public function actionTest()
     {

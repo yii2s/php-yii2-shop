@@ -79,7 +79,7 @@ class ExcelUtil {
      * @return array ['data'=>['excel数据集合'], 'status' => '1失败，0成功', 'msg' => '提示信息']
      * @since 2016-08-02
      */
-    public static function read($filePath = '', $isReadAllSheet = false)
+    public static function read($filePath = '', $isReadAllSheet = false, $current = 0)
     {
         if (!file_exists($filePath)) {
             return ['data' => [], 'status' => 1, 'msg' => 'File is not exist'];
@@ -106,7 +106,7 @@ class ExcelUtil {
         }
         else
         {
-            $currentSheet = $PHPExcel->getSheet(0);
+            $currentSheet = $PHPExcel->getSheet($current);
             $data = $currentSheet->toArray('', true, true); //把当前sheet转为二维数组
         }
 
@@ -185,6 +185,48 @@ class ExcelUtil {
             }
             //print_r($data);
             return $data;
+        }
+    }
+
+
+    /**
+     * @brief 读取数据
+     * @param string $filePath excel文件路径
+     * @param bool $isReadAllSheet 是否读取所有工作簿的数据
+     * @return array ['data'=>['excel数据集合'], 'status' => '1失败，0成功', 'msg' => '提示信息']
+     * @since 2016-08-02
+     */
+    public static function read_3($filePath = '', $isReadAllSheet = false)
+    {
+        $i = 0;
+
+        if (!file_exists($filePath)) {
+            return ['data' => [], 'status' => 1, 'msg' => 'File is not exist'];
+        }
+
+        $PHPExcel = new \PHPExcel();
+        $PHPReader = new \PHPExcel_Reader_Excel2007();
+        if (!$PHPReader->canRead($filePath)) {
+            $PHPReader = new \PHPExcel_Reader_Excel5();
+            if (!$PHPReader->canRead($filePath)) {
+                return ['data' => [], 'status' => 1, 'msg' => 'Can not read file'];
+            }
+        }
+        $PHPExcel = $PHPReader->load($filePath); //Reader读出来后，加载给Excel实例
+        $data = null;
+        $currentSheet = $PHPExcel->getSheet(1);
+
+        $highestRow = $currentSheet->getHighestRow(); // 取得总行数
+        $highestColumm = $currentSheet->getHighestColumn(); // 取得总列数
+
+        /** 循环读取每个单元格的数据 */
+        for ($row = 1; $row <= $highestRow; $row++){//行数是以第1行开始
+            for ($column = 'A'; $column <= $highestColumm; $column++) {//列数是以A列开始
+                $dataset[] = $currentSheet->getCell($column.$row)->getValue();
+                echo $column.$row.":".$currentSheet->getCell($column.$row)->getValue()."<br />";
+            }
+            $i++;
+
         }
     }
 

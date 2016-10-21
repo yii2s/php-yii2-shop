@@ -1,4 +1,5 @@
 <?php
+//update `zc_exend` a, zc_exprice b set a.price=b.price,a.priceTotal=b.priceTotal,a.gongyingshang=b.gongyingshang WHERE a.pinming = b.gongyingshangxinghao
 header("Content-Type:text/html;charset=utf-8");
 
 header("Content-type: text/html; charset=utf-8");

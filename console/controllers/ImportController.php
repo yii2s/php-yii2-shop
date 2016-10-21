@@ -9,10 +9,15 @@
 namespace console\controllers;
 
 
+use common\hybrid\AbstractHybrid;
 use common\hybrid\GoodsHybrid;
 use common\models\CommentGoods;
+use common\models\Exend;
+use common\models\Exprice;
 use common\models\GoodsAttrValMap;
 use common\models\Task;
+use common\service\AbstractService;
+use common\utils\ExcelUtil;
 use common\utils\FileUtil;
 use Yii;
 use yii\console\Controller;
@@ -138,5 +143,76 @@ class ImportController extends Controller
             //锁定文件
             FileUtil::addFlag($file, '_lock');
         }
+    }
+
+    public function actionReadExcel()
+    {
+        $filePath = Yii::getAlias('@uploads') . '/tempFile/danjia.xlsx';
+        $data = ExcelUtil::read($filePath,false,1);
+        foreach((array)$data['data'] as $k=>$d) {
+            $exprice = new Exprice();
+            $exprice->gongyingshang = (string)$d[0];
+            $exprice->xinpinghao = (string)$d[1];
+            $exprice->jiupinghao = (string)$d[2];
+            $exprice->gongyingshangxinghao = (string)$d[3];
+            $exprice->guige = (string)$d[4];
+            $exprice->danwei = (string)$d[5];
+            $exprice->num = (string)$d[6];
+            $exprice->price = (string)$d[7];
+            $exprice->priceTotal = (string)$d[8];
+            $exprice->daohuoriqi = (string)$d[9];
+            $exprice->beizhu = $d[10];
+            $exprice->save();
+
+            if ($exprice->id) {
+                echo 'insert success'; echo PHP_EOL;
+            } else {
+                echo 'insert fail'; echo PHP_EOL;
+                print_r($exprice->getErrors());
+                echo PHP_EOL;
+            }
+        }
+        echo 'total:' . count($data['data']);
+        echo PHP_EOL;
+    }
+
+    public function actionReadExcel2()
+    {
+        $filePath = Yii::getAlias('@uploads') . '/tempFile/zuizhong.xls';
+        $data = ExcelUtil::read($filePath,false,0);
+        foreach((array)$data['data'] as $k=>$d) {
+            if ($k==0) {
+                continue;
+            }
+            $exend = new Exend();
+            $exend->band = (string)$d[0];
+            $exend->category = (string)$d[1];
+            $exend->pinhao = (string)$d[2];
+            $exend->other = (string)$d[3];
+            $exend->pinming = (string)$d[4];
+            $exend->danwei = (string)$d[5];
+            $exend->guige = (string)$d[6];
+            $exend->gongyi = (string)$d[7];
+            $exend->gongyingshang = (string)$d[8];
+            $exend->pricetotal = (string)$d[9];
+            $exend->chuchangjia = (string)$d[10];
+            $exend->kucun = (string)$d[11];
+            $exend->kucun79 = (string)$d[12];
+            $exend->kucun49 = (string)$d[13];
+            $exend->kucun19 = (string)$d[14];
+            $exend->fenlei = (string)$d[15];
+            $exend->miaoshu = (string)$d[16];
+            $exend->save();
+
+            if ($exend->id) {
+                echo 'insert success'; echo PHP_EOL;
+            } else {
+                echo 'insert fail'; echo PHP_EOL;
+                print_r($exend->getErrors());
+                echo PHP_EOL;
+            }
+        }
+        echo 'total:' . count($data['data']);
+        echo PHP_EOL;
     }
 }
