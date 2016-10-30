@@ -57,7 +57,7 @@ class CategoryController extends CController
     }
 
 
-    public function actionWriteExcel()
+    public function actionWrite()
     {
         $data = Exend::find()->asArray()->all();
         $head = array_shift($data);

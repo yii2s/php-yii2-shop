@@ -21,6 +21,7 @@ use common\utils\ExcelUtil;
 use common\utils\FileUtil;
 use Yii;
 use yii\console\Controller;
+use yii\helpers\ArrayHelper;
 
 
 class ImportController extends Controller
@@ -222,5 +223,54 @@ class ImportController extends Controller
         $data = Exend::find()->asArray()->all();
         $head = array_shift($data);
         ExcelUtil::export($data, $head);
+    }
+
+    public function actionUpdate()
+    {
+        while (True)
+        {
+            $endObj = null;
+            $findObj = null;
+            $endObj = Exend::find()->where(['status'=>0])->one();
+            if (!$endObj) {
+                break;
+            }
+
+            $findObj = Exprice::find()->where(['gongyingshangxinghao'=>$endObj->pinming])->all();
+
+            if (!$findObj) {
+                $endObj->status = 3;
+                $endObj->save();
+                echo $endObj->id . ' no match'; echo PHP_EOL;
+                continue;
+            }
+
+            $price = ArrayHelper::getColumn($findObj, 'price');
+
+            $maxP = $minP = '';
+            if (count($price)>1) {
+                $maxP = max($price);
+                $minP = min($price);
+            } else {
+                $maxP = $minP = $price[0];
+            }
+
+            $endObj->gongyingshang = $findObj[0]->gongyingshang;
+            $endObj->pricetotal = $minP;
+            $endObj->price = $maxP;
+            $result = $endObj->save();
+            if ($result) {
+                $endObj->status = 1;
+                $endObj->save();
+                echo $endObj->id . ' success'; echo PHP_EOL;
+            } else {
+                $endObj->status = 2;
+                $endObj->save();
+                echo $endObj->id . ' fail'; echo PHP_EOL;
+            }
+        }
+
+        echo 'all finish';
+
     }
 }
