@@ -57,11 +57,11 @@ return [
                 'http://<user:\w+>.digpage.com/<lang:\w+>/profile' => 'user/profile',
             ]*/
         ],
-        /*'request' => [
+        'request' => [
             'enableCookieValidation' => true,
             'enableCsrfValidation' => true,
             'cookieValidationKey' => 'sfsfdsfsdf',
-        ],*/
+        ],
         'mongo' => [
             'class' => 'common\components\CMongo',
             'mongoDB' => MONGO_DB,
