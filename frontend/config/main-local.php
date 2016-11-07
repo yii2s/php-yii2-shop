@@ -21,6 +21,9 @@ if (!YII_ENV_TEST) {
         'generators' => [
             'sphinxModel' => [
                 'class' => 'yii\sphinx\gii\model\Generator'
+            ],
+            'mongoDbModel' => [
+                'class' => 'yii\mongodb\gii\model\Generator'
             ]
         ],
     ];

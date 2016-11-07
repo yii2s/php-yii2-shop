@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6c1f79926dd9d1fe251bb14414f7a0d5",
-    "content-hash": "66518f7fed98a1df00133aaa4e12c466",
+    "hash": "23d845456001a2ff7934dfa5ffb8b111",
+    "content-hash": "35b2deb940dca1670b331c37cc5d51bf",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -722,6 +722,54 @@
             "time": "2016-08-13 17:38:00"
         },
         {
+            "name": "yiisoft/yii2-mongodb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-mongodb.git",
+                "reference": "4707d2794acb047abac8a3163fd26df9bcae3cf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/yiisoft/yii2-mongodb/4707d2794acb047abac8a3163fd26df9bcae3cf3.zip",
+                "reference": "4707d2794acb047abac8a3163fd26df9bcae3cf3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mongodb": ">=1.0.0",
+                "yiisoft/yii2": "~2.0.5"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\mongodb\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                }
+            ],
+            "description": "MongoDb extension for the Yii framework",
+            "keywords": [
+                "active-record",
+                "mongo",
+                "mongodb",
+                "yii2"
+            ],
+            "time": "2016-11-02 10:00:05"
+        },
+        {
             "name": "yiisoft/yii2-sphinx",
             "version": "dev-master",
             "source": {
@@ -981,6 +1029,7 @@
                 "codeception",
                 "yii2"
             ],
+            "abandoned": "codeception/codeception",
             "time": "2016-04-14 08:46:27"
         },
         {

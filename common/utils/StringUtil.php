@@ -9,6 +9,8 @@
 namespace common\utils;
 
 
+use yii\helpers\StringHelper;
+
 class StringUtil
 {
     /**

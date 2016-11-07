@@ -68,6 +68,10 @@ return [
             'mongoPort' => MONGO_PORT,
             'mongoHost' => MONGO_HOST,
         ],
+        'mongodb' => [
+            'class' => '\yii\mongodb\Connection',
+            'dsn' => 'mongodb://23.83.240.107:27017/shop',
+        ],
         'member' => [
             'class' => 'common\components\CMember',
             'identityClass' => 'common\models\Member', // User must implement the IdentityInterface

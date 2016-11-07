@@ -224,7 +224,12 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        echo header('location:http://xuetang.cnweike.cn/dl/xuetang.php');
+        $collection = Yii::$app->mongodb->getCollection ('goods');
+        $res = $collection->insert ( [
+            'name' => 'John Smith22',
+            'status' => 2
+        ] );
+        var_dump($res);
     }
 
     public function actionTest2()
