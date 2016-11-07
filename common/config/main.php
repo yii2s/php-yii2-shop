@@ -3,11 +3,11 @@
 /** 是否开启缓存 */
 define('CACHE_ON', false);
 /** 是否开启mongo */
-define('MONGO_ON', false);
+define('MONGO_ON', true);
 
 define('MONGO_HOST', '23.83.240.107');
 define('MONGO_PORT', '27017');
-define('MONGO_DB', 'zcshop_1');
+define('MONGO_DB', 'shop');
 
 define('SPHINX_HOST', '127.0.0.1');
 define('SPHINX_PORT', '9312');
@@ -26,9 +26,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=shop2',
+            'dsn' => 'mysql:host=localhost;dbname=shop',
             'username' => 'root',
-            'password' => '',
+            'password' => 'wuzhc2580',
             'charset' => 'utf8',
             'tablePrefix' => 'zc_',
         ],

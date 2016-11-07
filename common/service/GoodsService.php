@@ -26,6 +26,7 @@ use common\hybrid\AbstractHybrid;
 use common\hybrid\GoodsHybrid;
 use common\models\CommentGoods;
 use Faker\Provider\DateTime;
+use yii\mongodb\Query;
 
 class GoodsService extends AbstractService
 {
@@ -414,8 +415,12 @@ class GoodsService extends AbstractService
      */
     public function detail($goodsID)
     {
-        if (MONGO_ON && $data = Yii::$app->mongo->findOne('goods', ['id' => $goodsID])) {
-            return $data;
+        if (MONGO_ON) {
+            $query = new Query;
+            $data = $query->from('goods')->where(['id'=>$goodsID])->one();
+            if ($data) {
+                return $data;
+            }
         }
 
         $return = [];
@@ -441,7 +446,10 @@ class GoodsService extends AbstractService
         $return['sysAttr'] = $object->sysAttr();
         $return['extAttr'] = $object->extAttr();
 
-        MONGO_ON and Yii::$app->mongo->insert('goods', $return);
+        if (MONGO_ON) {
+            $collection = Yii::$app->mongodb->getCollection('goods');
+            $collection->insert($return);
+        }
         return $return;
     }
 
